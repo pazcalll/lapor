@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->unsignedInteger('user_id');
+            $table->integer('user_id');
             $table->string('feedback');
             $table->timestamps();
 

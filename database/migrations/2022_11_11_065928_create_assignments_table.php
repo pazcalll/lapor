@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('report_id');
+            $table->integer('user_id');
+            $table->integer('report_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('report_id')->references('id')->on('report')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
