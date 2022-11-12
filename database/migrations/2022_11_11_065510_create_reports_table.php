@@ -14,8 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id')->primary();
+            $table->string('referral');
+            $table->unsignedInteger('facility_id');
+            $table->string('location');
+            $table->string('issue');
+            $table->string('proof_file');
+            $table->enum('status', ['MENUNGGU', 'DIPROSES', 'SELESAI']);
             $table->timestamps();
+
+            $table->foreign('facility_id')->references('id')->on('facilities')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
