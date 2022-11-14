@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->integer('id')->autoIncrement();
             $table->string('referral');
             $table->integer('facility_id')->nullable();
             $table->string('location');

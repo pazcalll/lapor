@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('assignments', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->integer('id')->autoIncrement();
             $table->integer('user_id');
             $table->integer('report_id');
             $table->timestamps();
