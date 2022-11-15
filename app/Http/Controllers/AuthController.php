@@ -11,21 +11,59 @@ class AuthController extends Controller
     //
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('jwtauth')->except(['login', 'register', 'getDisposableToken', 'useDisposableToken']);
-        $this->middleware('web')->only('getDisposableToken');
     }
 
-    public function register()
+    public function register(Request $request)
     {
-        $credentials = request([
-            'username',
-            'password',
-            'name',
-            'role',
-            'phone',
-            'address'
-        ]);
-        dd($credentials);
+        // $credentials = request([
+        //     'username',
+        //     'password',
+        //     'name',
+        //     'role',
+        //     'phone',
+        //     'address'
+        // ]);
+        try {
+            $validated = $request->validate(
+                [
+                    'name' => 'required|min:4|max:40|regex:/^[a-zA-Z]+$/u',
+                    'username' => 'required|unique:users|max:12|min:4|regex:/^[a-zA-Z]+$/u',
+                    'password' => 'required|max:16|min:6',
+                    'address' => 'nullable',
+                    'role' => 'required|in:admin,officer,customer',
+                    'phone' => 'nullable|min:10|max:12'
+                ],
+                [
+                    'username.min' => 'Atribut :attribute minimal 4 karakter',
+                    'username.max' => 'Atribut :attribute maksimal 12 karakter',
+                    'username.regex' => 'Atribut :attribute hanya boleh buruf dan angka saja',
+                    'username.unique' => ':attribute sudah dipakai',
+                    'username.required' => 'Atribut :attribute wajib diisi',
+                    'password.min' => 'Atribut :attribute minimal 6 karakter',
+                    'password.max' => 'Atribut :attribute maksimal 16 karakter',
+                    'password.required' => 'Atribut :attribute wajib diisi',
+                    'name.min' => 'Atribut :attribute minimal 4 karakter',
+                    'name.max' => 'Atribut :attribute maksimal 40 karakter',
+                    'name.required' => 'Atribut :attribute wajib diisi',
+                    'role.in' => 'Isi tidak sesuai ketentuan',
+                    'role.required' => 'Atribut :attribute wajib diisi',
+                    'phone.min' => 'Atribut :attribute minimal 10 karakter',
+                    'phone.max' => 'Atribut :attribute maksimal 12 karakter',
+                ]
+            );
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->errors(), 'status' => 400], 400);
+        }
+        // request()->validate([
+        //     'username' => 'required|unique:users|max:12|min:4',
+        //     'name' => 'required|max:32|min:4',
+        //     'role' => 'required|in:admin,customer,officer',
+        //     'password' => 'required|max:16|min:6',
+        //     'phone' => 'max:12|min:10',
+        //     'address' => 'max:48|min:10',
+        // ]);
     }
 
     public function login()
