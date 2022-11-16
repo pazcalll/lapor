@@ -9,5 +9,5 @@ interface UserInterface
     public function logout();
     public function getProfile();
     public function updateProfile();
-    public function respondWithToken();
+    public function respondWithToken($token);
 }

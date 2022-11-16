@@ -20,7 +20,7 @@ class JWTAuthentication
     public function handle(Request $request, Closure $next)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
+            JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
             if ($e instanceof TokenExpiredException) {
                 $newToken = JWTAuth::parseToken()->refresh();

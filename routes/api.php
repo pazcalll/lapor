@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,16 +23,16 @@ use Illuminate\Support\Facades\Route;
 //     'middleware' => 'api',
 //     'prefix' => 'v1'
 // ], function () {
-//     Route::post('login', [AuthController::class, 'login'])->name('login');
+//     Route::post('login', [UserController::class, 'login'])->name('login');
 // });
 
 Route::prefix('v1')->group(function () {
-    Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('register', [AuthController::class, 'register'])->name('register');
-    Route::get('get-profile', [AuthController::class, 'getProfile'])->name('getProfile');
-    Route::get('get-disposable-token', [AuthController::class, 'getDisposableToken'])->name('getDisposableToken');
-    Route::get('use-disposable-token/{token}', [AuthController::class, 'useDisposableToken'])->name('useDisposableToken');
+    Route::post('login', [UserController::class, 'login'])->name('login');
+    Route::post('register', [UserController::class, 'register'])->name('register');
+    Route::get('get-profile', [UserController::class, 'getProfile'])->name('getProfile');
+    Route::get('get-disposable-token', [UserController::class, 'getDisposableToken'])->name('getDisposableToken');
+    Route::get('use-disposable-token/{token}', [UserController::class, 'useDisposableToken'])->name('useDisposableToken');
     Route::prefix('user')->group(function () {
-        Route::get('get-reports', [AuthController::class, 'getReports'])->name('getReports');
+        Route::get('get-reports', [UserController::class, 'getReports'])->name('getReports');
     });
 });
