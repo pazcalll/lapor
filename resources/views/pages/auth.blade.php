@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>CryptoCoin - Free Cryptocurrency Website Template</title>
+    <title>Lapor | Login</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -40,14 +40,16 @@
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
-                    <h1 class="display-4 mb-3 animated slideInDown">Make Better Life With Trusted CryptoCoin</h1>
-                    <p class="animated slideInDown">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-                        diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo
-                        magna dolore erat amet</p>
-                    <a href="" class="btn btn-primary py-3 px-4 animated slideInDown">Explore More</a>
+                    <h1 class="display-4 mb-3 animated slideInDown">Aplikasi Lapor</h1>
+                    <p class="animated slideInDown">
+                        Sebuah aplikasi yang dibuat untuk memproses laporan atau aduan masyarakat
+                        terhadap suatu masalah yang terjadi di lingkup kota ini dengan sistem yang
+                        manusiawi.
+                    </p>
+                    <a href="#form-content" class="btn btn-primary py-3 px-4 animated slideInDown">Login</a>
                 </div>
                 <div class="col-lg-6 animated fadeIn">
-                    <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="img/hero-1.png"
+                    <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="https://img.freepik.com/free-vector/smiling-man-talking-loudspeaker-monitor-social-media-computer-online-flat-vector-illustration-communication-digital-technology_74855-13238.jpg"
                         alt="">
                 </div>
             </div>
@@ -57,7 +59,7 @@
 
     <!-- Contact Start -->
     <div class="container-xxl py-5">
-        <div class="container">
+        <div class="container" id="form-content">
             <div class="row g-5 mb-5 wow fadeInUp">
                 <div class="col-lg-6">
                     <h1 class="display-6">Contact Us</h1>

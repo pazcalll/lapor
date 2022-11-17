@@ -15,8 +15,43 @@ class UserController extends Controller
     public function __construct(UserInterface $userInterUserInterface)
     {
         parent::__construct();
-        $this->middleware('jwtauth')->except(['login', 'register', 'getDisposableToken', 'useDisposableToken']);
+        $this->middleware('jwtauth')->except([
+            'index',
+            'authPage',
+            'login',
+            'loginPage',
+            'register',
+            'registerPage',
+            'getDisposableToken',
+            'useDisposableToken'
+        ]);
+        $this->middleware('jwtnoauth')->only([
+            'login',
+            'loginPage',
+            'registerPage',
+            'register'
+        ]);
         $this->user = $userInterUserInterface;
+    }
+
+    public function index()
+    {
+        return view('pages.index');
+    }
+
+    public function authPage()
+    {
+        return view('pages.auth');
+    }
+
+    public function loginPage()
+    {
+        return view('form.login');
+    }
+
+    public function registerPage()
+    {
+        return view('form.register');
     }
 
     public function register()
@@ -35,6 +70,12 @@ class UserController extends Controller
     {
         $logout = $this->user->logout();
         return $logout;
+    }
+
+    public function getProfile()
+    {
+        $user = $this->user->getProfile();
+        return $user;
     }
 
     public function getDisposableToken(Request $request)

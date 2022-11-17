@@ -4,15 +4,10 @@ namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
 use App\Models\User;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class UsersRepository implements UserInterface
 {
-    public $model;
-    public function __construct(User $model)
-    {
-        $this->model = $model;
-    }
-
     public function register()
     {
         try {
@@ -43,9 +38,12 @@ class UsersRepository implements UserInterface
                     'phone.max' => 'Atribut :attribute maksimal 12 karakter',
                 ]
             );
+            User::create($validated);
+
             return response()->json(['success' => 'register success', 'status' => 200], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->errors(), 'status' => 400], 400);
+            // return response()->json(['error' => $th, 'status' => 400], 400);
         }
     }
 
@@ -68,7 +66,10 @@ class UsersRepository implements UserInterface
     }
 
     public function getProfile()
-    { }
+    {
+        $user = JWTAuth::toUser(request()->bearerToken());
+        return response()->json($user, 200);
+    }
 
     public function updateProfile()
     { }
@@ -77,8 +78,7 @@ class UsersRepository implements UserInterface
     {
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'token_type' => 'bearer'
         ]);
     }
 }

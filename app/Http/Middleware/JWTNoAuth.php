@@ -4,11 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
-use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-class JWTAuthentication
+class JWTNoAuth
 {
     /**
      * Handle an incoming request.
@@ -20,17 +18,17 @@ class JWTAuthentication
     public function handle(Request $request, Closure $next)
     {
         try {
+            // dd(JWTAuth::parseToken());
             JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
             if ($e instanceof TokenExpiredException) {
-                $newToken = JWTAuth::parseToken()->refresh();
-                return response()->json(['success' => 'false', "token_type" => 'bearer', 'token' => $newToken, 'message' => 'Token Expired'], 200);
+                return response()->json(['success' => 'false', 'message' => 'Token Expired'], 401);
             } elseif ($e instanceof TokenInvalidException) {
-                return response()->json(['success' => 'false', 'message' => 'Token Invalid'], 401);
+                return $next($request);
             } else {
-                return response()->json(['success' => 'false', 'message' => 'Token Not Found'], 401);
+                return $next($request);
             }
         }
-        return $next($request);
+        return response()->json(['status' => 401, 'message' => 'You are not guest'], 401);
     }
 }

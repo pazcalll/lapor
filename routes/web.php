@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/login', function () {
-    return view('pages.login');
+Route::get('/', [UserController::class, 'index'])->name('index');
+Route::middleware('jwtnoauth')->group(function () {
+    Route::get('/register', [UserController::class, 'registerPage'])->name('registerPage');
+    Route::get('/login', [UserController::class, 'authPage'])->name('authPage');
+    Route::get('/login-page', [UserController::class, 'loginPage'])->name('loginPage');
+    Route::get('/register-page', [UserController::class, 'registerPage'])->name('registerPage');
 });
