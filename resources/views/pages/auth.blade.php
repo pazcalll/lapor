@@ -32,11 +32,12 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
+    <script src="{{ asset('js/authRouter.js') }}"></script>
 </head>
 
 <body>
     <!-- Header Start -->
-    <div class="container-fluid hero-header bg-light py-5 mb-5">
+    <div class="container-fluid hero-header py-5 mb-5">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
@@ -57,67 +58,107 @@
     </div>
     <!-- Header End -->
 
+    <div class="container-xxl bg-light py-5 my-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-6">Langkah Pelaporan</h1>
+                {{-- <p class="text-primary fs-5 mb-5">Buy, Sell And Exchange Cryptocurrency</p> --}}
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-white p-5">
+                        {{-- <img class="img-fluid mb-4" src="img/icon-7.png" alt=""> --}}
+                        <p style="font-weight: bold"><a href="javascript:void(0)">Langkah 1</a></p>
+                        <i class="fa fa-user-plus fa-4x mb-4" style="color: #16d5ff" aria-hidden="true"></i>
+                        <h5 class="mb-3">Mendaftar ke Aplikasi</h5>
+                        <p>Untuk membuat sebuah laporan, pengguna memerlukan akun untuk diidentifikasi oleh sistem.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-white p-5">
+                        {{-- <img class="img-fluid mb-4" src="img/icon-7.png" alt=""> --}}
+                        <p style="font-weight: bold"><a href="javascript:void(0)">Langkah 2</a></p>
+                        <i class="fa fa-file fa-4x mb-4" style="color: #16d5ff" aria-hidden="true"></i>
+                        <h5 class="mb-3">Membuat Laporan</h5>
+                        <p>
+                            Laporan dapat dibuat dengan mengisi form yang disediakan oleh sistem. Bukti berupa
+                            gambar juga bisa dimasukkan.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-white p-5">
+                        {{-- <img class="img-fluid mb-4" src="img/icon-7.png" alt=""> --}}
+                        <p style="font-weight: bold"><a href="javascript:void(0)">Langkah 3</a></p>
+                        <i class="fa fa-check-square fa-4x mb-4" style="color: #16d5ff" aria-hidden="true"></i>
+                        <h5 class="mb-3">Cek Status Laporan</h5>
+                        <p>
+                            Status dari laporan yang telah diberikan dapat dilihat melalui fitur yang disediakan 
+                            oleh sistem.  
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-white p-5">
+                        {{-- <img class="img-fluid mb-4" src="img/icon-7.png" alt=""> --}}
+                        <p style="font-weight: bold"><a href="javascript:void(0)">Langkah 4</a></p>
+                        <i class="fa fa-comment fa-4x mb-4" style="color: #16d5ff" aria-hidden="true"></i>
+                        <h5 class="mb-3">Feedback</h5>
+                        <p>
+                            Feedback bisa diberikan setelah laporan selesai ditindak lanjuti oleh pihak terkait.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-white p-5">
+                        {{-- <img class="img-fluid mb-4" src="img/icon-7.png" alt=""> --}}
+                        <p style="font-weight: bold"><a href="javascript:void(0)">Langkah 5</a></p>
+                        <i class="fa fa-flag-checkered fa-4x mb-4" style="color: #16d5ff" aria-hidden="true"></i>
+                        <h5 class="mb-3">Selesai</h5>
+                        <p>
+                            Pada titik ini laporan dianggap selesai dan tidak akan ada tindakan lebih lanjut
+                            kedepannya.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Contact Start -->
-    <div class="container-xxl py-5">
+    <span class="d-flex align-items-center justify-content-center visually-hidden form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 100%; align-content: center">
+        <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </span>
+    </span>
+    <div class="container-xxl py-5 auth-content" style="margin-bottom: 200px">
         <div class="container" id="form-content">
             <div class="row g-5 mb-5 wow fadeInUp">
                 <div class="col-lg-6">
-                    <h1 class="display-6">Contact Us</h1>
-                    <p class="text-primary fs-5 mb-0">If You Have Any Query, Please Contact Us</p>
-                </div>
-                <div class="col-lg-6 text-lg-end">
-                    <a class="btn btn-primary py-3 px-4" href="">Say Hello</a>
+                    <h1 class="display-6">Login Sekarang</h1>
+                    <p class="text-primary fs-5 mb-0">Laporkan masalah publik yang ada disekitar</p>
                 </div>
             </div>
             <div class="row g-5">
-                <div class="col-lg-5 col-md-6 wow fadeInUp">
-                    <p class="mb-2">Our office:</p>
-                    <h4>123 Street, New York, USA</h4>
-                    <hr class="w-100">
-                    <p class="mb-2">Call us:</p>
-                    <h4>+012 345 6789</h4>
-                    <hr class="w-100">
-                    <p class="mb-2">Mail us:</p>
-                    <h4>info@example.com</h4>
-                    <hr class="w-100">
-                    <p class="mb-2">Follow us:</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <p class="mb-4">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
                     <form>
+                        @csrf
                         <div class="row g-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                                    <label for="username">Username</label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                    <label for="email">Your Email</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
+                                    <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                                    <label for="password">Password</label>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary py-3 px-4" type="submit">Send Message</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit">Login Sekarang</button>
                             </div>
                         </div>
                     </form>
