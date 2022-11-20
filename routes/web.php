@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'index'])->name('index');
 Route::middleware('jwtnoauth')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/login', [UserController::class, 'authPage'])->name('authPage');
     Route::get('/login-page', [UserController::class, 'loginPage'])->name('loginPage');
     Route::get('/register-page', [UserController::class, 'registerPage'])->name('registerPage');
+});
+Route::middleware('jwtauth')->group(function () {
+    Route::get('/indexPage', [UserController::class, 'loggedInPage'])->name('indexPage');
 });

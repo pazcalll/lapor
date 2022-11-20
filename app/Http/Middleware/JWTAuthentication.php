@@ -22,9 +22,7 @@ class JWTAuthentication
         try {
             JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
-            if ($request->route()->getActionName() == "App\Http\Controllers\UserController@index") {
-                return redirect('login');
-            } else if ($e instanceof TokenExpiredException) {
+            if ($e instanceof TokenExpiredException) {
                 $newToken = JWTAuth::parseToken()->refresh();
                 return response()->json(['success' => 'false', "token_type" => 'bearer', 'token' => $newToken, 'message' => 'Token Expired'], 200);
             } elseif ($e instanceof TokenInvalidException) {

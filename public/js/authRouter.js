@@ -63,7 +63,8 @@ function login(e) {
             $('.auth-content').html(' ')
         },
         success: (res) => {
-            console.log(res)
+            localStorage.setItem('_token', res.access_token)
+            window.location.href = webBaseUrl
         },
         error: function (err) {  
             // console.log(err)
@@ -74,6 +75,7 @@ function login(e) {
                     errMsg += element + `<br>`
                 });
             });
+            toastr.error('Login gagal')
             $(document).ready(function () {  
                 $('.errors').html(errMsg)
                 $('.errors').removeClass('visually-hidden')
@@ -109,7 +111,7 @@ function register(e) {
             $('.auth-content').html(' ')
         },
         success: (res) => {
-            console.log(res)
+            toastr.success('Sukses mendaftarkan akun')
         },
         error: function (err) {
             let errMsg = ''
@@ -123,6 +125,7 @@ function register(e) {
                 $('.errors').html(errMsg)
                 $('.errors').removeClass('visually-hidden')
             })
+            toastr.error('Gagal mendaftarkan akun')
         },
         complete: function () {  
             $('.form-spinner').addClass('visually-hidden')

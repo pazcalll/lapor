@@ -36,6 +36,11 @@ class UserController extends Controller
 
     public function index()
     {
+        return view('index');
+    }
+
+    public function loggedInPage()
+    {
         return view('pages.index');
     }
 
