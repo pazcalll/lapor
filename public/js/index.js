@@ -5,16 +5,22 @@ function authCheck() {
     console.log(localStorage.getItem('_token'))
     if (localStorage.getItem('_token') != null) {
         $.ajax({
-            url: apiBaseUrl,
+            url: webBaseUrl + '/indexPage',
             type: "GET",
             headers: {
-                Authorization: localStorage.getItem('_token')
+                Authorization: 'bearer' + localStorage.getItem('_token')
             },
             success: (res) => {
-                $('#app').html(res)
+                $('#app').html(res)        
+                let script = document.createElement('script');
+                script.setAttribute('type', 'text/javascript');
+                script.setAttribute('src', webBaseUrl+'/js/main.js');
+                document.head.appendChild(script);
             },
             error: (err) => {
-                console.log(err)
+                if (err.status == 401) {
+                    window.location.href = webBaseUrl+'/login'
+                }
             }
         })
     }else {
