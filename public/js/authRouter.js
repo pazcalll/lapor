@@ -2,6 +2,7 @@ const webBaseUrl = window.location.origin
 const apiBaseUrl = webBaseUrl + '/api/v1'
 
 function loginPage() {
+    document.title = 'Lapor | Login'
     $.ajax({
         url: webBaseUrl+'/login-page',
         type: 'GET',
@@ -22,6 +23,7 @@ function loginPage() {
 }
 
 function registerPage() {
+    document.title = 'Lapor | Register'
     $.ajax({
         url: webBaseUrl+'/register-page',
         type: 'GET',
