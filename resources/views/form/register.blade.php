@@ -8,12 +8,15 @@
     <div class="row g-5">
         <div class="col-lg-12">
             <p class="mb-4">Sudah punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="loginPage()" href="javascript:void(0)">sini</a></p>
-            <form>
+            <div class="alert alert-danger errors visually-hidden">
+                
+            </div>
+            <form onsubmit="register(event)">
                 @csrf
                 <div class="row g-3">
                     <div class="col-md-12">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nama Lengkap">
+                            <input type="text" class="form-control" id="fullname" name="name" placeholder="Nama Lengkap">
                             <label for="fullname">Nama Lengkap <span style="color: red">*</span></label>
                         </div>
                     </div>

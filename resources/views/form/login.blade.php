@@ -8,6 +8,9 @@
     <div class="row g-5">
         <div class="col-lg-12">
             <p class="mb-4">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
+            <div class="errors">
+                
+            </div>
             <form>
                 @csrf
                 <div class="row g-3">

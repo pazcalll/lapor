@@ -31,6 +31,12 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="{{ asset('lib/toastr/toastr.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
+
     <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
     <script src="{{ asset('js/authRouter.js') }}"></script>
 </head>
@@ -47,7 +53,7 @@
                         terhadap suatu masalah yang terjadi di lingkup kota ini dengan sistem yang
                         manusiawi.
                     </p>
-                    <a href="#form-content" class="btn btn-primary py-3 px-4 animated slideInDown">Login</a>
+                    <a href="#form-content" class="btn btn-primary py-3 px-4 animated slideInDown">Ke Form Login</a>
                 </div>
                 <div class="col-lg-6 animated fadeIn">
                     <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="https://img.freepik.com/free-vector/smiling-man-talking-loudspeaker-monitor-social-media-computer-online-flat-vector-illustration-communication-digital-technology_74855-13238.jpg"
@@ -142,7 +148,10 @@
             <div class="row g-5">
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
                     <p class="mb-4">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
-                    <form>
+                    <div class="errors">
+                        
+                    </div>
+                    <form onsubmit="login(event)">
                         @csrf
                         <div class="row g-3">
                             <div class="col-md-12">
@@ -153,12 +162,12 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                     <label for="password">Password</label>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary py-3 px-4" type="submit">Login Sekarang</button>
+                                <button class="btn btn-primary py-3 px-4" type="submit">Login</button>
                             </div>
                         </div>
                     </form>
@@ -174,8 +183,6 @@
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
