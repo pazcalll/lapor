@@ -44,7 +44,6 @@
 </nav>
 <!-- Navbar End -->
 
-
 <!-- Header Start -->
 <div class="container-fluid hero-header bg-light py-5 mb-5">
     <div class="container py-5">
@@ -53,7 +52,7 @@
                 <h1 class="display-4 mb-3 animated slideInDown">Lapor</h1>
                 <p class="animated slideInDown">Sampaikan laporan atau aduan anda kepada pihak yang berwenang di 
                     dalam situs ini secara langsung!</p>
-                <a href="" class="btn btn-primary py-3 px-4 animated slideInDown" style="border-radius: 64px"><i class="fa fa-plus-circle" aria-hidden="true"></i> Buat Laporan Sekarang</a>
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary py-3 px-4 animated slideInDown" style="border-radius: 64px"><i class="fa fa-plus-circle" aria-hidden="true"></i> Buat Laporan Sekarang</a>
             </div>
             <div class="col-lg-6 animated fadeIn">
                 <img class="img-fluid animated pulse infinite" style="animation-duration: 3s; max-width: 480px; max-height: 480px" src="img/danger.png"
@@ -64,6 +63,24 @@
 </div>
 <!-- Header End -->
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i

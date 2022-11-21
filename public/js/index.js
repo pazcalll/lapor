@@ -18,7 +18,7 @@ function authCheck() {
                 document.head.appendChild(script);
             },
             error: (err) => {
-                if (err.status == 401) {
+                if (err.status != 400) {
                     window.location.href = webBaseUrl+'/login'
                 }
             }
