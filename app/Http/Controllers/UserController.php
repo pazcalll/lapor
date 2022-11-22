@@ -83,6 +83,12 @@ class UserController extends Controller
         return $user;
     }
 
+    public function getFacilities()
+    {
+        $data = $this->user->getFacilities();
+        return $data;
+    }
+
     public function getDisposableToken(Request $request)
     {
         $token = request()->session()->token();

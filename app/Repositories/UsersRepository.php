@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
+use App\Models\Facility;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
@@ -92,6 +93,12 @@ class UsersRepository implements UserInterface
     {
         $user = JWTAuth::toUser(request()->bearerToken());
         return response()->json($user, 200);
+    }
+
+    public function getFacilities()
+    {
+        $data = Facility::select(['id', 'name'])->get();
+        return response()->json($data, 200);
     }
 
     public function updateProfile()

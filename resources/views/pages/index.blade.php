@@ -52,7 +52,7 @@
                 <h1 class="display-4 mb-3 animated slideInDown">Lapor</h1>
                 <p class="animated slideInDown">Sampaikan laporan atau aduan anda kepada pihak yang berwenang di 
                     dalam situs ini secara langsung!</p>
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary py-3 px-4 animated slideInDown" style="border-radius: 64px"><i class="fa fa-plus-circle" aria-hidden="true"></i> Buat Laporan Sekarang</a>
+                <a href="javascript:void(0)" data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary py-3 px-4 animated slideInDown" style="border-radius: 64px"><i class="fa fa-plus-circle" aria-hidden="true"></i> Buat Laporan Sekarang</a>
             </div>
             <div class="col-lg-6 animated fadeIn">
                 <img class="img-fluid animated pulse infinite" style="animation-duration: 3s; max-width: 480px; max-height: 480px" src="img/danger.png"
@@ -68,11 +68,34 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Buat Laporan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Lokasi">
+                            <label for="location">Lokasi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            {{-- <input type="password" class="form-control" id="password" name="password" placeholder="Password"> --}}
+                            <textarea class="form-control" style="height: 100px" name="issue" id="issue" cols="30" rows="50">
+
+                            </textarea>
+                            <label for="issue">Masalah</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <select name="facility" id="facility" class="form-select" aria-placeholder="">
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="file" name="proof" id="proof" class="dropify">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -85,3 +108,5 @@
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
         class="bi bi-arrow-up"></i></a>
+
+<script>$('.dropify').dropify();</script>
