@@ -82,7 +82,7 @@
                     <div class="col-md-12">
                         <div class="form-floating">
                             {{-- <input type="password" class="form-control" id="password" name="password" placeholder="Password"> --}}
-                            <textarea class="form-control" style="height: 100px" name="issue" id="issue" cols="30" rows="50">
+                            <textarea class="form-control" style="height: 100px" name="issue" id="issue" placeholder="Deskripsi Masalah" cols="30" rows="50">
 
                             </textarea>
                             <label for="issue">Masalah</label>
@@ -93,7 +93,7 @@
                         </select>
                     </div>
                     <div class="col-md-12">
-                        <input type="file" name="proof" id="proof" class="dropify">
+                        <input type="file" name="proof" id="proof" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
                     </div>
                 </div>
             </div>
@@ -109,4 +109,16 @@
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
         class="bi bi-arrow-up"></i></a>
 
-<script>$('.dropify').dropify();</script>
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Masukkan bukti',
+            'replace': 'Masukkan ganti dengan bukti lain',
+            'remove':  'Hapus',
+            'error':   'Maaf, terjadi kesalahan.'
+        },
+        error: {
+            'fileSize': 'Ukuran terlalu besar (1 mb max).',
+        }
+    })
+</script>

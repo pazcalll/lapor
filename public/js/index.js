@@ -11,6 +11,7 @@ function authCheck() {
                 Authorization: 'bearer' + localStorage.getItem('_token')
             },
             success: (res) => {
+                console.log(res)
                 $('#app').html(res)        
                 let script = document.createElement('script');
                 script.setAttribute('type', 'text/javascript');
@@ -18,19 +19,19 @@ function authCheck() {
                 document.head.appendChild(script);
                 getFacilities()
             },
-            error: (err, text, errThrow) => {
-                console.log(text, err, errThrow)
-                // if(err.status == 400 && err.token != null) {
-                //     localStorage.setItem('_token', err.token)
-                //     $('#app').html(res)
-                //     let script = document.createElement('script');
-                //     script.setAttribute('type', 'text/javascript');
-                //     script.setAttribute('src', webBaseUrl+'/js/main.js');
-                //     document.head.appendChild(script);
-                //     getFacilities()
-                // }else if (err.status != 400) {
-                //     window.location.href = webBaseUrl+'/login'
-                // }
+            error: (err, text, statusMessage) => {
+                console.log(text, err, statusMessage)
+                if(err.responseJSON.status == 400 && err.responseJSON.token != null) {
+                    localStorage.setItem('_token', err.token)
+                    $('#app').html(res)
+                    let script = document.createElement('script');
+                    script.setAttribute('type', 'text/javascript');
+                    script.setAttribute('src', webBaseUrl+'/js/main.js');
+                    document.head.appendChild(script);
+                    getFacilities()
+                }else if (err.responseJSON.status != 400) {
+                    window.location.href = webBaseUrl+'/login'
+                }
             }
         })
     }else {
