@@ -33,10 +33,12 @@ Route::prefix('v1')->group(function () {
     Route::get('get-profile', [UserController::class, 'getProfile'])->name('getProfile');
     Route::get('get-disposable-token', [UserController::class, 'getDisposableToken'])->name('getDisposableToken');
     Route::get('use-disposable-token/{token}', [UserController::class, 'useDisposableToken'])->name('useDisposableToken');
-    Route::prefix('user')->group(function () {
-        Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
+    Route::prefix('user')->middleware('jwtauth')->group(function () {
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
-        Route::get('get-reports', [UserController::class, 'getReports'])->name('getReports');
         Route::get('get-facilities', [UserController::class, 'getFacilities'])->name('getFacilities');
+        Route::middleware('customer')->group(function () {
+            Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
+            Route::get('get-reports', [CustomerController::class, 'getReports'])->name('getReports');
+        });
     });
 });

@@ -89,6 +89,14 @@ class UsersRepository implements UserInterface
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    public function authenticator()
+    {
+        $user = JWTAuth::toUser(request()->bearerToken());
+        if ($user['role'] == 'customer') {
+            return view('customer.index');
+        }
+    }
+
     public function getProfile()
     {
         $user = JWTAuth::toUser(request()->bearerToken());

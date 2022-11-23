@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'jwtauth' => \App\Http\Middleware\JWTAuthentication::class,
-        'jwtnoauth' => \App\Http\Middleware\JWTNoAuth::class
+        'jwtnoauth' => \App\Http\Middleware\JWTNoAuth::class,
+
+        'customer' => \App\Http\Middleware\CustomerMiddleware::class,
     ];
 }

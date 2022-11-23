@@ -5,14 +5,14 @@ function authCheck() {
     console.log(localStorage.getItem('_token'))
     if (localStorage.getItem('_token') != null) {
         $.ajax({
-            url: webBaseUrl + '/indexPage',
+            url: webBaseUrl + '/authenticator',
             type: "GET",
             headers: {
-                Authorization: 'bearer' + localStorage.getItem('_token')
+                Authorization: 'bearer ' + localStorage.getItem('_token')
             },
             success: (res) => {
-                console.log(res)
-                $('#app').html(res)        
+                // console.log(res)
+                $('#app').html(res)
                 let indexjs = document.createElement('script');
                 indexjs.setAttribute('type', 'text/javascript');
                 indexjs.setAttribute('src', webBaseUrl+'/js/main.js');
@@ -20,7 +20,7 @@ function authCheck() {
                 getFacilities()
             },
             error: (err, text, statusMessage) => {
-                console.log(text, err, statusMessage)
+                // console.log(text, err, statusMessage)
                 if(err.responseJSON.status == 400 && err.responseJSON.token != null) {
                     console.log("reload")
                     localStorage.setItem('_token', err.responseJSON.token)

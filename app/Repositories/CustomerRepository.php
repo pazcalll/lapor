@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\UserInterface;
 use App\Models\Report;
 use Illuminate\Support\Facades\DB;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class CustomerRepository extends UsersRepository
 {
@@ -44,5 +45,12 @@ class CustomerRepository extends UsersRepository
                 return response()->json(['error' => $th, 'status' => 400], 400);
             }
         }
+    }
+
+    public function getReports()
+    {
+        $user = JWTAuth::toUser(request()->bearerToken());
+        $data = Report::select('*')->where('user_id', $user['id'])->get();
+        return response()->json(['data' => $data], 200);
     }
 }

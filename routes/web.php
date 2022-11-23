@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [UserController::class, 'index'])->name('index');
 Route::middleware('jwtnoauth')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/login', [UserController::class, 'authPage'])->name('authPage');
     Route::get('/login-page', [UserController::class, 'loginPage'])->name('loginPage');
     Route::get('/register-page', [UserController::class, 'registerPage'])->name('registerPage');
 });
 Route::middleware('jwtauth')->group(function () {
-    Route::get('/indexPage', [UserController::class, 'loggedInPage'])->name('indexPage');
+    Route::get('/authenticator', [UserController::class, 'authenticator'])->name('authenticator');
+    Route::middleware('customer')->group(function () {
+        Route::get('/index-customer', [CustomerController::class, 'indexCustomer'])->name('indexPage'); // unused
+        Route::get('report-page', [CustomerController::class, 'reportPage'])->name('reportPage');
+    });
 });

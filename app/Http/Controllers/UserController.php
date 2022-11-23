@@ -36,17 +36,17 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('index');
-    }
-
-    public function loggedInPage()
-    {
         return view('pages.index');
     }
 
     public function authPage()
     {
         return view('pages.auth');
+    }
+
+    public function authenticator()
+    {
+        return $this->user->authenticator();
     }
 
     public function loginPage()

@@ -16,11 +16,23 @@ class CustomerController extends Controller
         $this->middleware('jwtnoauth')->only([]);
         $this->user = $userInterface;
     }
+    public function indexCustomer()
+    {
+        return view('customer.index');
+    }
     public function createReport()
     {
         // dd(request()->all());
         // dd();
         return $this->user->createReport();
+    }
+    public function getReports()
+    {
+        return $this->user->getReports();
+    }
+    public function reportPage()
+    {
+        return view('customer.report');
     }
     public function register()
     { }
