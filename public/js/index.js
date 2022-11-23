@@ -22,9 +22,11 @@ function authCheck() {
             error: (err, text, statusMessage) => {
                 console.log(text, err, statusMessage)
                 if(err.responseJSON.status == 400 && err.responseJSON.token != null) {
-                    localStorage.setItem('_token', err.token)
+                    console.log("reload")
+                    localStorage.setItem('_token', err.responseJSON.token)
                     window.location.reload()
                 }else if (err.responseJSON.status != 400) {
+                    console.log("pindah")
                     window.location.href = webBaseUrl+'/login'
                 }
             }
@@ -53,6 +55,22 @@ function getFacilities() {
         },
         error: (err) => {
             console.log(err)
+        }
+    })
+}
+
+function logout() {
+    $.ajax({
+        url: apiBaseUrl + '/user/logout',
+        type: "POST",
+        headers: {
+            Authorization: "bearer" + localStorage.getItem('_token')
+        },
+        success: (res) => {
+            window.location.href = webBaseUrl + '/login'
+        },
+        error: (err) => {
+            console.log(err.responseJSON)
         }
     })
 }

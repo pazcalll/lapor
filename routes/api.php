@@ -35,6 +35,7 @@ Route::prefix('v1')->group(function () {
     Route::get('use-disposable-token/{token}', [UserController::class, 'useDisposableToken'])->name('useDisposableToken');
     Route::prefix('user')->group(function () {
         Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
+        Route::post('logout', [UserController::class, 'logout'])->name('logout');
         Route::get('get-reports', [UserController::class, 'getReports'])->name('getReports');
         Route::get('get-facilities', [UserController::class, 'getFacilities'])->name('getFacilities');
     });

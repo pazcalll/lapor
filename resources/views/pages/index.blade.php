@@ -20,15 +20,15 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Laporan</a>
                 <div class="dropdown-menu shadow-sm m-0">
-                    <a href="faq.html" class="dropdown-item">Buat Baru</a>
-                    <a href="404.html" class="dropdown-item">Riwayat</a>
+                    <a href="javascript:void(0)" class="dropdown-item">Buat Baru</a>
+                    <a href="javascript:void(0)" class="dropdown-item">Riwayat</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pengguna</a>
                 <div class="dropdown-menu shadow-sm m-0">
-                    <a href="faq.html" class="dropdown-item">Profil</a>
-                    <a href="404.html" class="dropdown-item text-danger">Logout</a>
+                    <a href="javascript:void(0)" class="dropdown-item">Profil</a>
+                    <a onclick="logout()" href="javascript:void(0)" class="dropdown-item text-danger">Logout</a>
                 </div>
             </div>
         </div>

@@ -19,7 +19,8 @@ class CustomerController extends Controller
     public function createReport()
     {
         // dd(request()->all());
-        dd($this->user->createReport());
+        // dd();
+        return $this->user->createReport();
     }
     public function register()
     { }
