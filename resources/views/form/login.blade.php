@@ -11,7 +11,7 @@
             <div class="errors">
                 
             </div>
-            <form>
+            <form onsubmit="login(event)">
                 @csrf
                 <div class="row g-3">
                     <div class="col-md-12">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary py-3 px-4" type="submit">Login Sekarang</button>
+                        <button class="btn btn-primary py-3 px-4" type="submit">Login</button>
                     </div>
                 </div>
             </form>

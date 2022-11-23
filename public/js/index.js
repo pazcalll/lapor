@@ -13,22 +13,17 @@ function authCheck() {
             success: (res) => {
                 console.log(res)
                 $('#app').html(res)        
-                let script = document.createElement('script');
-                script.setAttribute('type', 'text/javascript');
-                script.setAttribute('src', webBaseUrl+'/js/main.js');
-                document.head.appendChild(script);
+                let indexjs = document.createElement('script');
+                indexjs.setAttribute('type', 'text/javascript');
+                indexjs.setAttribute('src', webBaseUrl+'/js/main.js');
+                document.head.appendChild(indexjs);
                 getFacilities()
             },
             error: (err, text, statusMessage) => {
                 console.log(text, err, statusMessage)
                 if(err.responseJSON.status == 400 && err.responseJSON.token != null) {
                     localStorage.setItem('_token', err.token)
-                    $('#app').html(res)
-                    let script = document.createElement('script');
-                    script.setAttribute('type', 'text/javascript');
-                    script.setAttribute('src', webBaseUrl+'/js/main.js');
-                    document.head.appendChild(script);
-                    getFacilities()
+                    window.location.reload()
                 }else if (err.responseJSON.status != 400) {
                     window.location.href = webBaseUrl+'/login'
                 }

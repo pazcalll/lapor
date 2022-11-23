@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use App\Interfaces\UserInterface;
 use App\Repositories\AnotherUserRepository;
+use App\Repositories\CustomerRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,7 +24,15 @@ class RepositoryServiceProvider extends ServiceProvider
         // $this->app->bind(UserInterface::class, AnotherUserRepository::class);
         $this->app->when(UserController::class)
             ->needs(UserInterface::class)
-            ->give(UsersRepository::class);
+            ->give(function () {
+                return new UsersRepository;
+            });
+
+        $this->app->when(CustomerController::class)
+            ->needs(UserInterface::class)
+            ->give(function () {
+                return new CustomerRepository;
+            });
     }
 
     /**
