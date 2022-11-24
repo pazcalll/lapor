@@ -23,8 +23,8 @@ Route::middleware('jwtnoauth')->group(function () {
 });
 Route::middleware('jwtauth')->group(function () {
     Route::get('/authenticator', [UserController::class, 'authenticator'])->name('authenticator');
-    Route::middleware('customer')->group(function () {
-        Route::get('/index-customer', [CustomerController::class, 'indexCustomer'])->name('indexPage'); // unused
-        Route::get('report-page', [CustomerController::class, 'reportPage'])->name('reportPage');
+    Route::prefix('customer')->middleware('customer')->group(function () {
+        Route::get('/home-page', [CustomerController::class, 'homePage'])->name('customerHomePage'); // unused
+        Route::get('/report-page', [CustomerController::class, 'reportPage'])->name('customerReportPage');
     });
 });

@@ -16,9 +16,9 @@ class CustomerController extends Controller
         $this->middleware('jwtnoauth')->only([]);
         $this->user = $userInterface;
     }
-    public function indexCustomer()
+    public function homePage()
     {
-        return view('customer.index');
+        return view('customer.home');
     }
     public function createReport()
     {

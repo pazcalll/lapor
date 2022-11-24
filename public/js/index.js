@@ -74,3 +74,30 @@ function logout() {
         }
     })
 }
+
+function reportPage() {  
+    $.ajax({
+        url: webBaseUrl + '/customer/report-page',
+        type: "GET",
+        headers: {
+            Authorization: "bearer "+localStorage.getItem('_token')
+        },
+        beforeSend: () => {
+            $('#content').html(`
+            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+            </span>
+            `)
+            $('a').removeClass('active')
+            $('#report').addClass('active')
+        },
+        success: (res) => {
+            $('#content').html(res)
+        },
+        error: (err) => {
+            console.log(error.responseJSON)
+        }
+    })
+}
