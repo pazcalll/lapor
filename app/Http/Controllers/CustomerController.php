@@ -28,7 +28,8 @@ class CustomerController extends Controller
     }
     public function getReports()
     {
-        return $this->user->getReports();
+        $data = $this->user->getReports();
+        return datatables($data)->toJson();
     }
     public function reportPage()
     {

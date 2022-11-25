@@ -37,6 +37,7 @@ function authCheck() {
 }
 authCheck()
 
+// customer begin
 function getFacilities() {
     $.ajax({
         url: apiBaseUrl+'/user/get-facilities',
@@ -108,7 +109,7 @@ function reportPage() {
                 fd.append('location', $('#location').val())
                 fd.append('_token', "{{ csrf_token() }}")
                 $.ajax({
-                    url: apiBaseUrl + '/user/report',
+                    url: apiBaseUrl + '/user/customer/report',
                     type: 'POST',
                     headers: {
                         Authorization: 'bearer' + localStorage.getItem('_token')
@@ -157,6 +158,51 @@ function reportHistoryPage() {
         },
         success: (res) => {
             $('#content').html(res)
+            
+            $('.table').DataTable({
+                ajax: {
+                    url: apiBaseUrl + '/user/customer/reports',
+                    headers: {
+                        Authorization: "bearer " + localStorage.getItem('_token')
+                    },
+                    cache: true
+                },
+                lengthChange: false,
+                // searching: false,
+                scrollX: true,
+                language: {
+                    url: webBaseUrl + "/json/datatable-indonesia.json"
+                },
+                columnDefs: [
+                    { width: '5%', targets: 0 },
+                    { width: '40%', targets: 1 },
+                    { width: '20%', targets: 2 },
+                    { width: '15%', targets: 3 },
+                    { width: '20%', targets: 4 },
+                ],
+                columns: [
+                    {
+                        data: 'referral',
+                    },
+                    {
+                        data: 'issue',
+                    },
+                    {
+                        data: 'created_at',
+                    },
+                    {
+                        data: 'status'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, full, meta) {
+                            return `
+                                <button type="">action</button>
+                            `
+                        }
+                    }
+                ]
+            })
         },
         error: (err) => {
             if (err.responseJSON.status == 400) {
@@ -190,6 +236,8 @@ function homePage() {
         },
         success: (res) => {
             $('#content').html(res)
+            
+            getFacilities()
         },
         error: (err) => {
             if (err.responseJSON.status == 400) {

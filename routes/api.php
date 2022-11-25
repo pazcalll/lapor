@@ -36,9 +36,9 @@ Route::prefix('v1')->group(function () {
     Route::prefix('user')->middleware('jwtauth')->group(function () {
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
         Route::get('get-facilities', [UserController::class, 'getFacilities'])->name('getFacilities');
-        Route::middleware('customer')->group(function () {
+        Route::prefix('customer')->middleware('customer')->group(function () {
             Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
-            Route::get('get-reports', [CustomerController::class, 'getReports'])->name('getReports');
+            Route::get('reports', [CustomerController::class, 'getReports'])->name('getReports');
         });
     });
 });

@@ -24,7 +24,8 @@ class CustomerRepository extends UsersRepository
 
             $filename = time() . '_' . request()->file('proof')->getClientOriginalName();
             request()->file('proof')->storeAs('public/proof', $filename);
-
+            // dd(JWTAuth::toUser(request()->header('Authorization'))['id']);
+            $user_id = JWTAuth::toUser(request()->header('Authorization'))['id'];
             $data = [
                 'referral' => strtoupper(bin2hex(random_bytes(6))),
                 'facility_id' => $validate['facility'],
@@ -40,18 +41,18 @@ class CustomerRepository extends UsersRepository
             return response()->json(['success' => true, 'status' => 200], 200);
         } catch (\Throwable $th) {
             // dd($th);
-            try {
-                return response()->json(['error' => $th->errors(), 'status' => 400], 400);
-            } catch (\Exception $e) {
-                return response()->json(['error' => $th, 'status' => 400], 400);
-            }
+            return response()->json(['error' => $th, 'status' => 400], 400);
+            // try {
+            // } catch (\Exception $e) {
+            //     return response()->json(['error' => $th, 'status' => 400], 400);
+            // }
         }
     }
 
     public function getReports()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        $data = Report::select('*')->where('user_id', $user['id'])->get();
-        return response()->json(['data' => $data], 200);
+        $data = Report::where('user_id', $user['id'])->get();
+        return $data;
     }
 }

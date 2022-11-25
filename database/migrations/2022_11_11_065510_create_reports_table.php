@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('id')->autoIncrement();
             $table->string('referral');
             $table->integer('facility_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id');
             $table->string('location');
             $table->string('issue');
             $table->string('proof_file');
