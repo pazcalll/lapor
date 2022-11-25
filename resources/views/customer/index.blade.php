@@ -22,6 +22,7 @@
                 <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pengguna</a>
                 <div class="dropdown-menu shadow-sm m-0">
                     <a href="javascript:void(0)" class="dropdown-item" id="profile">Profil</a>
+                    <a onclick="reportHistoryPage()" href="javascript:void(0)" class="dropdown-item" id="history">History</a>
                     <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
                 </div>
             </div>

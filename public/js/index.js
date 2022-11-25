@@ -54,23 +54,12 @@ function getFacilities() {
             $('#facility').html(facilityHTML)
         },
         error: (err) => {
-            console.log(err)
-        }
-    })
-}
-
-function logout() {
-    $.ajax({
-        url: apiBaseUrl + '/user/logout',
-        type: "POST",
-        headers: {
-            Authorization: "bearer" + localStorage.getItem('_token')
-        },
-        success: (res) => {
-            window.location.href = webBaseUrl + '/login'
-        },
-        error: (err) => {
-            console.log(err.responseJSON)
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                getFacilities()
+            }else {
+                window.location.reload()
+            }
         }
     })
 }
@@ -96,12 +85,90 @@ function reportPage() {
         },
         success: (res) => {
             $('#content').html(res)
+            
+            getFacilities()
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Masukkan bukti',
+                    'replace': 'Masukkan ganti dengan bukti lain',
+                    'remove':  'Hapus',
+                    'error':   'Maaf, terjadi kesalahan.'
+                },
+                error: {
+                    'fileSize': 'Ukuran terlalu besar (1 mb max).',
+                }
+            })
+
+            $('#makeReport').on('submit', function (e) {  
+                e.preventDefault()
+                let fd = new FormData()
+                fd.append('proof', $('#proof')[0].files[0])
+                fd.append('issue', $('#issue').val())
+                fd.append('facility', $('#facility').val())
+                fd.append('location', $('#location').val())
+                fd.append('_token', "{{ csrf_token() }}")
+                $.ajax({
+                    url: apiBaseUrl + '/user/report',
+                    type: 'POST',
+                    headers: {
+                        Authorization: 'bearer' + localStorage.getItem('_token')
+                    },
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: (res) => {
+                        console.log(res)
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            })
         },
         error: (err) => {
-            console.log(error.responseJSON)
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                reportPage()
+            }else {
+                window.location.reload()
+            }
         }
     })
 }
+
+// function reportHistoryPage() {
+//     $.ajax({
+//         url: webBaseUrl + '/customer/report-history-page',
+//         type: "GET",
+//         headers: {
+//             Authorization: "bearer "+localStorage.getItem('_token')
+//         },
+//         beforeSend: () => {
+//             $('#content').html(`
+//             <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+//                 <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+//                     <span class="visually-hidden">Loading...</span>
+//                 </span>
+//             </span>
+//             `)
+//             $('.nav-item').removeClass('active')
+//             $('.dropdown-item').removeClass('active')
+//             $('#home').addClass('active')
+//         },
+//         success: (res) => {
+//             $('#content').html(res)
+//         },
+//         error: (err) => {
+//             if (err.responseJSON.status == 400) {
+//                 localStorage.setItem('_token', err.responseJSON._token)
+//                 homePage()
+//             }else {
+//                 window.location.reload()
+//             }
+//         }
+//     })
+// }
+
 function homePage() {
     $.ajax({
         url: webBaseUrl + '/customer/home-page',
@@ -125,7 +192,12 @@ function homePage() {
             $('#content').html(res)
         },
         error: (err) => {
-            console.log(error.responseJSON)
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                homePage()
+            }else {
+                window.location.reload()
+            }
         }
     })
 }
@@ -141,7 +213,12 @@ function logout() {
             window.location.href = webBaseUrl + "/login"
         },
         error: (err) => {
-            console.log(err)
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                logout()
+            }else {
+                window.location.reload()
+            }
         }
     })
 }

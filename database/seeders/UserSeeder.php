@@ -19,12 +19,26 @@ class UserSeeder extends Seeder
     {
         //
         DB::beginTransaction();
-        $user = User::create([
+        $customer = User::create([
             'name' => 'user1',
             'username' => 'user1',
             'password' => Hash::make('password'),
             'role' => 'customer',
-            'phone' => 'asdf'
+            'phone' => '123467890'
+        ]);
+        $admin = User::create([
+            'name' => 'admin',
+            'username' => 'admin',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'phone' => '123467890'
+        ]);
+        $officer = User::create([
+            'name' => 'officer',
+            'username' => 'officer',
+            'password' => Hash::make('password'),
+            'role' => 'officer',
+            'phone' => '123467890'
         ]);
         DB::commit();
     }

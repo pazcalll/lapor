@@ -28,6 +28,7 @@ class CustomerRepository extends UsersRepository
             $data = [
                 'referral' => strtoupper(bin2hex(random_bytes(6))),
                 'facility_id' => $validate['facility'],
+                'user_id' => JWTAuth::toUser(request()->header('Authorization'))['id'],
                 'location' => $validate['location'],
                 'issue' => $validate['issue'],
                 'proof_file' => $filename,

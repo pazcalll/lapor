@@ -115,7 +115,7 @@ class UsersRepository implements UserInterface
     public function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
+            '_token' => $token,
             'token_type' => 'bearer'
         ]);
     }

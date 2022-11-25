@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('id')->autoIncrement();
             $table->string('referral');
             $table->integer('facility_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->string('location');
             $table->string('issue');
             $table->string('proof_file');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('facility_id')->references('id')->on('facilities')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

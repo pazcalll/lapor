@@ -63,7 +63,7 @@ function login(e) {
             $('.auth-content').html(' ')
         },
         success: (res) => {
-            localStorage.setItem('_token', res.access_token)
+            localStorage.setItem('_token', res._token)
             window.location.href = webBaseUrl
         },
         error: function (err) {  
