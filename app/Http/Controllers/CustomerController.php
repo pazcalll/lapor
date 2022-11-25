@@ -34,16 +34,8 @@ class CustomerController extends Controller
     {
         return view('customer.report');
     }
-    public function register()
-    { }
-    public function login()
-    { }
-    public function logout()
-    { }
-    public function getProfile()
-    { }
-    public function updateProfile()
-    { }
-    public function respondWithToken($token)
-    { }
+    public function reportHistoryPage()
+    {
+        return view('customer.reportHistory');
+    }
 }

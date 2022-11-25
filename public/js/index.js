@@ -136,38 +136,38 @@ function reportPage() {
     })
 }
 
-// function reportHistoryPage() {
-//     $.ajax({
-//         url: webBaseUrl + '/customer/report-history-page',
-//         type: "GET",
-//         headers: {
-//             Authorization: "bearer "+localStorage.getItem('_token')
-//         },
-//         beforeSend: () => {
-//             $('#content').html(`
-//             <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
-//                 <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
-//                     <span class="visually-hidden">Loading...</span>
-//                 </span>
-//             </span>
-//             `)
-//             $('.nav-item').removeClass('active')
-//             $('.dropdown-item').removeClass('active')
-//             $('#home').addClass('active')
-//         },
-//         success: (res) => {
-//             $('#content').html(res)
-//         },
-//         error: (err) => {
-//             if (err.responseJSON.status == 400) {
-//                 localStorage.setItem('_token', err.responseJSON._token)
-//                 homePage()
-//             }else {
-//                 window.location.reload()
-//             }
-//         }
-//     })
-// }
+function reportHistoryPage() {
+    $.ajax({
+        url: webBaseUrl + '/customer/report-history-page',
+        type: "GET",
+        headers: {
+            Authorization: "bearer "+localStorage.getItem('_token')
+        },
+        beforeSend: () => {
+            $('#content').html(`
+            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+            </span>
+            `)
+            $('.nav-item').removeClass('active')
+            $('.dropdown-item').removeClass('active')
+            $('#history').addClass('active')
+        },
+        success: (res) => {
+            $('#content').html(res)
+        },
+        error: (err) => {
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                homePage()
+            }else {
+                window.location.reload()
+            }
+        }
+    })
+}
 
 function homePage() {
     $.ajax({

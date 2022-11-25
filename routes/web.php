@@ -26,5 +26,6 @@ Route::middleware('jwtauth')->group(function () {
     Route::prefix('customer')->middleware('customer')->group(function () {
         Route::get('/home-page', [CustomerController::class, 'homePage'])->name('customerHomePage'); // unused
         Route::get('/report-page', [CustomerController::class, 'reportPage'])->name('customerReportPage');
+        Route::get('/report-history-page', [CustomerController::class, 'reportHistoryPage'])->name('customerReportHistoryPage');
     });
 });

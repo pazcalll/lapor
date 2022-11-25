@@ -18,11 +18,11 @@
         <div class="navbar-nav ms-auto py-4 py-lg-0">
             <a onclick="homePage()" href="javascript:void(0)" id="home" class="nav-item nav-link active">Home</a>
             <a onclick="reportPage()" href="javascript:void(0)" id="report" class="nav-item nav-link">Laporan</a>
+            <a onclick="reportHistoryPage()" href="javascript:void(0)" class="nav-item nav-link" id="history">Riwayat</a>
             <div class="nav-item dropdown">
                 <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pengguna</a>
                 <div class="dropdown-menu shadow-sm m-0">
                     <a href="javascript:void(0)" class="dropdown-item" id="profile">Profil</a>
-                    <a onclick="reportHistoryPage()" href="javascript:void(0)" class="dropdown-item" id="history">History</a>
                     <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
                 </div>
             </div>

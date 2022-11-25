@@ -67,7 +67,7 @@ function login(e) {
             window.location.href = webBaseUrl
         },
         error: function (err) {  
-            // console.log(err)
+            console.log(err)
             let errMsg = ''
             Object.entries(err.responseJSON.error).forEach((entry) => {
                 const [key, error] = entry;

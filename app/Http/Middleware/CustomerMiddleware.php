@@ -18,6 +18,7 @@ class CustomerMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = JWTAuth::toUser(request()->header('Authorization'));
+        // $user = JWTAuth::toUser(request()->bearerToken());
         if ($user['role'] == 'customer') {
             return $next($request);
         } else {
