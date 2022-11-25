@@ -8,7 +8,7 @@
 .progressBar li {
     list-style-type: none;
     float: left;
-    width: 33%;
+    width: 20%;
     position: relative;
     text-align: center;
 }
@@ -42,14 +42,14 @@
 }
 
 .progressBar li.active {
-    color: dodgerblue;
+    color: rgb(22 213 255);
 }
 
 .progressBar li.active:before {
-    border-color: dodgerblue;
-    background-color: dodgerblue;
+    border-color: rgb(22 213 255);
+    background-color: rgb(22 213 255);
 }
 
 .progressBar .active:after {
-    background-color: dodgerblue;
+    background-color: rgb(22 213 255);
 }

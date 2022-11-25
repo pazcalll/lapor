@@ -2,7 +2,7 @@ const webBaseUrl = window.location.origin
 const apiBaseUrl = webBaseUrl + '/api/v1'
 
 function authCheck() {  
-    console.log(localStorage.getItem('_token'))
+    // console.log(localStorage.getItem('_token'))
     if (localStorage.getItem('_token') != null) {
         $.ajax({
             url: webBaseUrl + '/authenticator',
@@ -22,11 +22,11 @@ function authCheck() {
             error: (err, text, statusMessage) => {
                 // console.log(text, err, statusMessage)
                 if(err.responseJSON.status == 400 && err.responseJSON.token != null) {
-                    console.log("reload")
+                    // console.log("reload")
                     localStorage.setItem('_token', err.responseJSON.token)
                     window.location.reload()
                 }else if (err.responseJSON.status != 400) {
-                    console.log("pindah")
+                    // console.log("pindah")
                     window.location.href = webBaseUrl+'/login'
                 }
             }

@@ -38,7 +38,6 @@
                 Authorization: 'bearer ' + localStorage.getItem('_token')
             },
             success: (res) => {
-                console.log(res)
                 $('#content').html(res)
             },
             error: (err) => {
