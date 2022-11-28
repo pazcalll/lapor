@@ -76,14 +76,17 @@ function login(e) {
                 });
             });
             toastr.error('Login gagal')
-            $(document).ready(function () {  
-                $('.errors').html(errMsg)
-                $('.errors').removeClass('visually-hidden')
-            })
+            $('.auth-content').html(authContent)
+            $('#errors').addClass("alert alert-danger")
+            $('#errors').removeClass('visually-hidden')
+            $('#errors').html(errMsg)
+            console.log($('#errors').html())
+            // $(document).ready(function () {  
+            // })
         },
         complete: function () {  
             $('.form-spinner').addClass('visually-hidden')
-            $('.auth-content').html(authContent)
+            // $('.auth-content').html(authContent)
         }
     })
 }

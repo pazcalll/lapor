@@ -148,7 +148,7 @@
             <div class="row g-5">
                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
                     <p class="mb-4">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
-                    <div class="errors">
+                    <div class="errors alert alert-danger visually-hidden" id="errors">
                         
                     </div>
                     <form onsubmit="login(event)">
