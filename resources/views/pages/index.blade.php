@@ -37,7 +37,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
-    <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/setup.js') }}"></script>
 
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
@@ -47,7 +47,7 @@
 <body>
 
     <div id="app">
-
+        
     </div>
     <!-- JavaScript Libraries -->
     <script src="{{ asset('lib/wow/wow.min.js') }}"></script>

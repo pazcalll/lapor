@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use App\Interfaces\UserInterface;
+use App\Repositories\AdminRepository;
 use App\Repositories\AnotherUserRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\UsersRepository;
@@ -20,8 +22,6 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        // $this->app->bind(UserInterface::class, UsersRepository::class);
-        // $this->app->bind(UserInterface::class, AnotherUserRepository::class);
         $this->app->when(UserController::class)
             ->needs(UserInterface::class)
             ->give(function () {
@@ -32,6 +32,12 @@ class RepositoryServiceProvider extends ServiceProvider
             ->needs(UserInterface::class)
             ->give(function () {
                 return new CustomerRepository;
+            });
+
+        $this->app->when(AdminController::class)
+            ->needs(UserInterface::class)
+            ->give(function () {
+                return new AdminRepository;
             });
     }
 

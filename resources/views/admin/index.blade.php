@@ -14,14 +14,14 @@
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarCollapse">
         <div class="navbar-nav ms-auto py-4 py-lg-0">
             <a onclick="homePage()" href="javascript:void(0)" id="home" class="nav-item nav-link active">Home</a>
             <a onclick="reportPage()" href="javascript:void(0)" id="report" class="nav-item nav-link">Laporan</a>
             <a onclick="reportHistoryPage()" href="javascript:void(0)" class="nav-item nav-link" id="history">Riwayat</a>
             <div class="nav-item dropdown">
-                <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pengguna</a>
-                <div class="dropdown-menu shadow-sm m-0">
+                <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Admin</a>
+                <div class="dropdown-menu dropend shadow-sm m-0" style="right: 0; left: auto; text-align: right;">
                     <a href="javascript:void(0)" class="dropdown-item" id="profile">Profil</a>
                     <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
                 </div>
@@ -33,16 +33,20 @@
 <div id="content">
     <script>
         $.ajax({
-            url: webBaseUrl + '/customer/home-page',
+            url: webBaseUrl + '/admin/home-page',
             type: "GET",
             headers: {
                 Authorization: 'bearer ' + localStorage.getItem('_token')
             },
             success: (res) => {
-                let indexjs = document.createElement('script');
-                indexjs.setAttribute('type', 'text/javascript');
-                indexjs.setAttribute('src', webBaseUrl+'/js/customer.js');
-                document.head.appendChild(indexjs);
+                let adminjs = document.createElement('script');
+                adminjs.setAttribute('type', 'text/javascript');
+                adminjs.setAttribute('src', webBaseUrl+'/js/admin.js');
+                document.head.appendChild(adminjs);
+                // let mainjs = document.createElement('script');
+                // mainjs.setAttribute('type', 'text/javascript');
+                // mainjs.setAttribute('src', webBaseUrl+'/js/main.js');
+                // document.head.appendChild(mainjs);
                 $('#content').html(res)
             },
             error: (err) => {

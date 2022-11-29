@@ -94,6 +94,10 @@ class UsersRepository implements UserInterface
         $user = JWTAuth::toUser(request()->bearerToken());
         if ($user['role'] == 'customer') {
             return view('customer.index');
+        } else if ($user['role'] == 'admin') {
+            return view('admin.index');
+        } else if ($user['role'] == 'officer') {
+            return view('officer.index');
         }
     }
 

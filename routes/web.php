@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,5 +28,8 @@ Route::middleware('jwtauth')->group(function () {
         Route::get('/home-page', [CustomerController::class, 'homePage'])->name('customerHomePage'); // unused
         Route::get('/report-page', [CustomerController::class, 'reportPage'])->name('customerReportPage');
         Route::get('/report-history-page', [CustomerController::class, 'reportHistoryPage'])->name('customerReportHistoryPage');
+    });
+    Route::prefix('admin')->middleware('admin')->group(function () {
+        Route::get('/home-page', [AdminController::class, 'homePage'])->name('adminHomePage'); // unused
     });
 });

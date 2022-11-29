@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -39,6 +40,9 @@ Route::prefix('v1')->group(function () {
         Route::prefix('customer')->middleware('customer')->group(function () {
             Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
             Route::get('reports', [CustomerController::class, 'getReports'])->name('getReports');
+        });
+        Route::prefix('admin')->middleware('admin')->group(function () {
+            Route::get('unaccepted-reports', [AdminController::class, 'getUnacceptedReports'])->name('getUnacceptedReport');
         });
     });
 });

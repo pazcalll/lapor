@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'jwtnoauth' => \App\Http\Middleware\JWTNoAuth::class,
 
         'customer' => \App\Http\Middleware\CustomerMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ];
 }
