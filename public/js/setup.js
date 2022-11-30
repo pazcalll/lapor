@@ -26,7 +26,7 @@ function authCheck() {
                 let indexjs = document.createElement('script');
                 indexjs.setAttribute('type', 'text/javascript');
                 indexjs.setAttribute('src', webBaseUrl+'/js/main.js');
-                document.head.appendChild(indexjs);
+                document.body.appendChild(indexjs);
             },
             error: (err, text, statusMessage) => {
                 // console.log(text, err, statusMessage)

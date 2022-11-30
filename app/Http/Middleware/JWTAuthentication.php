@@ -24,7 +24,7 @@ class JWTAuthentication
         } catch (\Exception $e) {
             if ($e instanceof TokenExpiredException) {
                 $newToken = JWTAuth::parseToken()->refresh();
-                return response()->json(['success' => 'false', "token_type" => 'bearer', 'token' => $newToken, 'message' => 'Token Expired', 'status' => 400], 400);
+                return response()->json(['success' => 'false', "token_type" => 'bearer', 'token' => $newToken, 'message' => 'Durasi login habis, harap muat ulang halaman', 'status' => 400], 400);
             } elseif ($e instanceof TokenInvalidException) {
                 return response()->json(['success' => 'false', 'message' => 'Token Invalid', 'status' => 401], 401);
             } else {

@@ -88,9 +88,9 @@
         $.ajax({
             url: '{{ route("createReport") }}',
             type: 'POST',
-            headers: {
-                Authorization: 'bearer' + localStorage.getItem('_token')
-            },
+            // headers: {
+            //     Authorization: 'bearer' + localStorage.getItem('_token')
+            // },
             data: fd,
             contentType: false,
             processData: false,

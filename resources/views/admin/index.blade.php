@@ -32,27 +32,11 @@
 <!-- Navbar End -->
 <div id="content">
     <script>
-        $.ajax({
-            url: webBaseUrl + '/admin/home-page',
-            type: "GET",
-            headers: {
-                Authorization: 'bearer ' + localStorage.getItem('_token')
-            },
-            success: (res) => {
-                let adminjs = document.createElement('script');
-                adminjs.setAttribute('type', 'text/javascript');
-                adminjs.setAttribute('src', webBaseUrl+'/js/admin.js');
-                document.head.appendChild(adminjs);
-                // let mainjs = document.createElement('script');
-                // mainjs.setAttribute('type', 'text/javascript');
-                // mainjs.setAttribute('src', webBaseUrl+'/js/main.js');
-                // document.head.appendChild(mainjs);
-                $('#content').html(res)
-            },
-            error: (err) => {
-                console.log(err)
-                $('#content').html(err)
-            }
-        })
+        let adminjs = document.createElement('script');
+        adminjs.setAttribute('type', 'text/javascript');
+        adminjs.setAttribute('src', webBaseUrl+'/js/admin.js');
+        adminjs.setAttribute('id', 'adminjs');
+        document.head.appendChild(adminjs);
+        
     </script>
 </div>

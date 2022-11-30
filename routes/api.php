@@ -43,6 +43,7 @@ Route::prefix('v1')->group(function () {
         });
         Route::prefix('admin')->middleware('admin')->group(function () {
             Route::get('unaccepted-reports', [AdminController::class, 'getUnacceptedReports'])->name('getUnacceptedReport');
+            Route::get('officers', [AdminController::class, 'getofficers'])->name('getOfficers');
         });
     });
 });

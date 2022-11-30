@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <meta content="{{ csrf_token() }}" name="csrf-token" />
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
@@ -42,6 +43,14 @@
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
     <link rel="stylesheet" href="{{ asset('css/stepper.css') }}">
+    <style>
+        .btn-secondary{
+            color:aliceblue;
+        }
+        .btn-secondary:hover{
+            color:aliceblue;
+        }
+    </style>
 </head>
 
 <body>

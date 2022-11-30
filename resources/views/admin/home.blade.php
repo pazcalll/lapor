@@ -18,73 +18,6 @@
         </div>
     </div>
 </div>
-<script>
-    $('#incoming_report').DataTable({
-        ajax: {
-            url: "{{ route('getUnacceptedReport') }}",
-            type: "GET",
-            cache: true,
-            headers: headers
-        },
-        lengthChange: false,
-        scrollX: true,
-        language: {
-            url: webBaseUrl + "/json/datatable-indonesia.json"
-        },
-        columnDefs: [
-            { width: '5%', targets: 0 },
-            { width: '40%', targets: 1 },
-            { width: '20%', targets: 2 },
-            { width: '15%', targets: 3 },
-            { width: '20%', targets: 4 },
-        ],
-        columns: [
-            {
-                data: 'referral',
-            },
-            {
-                data: 'issue',
-            },
-            {
-                data: 'created_at',
-            },
-            {
-                data: 'status'
-            },
-            {
-                data: null,
-                render: function(data, type, full, meta) {
-                    console.log(data)
-                    return `
-                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
-                    `
-                }
-            }
-        ],
-        drawCallback: (res) => {
-            $('.btn-process').on('click', function () {  
-                console.log($(this).data('referral'))
-                $('.referral_modal').html($(this).data('referral'))
-            })
-            $.ajax({
-                url: "{{ route('getFacilities') }}",
-                type: "GET",
-                success: (res) => {
-                    let facilityHTML = '<option value="" selected disabled hidden>Pilih Fasilitas</option>'
-                    res.forEach(facility => {
-                        facilityHTML += `
-                            <option value="${facility.id}">${facility.name}</option>
-                        `
-                    });
-                    $('#facility').html(facilityHTML)
-                },
-                error: (err) => {
-                    window.location.reload()
-                }
-            })
-        }
-    })
-</script>
 <!-- Header End -->
 
 <!-- Modal -->
@@ -95,7 +28,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Buat Laporan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="makeReport">
+            <form onclick="processReport(event)" id="processReport">
                 @method("POST")
                 @csrf
                 <div class="modal-body">
@@ -103,6 +36,7 @@
                         <div class="col-md-12">
                             <div class="form-floating">
                                 <span>Referral : </span><span class="referral_modal"></span>
+                                <input type="hidden" name="referral" id="referral">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -131,16 +65,6 @@
         class="bi bi-arrow-up"></i></a>
 
 <script>
-    $('.dropify').dropify({
-        messages: {
-            'default': 'Masukkan bukti',
-            'replace': 'Masukkan ganti dengan bukti lain',
-            'remove':  'Hapus',
-            'error':   'Maaf, terjadi kesalahan.'
-        },
-        error: {
-            'fileSize': 'Ukuran terlalu besar (1 mb max).',
-        }
-    })
-    $('')
+    incomingReportDatatable()
+    getOfficers()
 </script>

@@ -27,4 +27,10 @@ class AdminController extends Controller
         $data = $this->admin->getUnacceptedReports();
         return datatables($data)->toJson();
     }
+
+    public function getOfficers()
+    {
+        $data = $this->admin->getOfficers();
+        return datatables($data)->toJson();
+    }
 }
