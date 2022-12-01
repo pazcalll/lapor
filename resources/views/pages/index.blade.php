@@ -32,6 +32,7 @@
     {{-- Data Table --}}
     {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <link href="{{ asset('lib/toastr/toastr.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -39,6 +40,7 @@
 
     <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
     <script src="{{ asset('js/setup.js') }}"></script>
+    <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
 
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">

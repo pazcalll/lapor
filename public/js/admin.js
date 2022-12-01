@@ -1,3 +1,5 @@
+let dt = null
+
 function homePage() {
     $.ajax({
         url: webBaseUrl + '/admin/home-page',
@@ -42,7 +44,7 @@ function logout() {
 }
 
 function incomingReportDatatable() {
-    $('#incoming_report').DataTable({
+    dt = $('#incoming_report').DataTable({
         ajax: {
             url: apiBaseUrl+"/user/admin/unaccepted-reports",
             type: "GET",
@@ -116,9 +118,9 @@ function getOfficers() {
         type: "GET",
         success: (res) => {
             console.log(res)
-            options = ``
+            options = `<option disabled hidden selected>Pilih Pegawai</option>`
             res.data.forEach((item, _index) => {
-                options += "<option>"+item.name+"</option>"
+                options += `<option value='${item.id}'>`+item.name+"</option>"
             });
             $('#officer').html(options)
         },
@@ -135,23 +137,33 @@ function processReport(e) {
     fd.append('officer', $('#officer').val())
     fd.append('additional', $('#additional').val())
     fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
-    let modalProcess = new bootstrap.Modal(document.getElementById('prosesModal'), {
-        keyboard: false
-    })
-    modalProcess.hide()
-    console.log(modalProcess)
-    console.log(fd)
+    $('.modal-close').click()
 
+    // $('#prosesModal').modal('hide')
     $.ajax({
         url: apiBaseUrl + "/user/admin/process-report",
         type: "POST",
         data: fd,
         processData: false,
         contentType: false,
+        beforeSend: () => {
+            $('#referral').val('')
+            $('#officer').val('Pilih Pegawai')
+            $('#additional').val('')
+            dt.ajax.reload()
+        },
         success: (res) => {
+            toastr.success('Laporan berhasil disetujui')
         },
         error: (err) => {
+            toastr.error('Mohon Periksa ulang isian anda')
             console.log(err)
         }
     })
 }
+
+
+
+// ----------   LAPORAN DIPROSES-----------------------
+
+

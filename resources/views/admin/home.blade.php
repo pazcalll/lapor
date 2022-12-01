@@ -26,9 +26,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Buat Laporan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onclick="processReport(event)" id="processReport">
+            <form onsubmit="processReport(event)" id="processReport">
                 @method("POST")
                 @csrf
                 <div class="modal-body">

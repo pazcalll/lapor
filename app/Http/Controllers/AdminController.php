@@ -33,4 +33,9 @@ class AdminController extends Controller
         $data = $this->admin->getOfficers();
         return datatables($data)->toJson();
     }
+
+    public function processReport()
+    {
+        return $this->admin->processReport();
+    }
 }
