@@ -6,7 +6,8 @@ let headers = {
 $.ajaxSetup({
     headers: headers,
     error: (err) => {
-        console.log(err)
+        console.log(err.responseJSON)
+        window.location.reload()
     }
 })
 

@@ -22,6 +22,11 @@ class AdminController extends Controller
         return view('admin.home');
     }
 
+    public function processPage()
+    {
+        return view('admin.process');
+    }
+
     public function getUnacceptedReports()
     {
         $data = $this->admin->getUnacceptedReports();
@@ -37,5 +42,11 @@ class AdminController extends Controller
     public function processReport()
     {
         return $this->admin->processReport();
+    }
+
+    public function getAcceptedReports()
+    {
+        $acceptedReports = $this->admin->getAcceptedReports();
+        return datatables($acceptedReports)->toJson();
     }
 }

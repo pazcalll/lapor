@@ -31,5 +31,6 @@ Route::middleware('jwtauth')->group(function () {
     });
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/home-page', [AdminController::class, 'homePage'])->name('adminHomePage'); // unused
+        Route::get('/process-page', [AdminController::class, 'processPage'])->name('adminProcessPage');
     });
 });

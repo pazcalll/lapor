@@ -50,4 +50,10 @@ class AdminRepository extends UsersRepository
             return response()->json(['error' => $th], 500);
         }
     }
+
+    public function getAcceptedReports()
+    {
+        $report = Report::where('status', 'DIPROSES')->get()->toArray();
+        return $report;
+    }
 }

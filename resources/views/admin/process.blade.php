@@ -3,7 +3,7 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center">
             <h1 class="display-4 mb-3">Laporan Diproses</h1>
-            <table id="incoming_report" class="table table-striped table-borderless" style="width: 100%">
+            <table id="inprocess_report" class="table table-striped table-borderless" style="width: 100%">
                 <thead>
                     <tr>
                         <td>Referral</td>
@@ -25,5 +25,5 @@
         class="bi bi-arrow-up"></i></a>
 
 <script>
-    
+    getAcceptedReports()
 </script>

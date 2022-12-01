@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse align-items-center justify-content-center" id="navbarCollapse">
         <div class="navbar-nav ms-auto py-4 py-lg-0">
             <a onclick="homePage()" href="javascript:void(0)" id="home" class="nav-item nav-link active">Home</a>
-            <a onclick="reportPage()" href="javascript:void(0)" id="report" class="nav-item nav-link">Diproses</a>
+            <a onclick="processPage()" href="javascript:void(0)" id="process" class="nav-item nav-link">Diproses</a>
             <a onclick="reportHistoryPage()" href="javascript:void(0)" class="nav-item nav-link" id="history">Selesai</a>
             <div class="nav-item dropdown">
                 <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Admin</a>

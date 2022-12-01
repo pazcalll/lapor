@@ -7,6 +7,10 @@ function homePage() {
         headers: {
             Authorization: 'bearer ' + localStorage.getItem('_token')
         },
+        beforeSend: () => {
+            $(".nav-item").removeClass('active')
+            $("#home").addClass('active')
+        },
         success: (res) => {
             // let mainjs = document.createElement('script');
             // mainjs.setAttribute('type', 'text/javascript');
@@ -167,3 +171,90 @@ function processReport(e) {
 // ----------   LAPORAN DIPROSES-----------------------
 
 
+function processPage() {
+    $.ajax({
+        url: webBaseUrl + '/admin/process-page',
+        type: "GET",
+        beforeSend: () => {
+            $(".nav-item").removeClass('active')
+            $("#process").addClass('active')
+        },
+        success: (res) => {
+            $("#content").html(res)
+        },
+        error: (err) => {
+            console.log(err)
+            console.log(err.responseJSON)
+            console.log(err.responseText)
+        }
+    })
+}
+
+function getAcceptedReports() {
+    dt = $('#inprocess_report').DataTable({
+        ajax: {
+            url: apiBaseUrl+"/user/admin/accepted-reports",
+            type: "GET",
+            cache: true,
+            headers: headers
+        },
+        lengthChange: false,
+        scrollX: true,
+        language: {
+            url: webBaseUrl + "/json/datatable-indonesia.json"
+        },
+        columnDefs: [
+            { width: '5%', targets: 0 },
+            { width: '40%', targets: 1 },
+            { width: '20%', targets: 2 },
+            { width: '15%', targets: 3 },
+            { width: '20%', targets: 4 },
+        ],
+        columns: [
+            {
+                data: 'referral',
+            },
+            {
+                data: 'issue',
+            },
+            {
+                data: 'created_at',
+            },
+            {
+                data: 'status'
+            },
+            {
+                data: null,
+                render: function(data, type, full, meta) {
+                    console.log(data)
+                    return `
+                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#detailModal" type="button" class="btn btn-info" data-referral="${data.referral}">Proses</button>
+                    `
+                }
+            }
+        ],
+        drawCallback: (res) => {
+            $('.btn-process').on('click', function () {  
+                $('.referral_modal').html($(this).data('referral'))
+                $('#referral').val($(this).data('referral'))
+            })
+            $.ajax({
+                url: apiBaseUrl + "/user/get-facilities",
+                type: "GET",
+                success: (res) => {
+                    let facilityHTML = '<option value="" selected disabled hidden>Pilih Fasilitas</option>'
+                    res.forEach(facility => {
+                        facilityHTML += `
+                            <option value="${facility.id}">${facility.name}</option>
+                        `
+                    });
+                    $('#facility').html(facilityHTML)
+                },
+                error: (err) => {
+                    console.log(err)
+                    window.location.reload()
+                }
+            })
+        }
+    })
+}
