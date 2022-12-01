@@ -19,7 +19,7 @@
         rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -38,8 +38,10 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
-    <script src="{{ asset('js/setup.js') }}"></script>
+    <script src="{{ asset('js/setup.js') }}" defer></script>
     <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
 
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
@@ -50,6 +52,12 @@
             color:aliceblue;
         }
         .btn-secondary:hover{
+            color:aliceblue;
+        }
+        .btn-info{
+            color:aliceblue;
+        }
+        .btn-info:hover{
             color:aliceblue;
         }
     </style>

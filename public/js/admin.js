@@ -190,7 +190,8 @@ function processPage() {
     })
 }
 
-function getAcceptedReports() {
+function getAcceptedReports(storageLink) {
+    console.log(storageLink)
     dt = $('#inprocess_report').DataTable({
         ajax: {
             url: apiBaseUrl+"/user/admin/accepted-reports",
@@ -204,31 +205,33 @@ function getAcceptedReports() {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
         columnDefs: [
-            { width: '5%', targets: 0 },
-            { width: '40%', targets: 1 },
-            { width: '20%', targets: 2 },
-            { width: '15%', targets: 3 },
-            { width: '20%', targets: 4 },
+            { width: '15%', targets: 0 },
+            { width: '30%', targets: 1 },
+            { width: '25%', targets: 2 },
+            { width: '30%', targets: 3 },
         ],
         columns: [
             {
                 data: 'referral',
             },
             {
-                data: 'issue',
+                data: 'assignment.officer.name',
             },
             {
-                data: 'created_at',
-            },
-            {
-                data: 'status'
+                data: 'assignment.created_at',
             },
             {
                 data: null,
                 render: function(data, type, full, meta) {
                     console.log(data)
                     return `
-                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#detailModal" type="button" class="btn btn-info" data-referral="${data.referral}">Proses</button>
+                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#detailModal" type="button" class="btn btn-info" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
+                        <a class="btn btn-info" target="_blank" href="${storageLink + "/proof/" + data.proof_file}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5Zm-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z"/>
+                            </svg> 
+                            Lihat Bukti
+                        </a>
                     `
                 }
             }

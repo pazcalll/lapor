@@ -53,7 +53,21 @@ class AdminRepository extends UsersRepository
 
     public function getAcceptedReports()
     {
-        $report = Report::where('status', 'DIPROSES')->get()->toArray();
+        // $report = Report::where('status', 'DIPROSES')->get()->toArray();
+        $report = Report::with([
+            "assignment" => function ($query) {
+                return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at');
+            },
+            "assignment.officer" => function ($query) {
+                return $query->select('id', 'name', 'role');
+            },
+            "reporter" => function ($query) {
+                return $query->select('id', 'name', 'role');
+            },
+            "facility" => function ($query) {
+                return $query->select('id', 'name');
+            }
+        ])->select('id', 'referral', 'facility_id', 'user_id', 'location', 'issue', 'proof_file')->where('status', "DIPROSES")->get()->toArray();
         return $report;
     }
 }
