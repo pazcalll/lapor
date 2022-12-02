@@ -453,3 +453,28 @@ function getEnumUser() {
         }
     })
 }
+
+function editUser(e) {
+    e.preventDefault()
+    let fd = new FormData()
+    fd.append('username', $('#username').val())
+    fd.append('role', $('#role').val())
+    fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
+    $('.modal-close').click()
+
+    $.ajax({
+        url: apiBaseUrl + "/user/admin/edit-user",
+        type: "POST",
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: (res) => {
+            toastr.success("Role pengguna telah diubah!")
+            dt.ajax.reload()
+        },
+        error: (err) => {
+            console.log(err)
+            toastr.error("Terjadi kesalahan")
+        }
+    })
+}

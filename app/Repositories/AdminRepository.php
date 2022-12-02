@@ -125,4 +125,11 @@ class AdminRepository extends UsersRepository
         }
         return $enum;
     }
+
+    public function editUser()
+    {
+        User::where('username', request()->post('username'))->update([
+            "role" => request()->post('role')
+        ]);
+    }
 }

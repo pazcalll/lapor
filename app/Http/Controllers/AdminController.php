@@ -77,4 +77,10 @@ class AdminController extends Controller
         $enum = $this->admin->getEnumUser();
         return response()->json($enum, 200);
     }
+
+    public function editUser()
+    {
+        $edit = $this->admin->editUser();
+        return $edit;
+    }
 }
