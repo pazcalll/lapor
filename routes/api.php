@@ -47,6 +47,8 @@ Route::prefix('v1')->group(function () {
             Route::get('accepted-reports', [AdminController::class, 'getAcceptedReports'])->name('getAcceptedReport');
             Route::get('finished-reports', [AdminController::class, 'getFinishedReports'])->name('getFinishedReport');
             Route::get('officers', [AdminController::class, 'getofficers'])->name('getOfficers');
+            Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
+            Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
         });
     });
 });

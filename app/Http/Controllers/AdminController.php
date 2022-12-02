@@ -32,6 +32,11 @@ class AdminController extends Controller
         return view('admin.finished');
     }
 
+    public function configPage()
+    {
+        return view('admin.config');
+    }
+
     public function getUnacceptedReports()
     {
         $data = $this->admin->getUnacceptedReports();
@@ -59,5 +64,17 @@ class AdminController extends Controller
     {
         $finishedReports = $this->admin->getFinishedReports();
         return datatables($finishedReports)->toJson();
+    }
+
+    public function getNonAdminUsers()
+    {
+        $users = $this->admin->getNonAdminUsers();
+        return datatables($users)->toJson();
+    }
+
+    public function getEnumUser()
+    {
+        $enum = $this->admin->getEnumUser();
+        return response()->json($enum, 200);
     }
 }

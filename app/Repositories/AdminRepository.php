@@ -7,6 +7,7 @@ use App\Models\Assignment;
 use App\Models\Report;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Enum;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class AdminRepository extends UsersRepository
@@ -92,5 +93,36 @@ class AdminRepository extends UsersRepository
             }
         ])->select('id', 'referral', 'facility_id', 'user_id', 'location', 'issue', 'proof_file')->where('status', "SELESAI")->get()->toArray();
         return $report;
+    }
+
+    public function getNonAdminUsers()
+    {
+        $users = User::where('role', '!=', 'admin')->get();
+        return $users;
+    }
+
+    public function getEnumUser()
+    {
+        $type = DB::table('information_schema.columns')
+            ->select('column_type')
+            ->where('table_schema', 'lapor')
+            ->where('table_name', 'users')
+            ->where('column_name', 'role')
+            ->first();
+        $enum = [];
+        $flag = 0;
+        $newWord = "";
+        for ($i = 0; $i < strlen($type->COLUMN_TYPE); $i++) {
+            if ($flag == 0 && $type->COLUMN_TYPE[$i] == "'") {
+                $flag = 1;
+            } else if ($type->COLUMN_TYPE[$i] == "'" && $flag == 1) {
+                $enum[] = $newWord;
+                $newWord = "";
+                $flag = 0;
+            } else if ($flag == 1) {
+                $newWord = $newWord . $type->COLUMN_TYPE[$i];
+            }
+        }
+        return $enum;
     }
 }

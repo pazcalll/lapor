@@ -120,8 +120,8 @@ function getOfficers() {
         success: (res) => {
             console.log(res)
             options = `<option disabled hidden selected>Pilih Pegawai</option>`
-            res.data.forEach((item, _index) => {
-                options += `<option value='${item.id}'>`+item.name+"</option>"
+            res.data.forEach((officer, _index) => {
+                options += `<option value='${officer.id}'>`+officer.name+"</option>"
             });
             $('#officer').html(options)
         },
@@ -345,6 +345,111 @@ function getFinishedReports() {
                 $('#issue').val($(this).data('issue'))
                 $('#additional').val($(this).data('additional'))
             })
+        }
+    })
+}
+
+// -----------------------------    USER CONFIG -----------------------------
+
+function configPage() {
+    $.ajax({
+        url: webBaseUrl + '/admin/config-page',
+        type: "GET",
+        beforeSend: () => {
+            $(".nav-item").removeClass('active')
+        },
+        success: (res) => {
+            $('#content').html(res)
+        },
+        error: (err) => {
+            console.log(err)
+            window.location.reload()
+        }
+    })
+}
+
+function userTable() {
+    dt = $('#user_table').DataTable({
+        ajax: {
+            url: apiBaseUrl+"/user/admin/non-admin-users",
+            type: "GET",
+            cache: true,
+            headers: headers
+        },
+        lengthChange: false,
+        scrollX: true,
+        language: {
+            url: webBaseUrl + "/json/datatable-indonesia.json"
+        },
+        columnDefs: [
+            { width: '20%', targets: 0 },
+            { width: '10%', targets: 1 },
+            { width: '10%', targets: 2 },
+            { width: '10%', targets: 3 },
+            { width: '25%', targets: 4 },
+            { width: '25%', targets: 5 },
+        ],
+        columns: [
+            {
+                data: 'name',
+            },
+            {
+                data: 'username',
+            },
+            {
+                data: 'role',
+            },
+            {
+                data: 'phone',
+            },
+            {
+                data: 'address',
+            },
+            {
+                data: null,
+                render: function(data, type, full, meta) {
+                    return `
+                        <button 
+                            data-bs-backdrop="false" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#editUserModal" 
+                            type="button" 
+                            class="btn btn-info btn-edit-user" 
+                            data-username="${data.username}"
+                            data-name="${data.name}"
+                            data-role="${data.role}"
+                        >
+                            <i class="bi bi-pencil-square"></i> 
+                            Edit
+                        </button>
+                    `
+                }
+            }
+        ],
+        drawCallback: (res) => {
+            $('.btn-edit-user').on('click', function () {  
+                $('.username').html($(this).data('username'))
+                $('#name').val($(this).data('name'))
+                $('#username').val($(this).data('username'))
+                $('#role').val($(this).data('role'))
+            })
+        }
+    })
+}
+
+function getEnumUser() {
+    $.ajax({
+        url: apiBaseUrl + "/user/admin/enum-user",
+        type: "GET", 
+        success: (res) => {
+            options = `<option disabled hidden selected>Pilih Role</option>`
+            res.forEach((item, _index) => {
+                options += `<option value='${item}'>`+item+"</option>"
+            });
+            $('#role').html(options)
+        },
+        error: (err) => {
+            console.log(err)
         }
     })
 }
