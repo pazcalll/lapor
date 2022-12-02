@@ -45,6 +45,7 @@ Route::prefix('v1')->group(function () {
             Route::post('process-report', [AdminController::class, 'processReport'])->name('processReportAdmin');
             Route::get('unaccepted-reports', [AdminController::class, 'getUnacceptedReports'])->name('getUnacceptedReport');
             Route::get('accepted-reports', [AdminController::class, 'getAcceptedReports'])->name('getAcceptedReport');
+            Route::get('finished-reports', [AdminController::class, 'getFinishedReports'])->name('getFinishedReport');
             Route::get('officers', [AdminController::class, 'getofficers'])->name('getOfficers');
         });
     });
