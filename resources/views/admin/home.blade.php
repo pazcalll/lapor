@@ -9,7 +9,6 @@
                         <td>Referral</td>
                         <td>Deskripsi Laporan</td>
                         <td>Waktu Laporan</td>
-                        <td>Status</td>
                         <td>Tindakan</td>
                     </tr>
                 </thead>
@@ -25,7 +24,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Buat Laporan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Proses Laporan</h5>
                 <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form onsubmit="processReport(event)" id="processReport">
@@ -53,7 +52,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Buat Laporan</button>
+                    <button type="submit" class="btn btn-primary">Proses</button>
                 </div>
             </form>
         </div>
@@ -65,6 +64,6 @@
         class="bi bi-arrow-up"></i></a>
 
 <script>
-    incomingReportDatatable()
+    incomingReportDatatable('{{ asset("storage/proof") }}')
     getOfficers()
 </script>

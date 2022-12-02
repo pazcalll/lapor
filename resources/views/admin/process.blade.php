@@ -24,11 +24,11 @@
         class="bi bi-arrow-up"></i></a>
 
 <!-- Modal -->
-<div class="modal fade" id="prosesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Buat Laporan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Laporan</h5>
                 <button type="button" class="btn-close modal-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -36,16 +36,35 @@
                     <div class="col-md-12">
                         <div class="form-floating">
                             <span>Referral : </span><span class="referral_modal"></span>
-                            <input type="hidden" name="referral" id="referral">
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <select name="officer" id="officer" class="form-select" aria-placeholder="">
-                        </select>
+                        <div class="form-floating">
+                            <input class="form-control" disabled name="officer" id="officer">
+                            <label for="officer">Penanggung Jawab</label>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-floating">
-                            <textarea class="form-control" style="height: 100px" name="additional" id="additional" placeholder="Informasi Tambahan" cols="30" rows="50"></textarea>
+                            <input class="form-control" disabled name="reporter" id="reporter">
+                            <label for="reporter">Pelapor</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input class="form-control" disabled name="location" id="location">
+                            <label for="location">Lokasi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" disabled style="height: 100px" name="issue" id="issue" placeholder="Deskripsi" cols="30" rows="50"></textarea>
+                            <label for="issue">Deskripsi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" disabled style="height: 100px" name="additional" id="additional" placeholder="Informasi Tambahan" cols="30" rows="50"></textarea>
                             <label for="additional">Informasi Tambahan</label>
                         </div>
                     </div>
@@ -59,5 +78,5 @@
 </div>
 
 <script>
-    getAcceptedReports("{{ asset('storage') }}")
+    getAcceptedReports("{{ asset('storage/proof') }}")
 </script>

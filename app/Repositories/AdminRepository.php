@@ -35,7 +35,10 @@ class AdminRepository extends UsersRepository
             $reportData = [
                 'referral' => request()->post('referral')
             ];
-            $report = Report::where('referral', $reportData['referral'])->first()->toArray();
+            $report = Report::where('referral', $reportData['referral'])->where('status', "MENUNGGU")->first()->toArray();
+            if (count($report) == 0) {
+                return response()->json(['error' => "Data sudah diproses"], 400);
+            }
             // dd($report);
             $data = [
                 'user_id' => request()->post('officer'),

@@ -43,6 +43,7 @@ class UsersRepository implements UserInterface
                 ]
             );
             $validated['password'] = Hash::make($validated['password']);
+            $validated['role'] = "customer";
             User::create($validated);
 
             return response()->json(['success' => 'register success', 'status' => 200], 200);
