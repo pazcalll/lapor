@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +31,12 @@ Route::middleware('jwtauth')->group(function () {
         Route::get('/report-history-page', [CustomerController::class, 'reportHistoryPage'])->name('customerReportHistoryPage');
     });
     Route::prefix('admin')->middleware('admin')->group(function () {
-        Route::get('/home-page', [AdminController::class, 'homePage'])->name('adminHomePage'); // unused
+        Route::get('/home-page', [AdminController::class, 'homePage'])->name('adminHomePage');
         Route::get('/process-page', [AdminController::class, 'processPage'])->name('adminProcessPage');
         Route::get('/finished-page', [AdminController::class, 'finishedPage'])->name('adminFinishedPage');
         Route::get('/config-page', [AdminController::class, 'configPage'])->name('adminConfigPage');
+    });
+    Route::prefix('officer')->middleware('officer')->group(function () {
+        Route::get('/home-page', [OfficerController::class, 'homePage'])->name('officerHomePage');
     });
 });
