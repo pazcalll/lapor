@@ -10,6 +10,13 @@ function homePage() {
         beforeSend: () => {
             $(".nav-item").removeClass('active')
             $("#home").addClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
         },
         success: (res) => {
             // let mainjs = document.createElement('script');
@@ -82,15 +89,18 @@ function incomingReportDatatable(storageLink) {
                     console.log(data)
                     return `
                         <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
-                        <a target="_blank" class="btn btn-info" href="${storageLink+"/"+data.proof_file}">Lihat Bukti</a>
+                        <a data-href="${data.proof_file}" class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
                     `
                 }
             }
         ],
         drawCallback: (res) => {
-            $('.btn-process').on('click', function () {  
+            $('.btn-process').on('click', function () {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#referral').val($(this).data('referral'))
+            })
+            $('.btn-proof').on('click', function () {  
+                window.open($(this).data('href'), '_blank');
             })
             $.ajax({
                 url: apiBaseUrl + "/user/get-facilities",
@@ -138,7 +148,6 @@ function processReport(e) {
     fd.append('officer', $('#officer').val())
     fd.append('additional', $('#additional').val())
     fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
-    $('.modal-close').click()
 
     // $('#prosesModal').modal('hide')
     $.ajax({
@@ -148,11 +157,14 @@ function processReport(e) {
         processData: false,
         contentType: false,
         beforeSend: () => {
+            $('.report-form').addClass('visually-hidden')
+            $('.modal-close').click()
             $('#referral').val('')
             $('#officer').val('Pilih Pegawai')
             $('#additional').val('')
         },
         success: (res) => {
+            $('.report-form').addClass('visually-hidden')
             toastr.success('Laporan berhasil disetujui')
             dt.ajax.reload()
         },
@@ -175,6 +187,13 @@ function processPage() {
         beforeSend: () => {
             $(".nav-item").removeClass('active')
             $("#process").addClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
         },
         success: (res) => {
             $("#content").html(res)
@@ -234,7 +253,7 @@ function getAcceptedReports(storageLink) {
         ],
         drawCallback: (res) => {
             $('.btn-proof').on('click', function () {  
-                window.open(webBaseUrl+"/"+$(this).data('item'), '_blank');
+                window.open($(this).data('item'), '_blank');
             })
             $('.btn-detail').on('click', function () {  
                 $('.referral_modal').html($(this).data('referral'))
@@ -248,7 +267,7 @@ function getAcceptedReports(storageLink) {
                 url: apiBaseUrl + "/user/get-facilities",
                 type: "GET",
                 success: (res) => {
-                    let facilityHTML = '<option value="" selected disabled hidden>Pilih Fasilitas</option>'
+                    let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
                     res.forEach(facility => {
                         facilityHTML += `
                             <option value="${facility.id}">${facility.name}</option>
@@ -273,6 +292,13 @@ function finishedPage() {
         beforeSend: () => {
             $(".nav-item").removeClass('active')
             $("#finished").addClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
         },
         success: (res) => {
             $("#content").html(res)
@@ -339,10 +365,10 @@ function getFinishedReports(storageLink) {
         ],
         drawCallback: (res) => {
             $('.btn-proof').on('click', function () {  
-                window.open(webBaseUrl+"/"+$(this).data('item'), '_blank');
+                window.open($(this).data('item'), '_blank');
             })
             $('.btn-proof-finish').on('click', function () {  
-                window.open(webBaseUrl+"/"+$(this).data('item'), '_blank');
+                window.open($(this).data('item'), '_blank');
             })
             $('.btn-detail').on('click', function () {  
                 $('.referral_modal').html($(this).data('referral'))
@@ -364,6 +390,13 @@ function configPage() {
         type: "GET",
         beforeSend: () => {
             $(".nav-item").removeClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
         },
         success: (res) => {
             $('#content').html(res)

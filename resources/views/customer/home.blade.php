@@ -86,17 +86,15 @@
         fd.append('location', $('#location').val())
         fd.append('_token', "{{ csrf_token() }}")
         
-        $('#proof').val(null)
+        $('.btn-close').click()
         $('#issue').val(null)
         $('#facility').val(null)
         $('#location').val(null)
+        $('.dropify-clear').click()
 
         $.ajax({
             url: '{{ route("createReport") }}',
             type: 'POST',
-            // headers: {
-            //     Authorization: 'bearer' + localStorage.getItem('_token')
-            // },
             data: fd,
             contentType: false,
             processData: false,

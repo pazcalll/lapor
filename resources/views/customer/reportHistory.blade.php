@@ -10,7 +10,6 @@
                             <td>Deskripsi Laporan</td>
                             <td>Waktu Laporan</td>
                             <td>Status</td>
-                            <td>Tindakan</td>
                         </tr>
                     </thead>
                     <tbody></tbody>

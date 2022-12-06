@@ -4,10 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Assignment;
 use App\Models\Report;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-
-use function Lcobucci\Clock\now;
 
 class OfficerRepository extends UsersRepository
 {
@@ -74,7 +73,7 @@ class OfficerRepository extends UsersRepository
                 ->whereNull('file_finish')
                 ->update([
                     'file_finish' => 'storage/finish/' . $filename,
-                    'finished_at' => now()
+                    'finished_at' => Carbon::now()
                 ]);
             $reportUpdate = Report::where('referral', request()->post('referral'))
                 ->update([

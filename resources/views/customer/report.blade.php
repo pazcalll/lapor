@@ -16,7 +16,12 @@
         </div>
     </div>
 </div>
-<div class="container-xxl bg-light auth-content" style="padding-bottom: 200px">
+<div class="container-xxl bg-light report-form" style="padding-bottom: 200px">
+    <span class="visually-hidden d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; width: 100%; height: 80%; align-content: center;">
+        <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </span>
+    </span>
     <div class="container" id="form-content">
         <div class="row g-5 mb-5 wow fadeInUp">
             <div class="col-lg-6">

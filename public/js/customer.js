@@ -6,7 +6,7 @@ function getFacilities() {
         url: apiBaseUrl+'/user/get-facilities',
         type: "GET",
         success: (res) => {
-            let facilityHTML = '<option value="" selected disabled hidden>Pilih Fasilitas</option>'
+            let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
             res.forEach(facility => {
                 facilityHTML += `
                     <option value="${facility.id}">${facility.name}</option>
@@ -69,6 +69,7 @@ function reportPage() {
                 fd.append('facility', $('#facility').val())
                 fd.append('location', $('#location').val())
                 fd.append('_token', "{{ csrf_token() }}")
+
                 $.ajax({
                     url: apiBaseUrl + '/user/customer/report',
                     type: 'POST',
@@ -78,11 +79,18 @@ function reportPage() {
                     data: fd,
                     contentType: false,
                     processData: false,
+                    beforeSend: () => {
+                        $("#form-content").addClass('visually-hidden')
+                        $(".form-spinner").removeClass('visually-hidden')
+                        $(".dropify-clear").click()
+                        $('#issue').val(null)
+                        $('#facility').val(0)
+                        $('#location').val(null)
+                    },
                     success: (res) => {
                         toastr.success('Laporan terkirim!')
-                        setTimeout(() => {
-                            window.location.reload()
-                        }, 1500);
+                        $(".form-spinner").addClass('visually-hidden')
+                        $("#form-content").removeClass('visually-hidden')
                         console.log(res)
                     },
                     error: (err) => {
@@ -140,11 +148,10 @@ function reportHistoryPage() {
                     url: webBaseUrl + "/json/datatable-indonesia.json"
                 },
                 columnDefs: [
-                    { width: '5%', targets: 0 },
+                    { width: '15%', targets: 0 },
                     { width: '40%', targets: 1 },
-                    { width: '20%', targets: 2 },
-                    { width: '15%', targets: 3 },
-                    { width: '20%', targets: 4 },
+                    { width: '25%', targets: 2 },
+                    { width: '20%', targets: 3 },
                 ],
                 columns: [
                     {
@@ -158,25 +165,9 @@ function reportHistoryPage() {
                     },
                     {
                         data: 'status'
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, full, meta) {
-                            return `
-                                <button type="">action</button>
-                            `
-                        }
                     }
                 ]
             })
-        },
-        error: (err) => {
-            if (err.responseJSON.status == 400) {
-                localStorage.setItem('_token', err.responseJSON._token)
-                homePage()
-            }else {
-                window.location.reload()
-            }
         }
     })
 }

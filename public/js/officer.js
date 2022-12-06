@@ -7,12 +7,15 @@ function homePage() {
         beforeSend: () => {
             $(".nav-item").removeClass('active')
             $("#home").addClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
         },
         success: (res) => {
-            // let mainjs = document.createElement('script');
-            // mainjs.setAttribute('type', 'text/javascript');
-            // mainjs.setAttribute('src', webBaseUrl+'/js/main.js');
-            // document.head.appendChild(mainjs);
             $('#content').html(res)
         },
         error: (err) => {
@@ -30,6 +33,13 @@ function historyPage() {
         beforeSend: () => {
             $(".nav-item").removeClass('active')
             $("#history").addClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
         },
         success: (res) => {
             $('#content').html(res)
@@ -249,19 +259,24 @@ function finishAssignment(e) {
     let fd = new FormData()
     fd.append('referral', $('#referral_finish').val())
     fd.append('file_finish', $('#file_finish')[0].files[0])
-    console.log('asdf')
     $.ajax({
         url: apiBaseUrl+"/user/officer/finish-assignment",
         type: "POST",
         data: fd,
         contentType: false,
         processData: false,
-        success: (res) => {
+        beforeSend: () => {
             $('.modal-close').click()
+            $('.dropify-clear').click()
+            $('#referral_finish').val("")
+        },
+        success: (res) => {
+            toastr.success("Tugas telah diselesaikan")
             console.log(res)
             dt.ajax.reload()
         },
         error: (err) => {
+            toastr.error("Terjadi kesalahan")
             console.log(err)
         }
     })
