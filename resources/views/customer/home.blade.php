@@ -85,6 +85,12 @@
         fd.append('facility', $('#facility').val())
         fd.append('location', $('#location').val())
         fd.append('_token', "{{ csrf_token() }}")
+        
+        $('#proof').val(null)
+        $('#issue').val(null)
+        $('#facility').val(null)
+        $('#location').val(null)
+
         $.ajax({
             url: '{{ route("createReport") }}',
             type: 'POST',
@@ -95,9 +101,11 @@
             contentType: false,
             processData: false,
             success: (res) => {
+                toastr.success('Laporan terkirim!')
                 console.log(res)
             },
             error: (err) => {
+                toastr.error('Laporan gagal terkirim')
                 console.log(err)
             }
         })

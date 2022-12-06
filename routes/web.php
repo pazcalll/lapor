@@ -38,5 +38,6 @@ Route::middleware('jwtauth')->group(function () {
     });
     Route::prefix('officer')->middleware('officer')->group(function () {
         Route::get('/home-page', [OfficerController::class, 'homePage'])->name('officerHomePage');
+        Route::get('/history-page', [OfficerController::class, 'historyPage'])->name('officerHistoryPage');
     });
 });

@@ -22,6 +22,11 @@ class OfficerController extends Controller
         return view('officer.home');
     }
 
+    public function historyPage()
+    {
+        return view('officer.history');
+    }
+
     public function getIncomingAssignments()
     {
         $assignents = $this->officer->getIncomingAssignments();
@@ -31,5 +36,11 @@ class OfficerController extends Controller
     public function finishAssignment()
     {
         return $this->officer->finishAssignment();
+    }
+
+    public function getFinishedAssignments()
+    {
+        $finishedAssignments = $this->officer->getFinishedAssignments();
+        return datatables($finishedAssignments)->toJson();
     }
 }

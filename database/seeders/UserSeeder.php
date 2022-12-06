@@ -19,13 +19,6 @@ class UserSeeder extends Seeder
     {
         //
         DB::beginTransaction();
-        $customer = User::create([
-            'name' => 'user1',
-            'username' => 'user1',
-            'password' => Hash::make('password'),
-            'role' => 'customer',
-            'phone' => '123467890'
-        ]);
         $admin = User::create([
             'name' => 'admin',
             'username' => 'admin',
@@ -33,13 +26,22 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'phone' => '123467890'
         ]);
-        $officer = User::create([
-            'name' => 'officer',
-            'username' => 'officer',
-            'password' => Hash::make('password'),
-            'role' => 'officer',
-            'phone' => '123467890'
-        ]);
+        for ($i = 0; $i < 3; $i++) {
+            $customer = User::create([
+                'name' => 'user' . $i,
+                'username' => 'user' . $i,
+                'password' => Hash::make('password'),
+                'role' => 'customer',
+                'phone' => '123467890'
+            ]);
+            $officer = User::create([
+                'name' => 'officer' . $i,
+                'username' => 'officer' . $i,
+                'password' => Hash::make('password'),
+                'role' => 'officer',
+                'phone' => '123467890'
+            ]);
+        }
         DB::commit();
     }
 }

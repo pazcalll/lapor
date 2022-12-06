@@ -79,9 +79,14 @@ function reportPage() {
                     contentType: false,
                     processData: false,
                     success: (res) => {
+                        toastr.success('Laporan terkirim!')
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1500);
                         console.log(res)
                     },
                     error: (err) => {
+                        toastr.error('Laporan gagal terkirim')
                         console.log(err)
                     }
                 })

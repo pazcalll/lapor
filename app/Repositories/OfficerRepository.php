@@ -18,7 +18,7 @@ class OfficerRepository extends UsersRepository
             'officer' => function ($query) {
                 return $query->select('id', 'name');
             }, 'report' => function ($query) {
-                return $query->select('id', 'user_id', 'referral', 'issue', 'location', 'status', 'created_at');
+                return $query->select('id', 'user_id', 'proof_file', 'referral', 'issue', 'location', 'status', 'created_at');
             }, 'report.reporter' => function ($query) {
                 return $query->select('id', 'name');
             }
@@ -27,6 +27,28 @@ class OfficerRepository extends UsersRepository
                 return $query->where('status', '!=', 'SELESAI')->where('status', '!=', 'MENUNGGU');
             })
             ->where('user_id', $user['id'])
+            ->whereNull('file_finish')
+            ->get();
+        return $assignments;
+    }
+
+    public function getFinishedAssignments()
+    {
+        $user = JWTAuth::toUser(request()->bearerToken());
+        $assignments = Assignment::with([
+            'officer' => function ($query) {
+                return $query->select('id', 'name');
+            }, 'report' => function ($query) {
+                return $query->select('id', 'user_id', 'proof_file', 'referral', 'issue', 'location', 'status', 'created_at');
+            }, 'report.reporter' => function ($query) {
+                return $query->select('id', 'name');
+            }
+        ])
+            ->whereHas('report', function ($query) {
+                return $query->where('status', 'SELESAI');
+            })
+            ->where('user_id', $user['id'])
+            ->whereNotNull('file_finish')
             ->get();
         return $assignments;
     }

@@ -4,9 +4,6 @@ function homePage() {
     $.ajax({
         url: webBaseUrl + '/officer/home-page',
         type: "GET",
-        headers: {
-            Authorization: 'bearer ' + localStorage.getItem('_token')
-        },
         beforeSend: () => {
             $(".nav-item").removeClass('active')
             $("#home").addClass('active')
@@ -25,6 +22,24 @@ function homePage() {
     })
 }
 homePage()
+
+function historyPage() {
+    $.ajax({
+        url: webBaseUrl + '/officer/history-page',
+        type: "GET",
+        beforeSend: () => {
+            $(".nav-item").removeClass('active')
+            $("#history").addClass('active')
+        },
+        success: (res) => {
+            $('#content').html(res)
+        },
+        error: (err) => {
+            console.log(err)
+            window.location.reload()
+        }
+    })
+}
 
 function logout() {
     $.ajax({
@@ -116,7 +131,7 @@ function getIncomingAssignments() {
                             data-bs-target="#finishModal"
                             class="btn btn-success btn-finish-assignment" 
                         >
-                            Selesai
+                            Selesaikan
                         </button>
                     `
                 }
@@ -134,6 +149,96 @@ function getIncomingAssignments() {
             $('.btn-finish-assignment').on('click', function () {  
                 $("#referral_finish").val($(this).data('referral'))
                 $(".referral_modal_finish").html($(this).data('referral'))
+            })
+        }
+    })
+}
+
+function getFinishedAssignments() {
+    dt = $('#finished_assignments').DataTable({
+        ajax: {
+            url: apiBaseUrl+"/user/officer/finished-assignments",
+            type: "GET",
+            cache: true,
+            headers: headers
+        },
+        lengthChange: false,
+        scrollX: true,
+        language: {
+            url: webBaseUrl + "/json/datatable-indonesia.json"
+        },
+        columnDefs: [
+            { width: '10%', targets: 0 },
+            { width: '20%', targets: 1 },
+            { width: '20%', targets: 2 },
+            { width: '25%', targets: 3 },
+            { width: '25%', targets: 4 },
+        ],
+        columns: [
+            { 
+                data: null,
+                render: function (data, type, full, meta) {  
+                    return `${data.report.referral}`
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, full, meta) {  
+                    return `${data.report.reporter.name}`
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, full, meta) {
+                    return `${data.report.created_at}`
+                }
+            },
+            {
+                data: 'created_at',
+            },
+            {
+                data: null,
+                render: function(data, type, full, meta) {
+                    console.log(data)
+                    return `
+                        <button 
+                            data-referral="${data.report.referral}"
+                            data-reporter="${data.report.reporter.name}"
+                            data-location="${data.report.location}"
+                            data-issue="${data.report.issue}"
+                            data-officer="${data.officer.name}"
+                            data-additional="${data.additional}"
+                            data-proof-url="${data.report.proof_file}"
+                            data-bs-backdrop="false" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#detailModal" 
+                            type="button" 
+                            class="btn btn-info btn-detail-assignment"
+                        >
+                            Detail
+                        </button>
+                        <button 
+                            data-finished-url = "${webBaseUrl + "/" + data.file_finish}"
+                            class="btn btn-success btn-finish-assignment"
+                        >
+                            Bukti Penyelesaian
+                        </button>
+                    `
+                }
+            }
+        ],
+        drawCallback: (res) => {
+            $('.btn-detail-assignment').on('click', function () {  
+                $(".referral_modal").val($(this).data('referral'))
+                $("#officer_detail").val($(this).data('officer'))
+                $("#reporter_detail").val($(this).data('reporter'))
+                $("#location_detail").val($(this).data('location'))
+                $("#issue_detail").val($(this).data('issue'))
+                $("#additional_detail").val($(this).data('additional'))
+                $(".btn-proof").data('proof', $(this).data('proof-url'))
+            })
+            $('.btn-finish-assignment').on('click', function () {  
+                window.open($(this).data('finished-url'), '_blank')
             })
         }
     })

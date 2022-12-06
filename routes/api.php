@@ -56,6 +56,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('officer')->middleware('officer')->group(function () {
             Route::post('finish-assignment', [OfficerController::class, 'finishAssignment'])->name('finishAssignment');
             Route::get('incoming-assignments', [OfficerController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
+            Route::get('finished-assignments', [OfficerController::class, 'getFinishedAssignments'])->name('getFinishedAssignments');
         });
     });
 });
