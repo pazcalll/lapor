@@ -139,3 +139,25 @@ function getIncomingAssignments() {
     })
 }
 
+function finishAssignment(e) {
+    e.preventDefault()
+    let fd = new FormData()
+    fd.append('referral', $('#referral_finish').val())
+    fd.append('file_finish', $('#file_finish')[0].files[0])
+    console.log('asdf')
+    $.ajax({
+        url: apiBaseUrl+"/user/officer/finish-assignment",
+        type: "POST",
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: (res) => {
+            $('.modal-close').click()
+            console.log(res)
+            dt.ajax.reload()
+        },
+        error: (err) => {
+            console.log(err)
+        }
+    })
+}

@@ -54,6 +54,7 @@ Route::prefix('v1')->group(function () {
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
         });
         Route::prefix('officer')->middleware('officer')->group(function () {
+            Route::post('finish-assignment', [OfficerController::class, 'finishAssignment'])->name('finishAssignment');
             Route::get('incoming-assignments', [OfficerController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
         });
     });

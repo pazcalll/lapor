@@ -18,8 +18,9 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('report_id');
             $table->text('additional')->nullable();
-            $table->text('finish_file')->nullable();
+            $table->text('file_finish')->nullable();
             $table->timestamps();
+            $table->timestamp('finished_at')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade')->onUpdate('cascade');

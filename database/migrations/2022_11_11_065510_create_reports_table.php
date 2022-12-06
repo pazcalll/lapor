@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('location');
             $table->string('issue');
-            $table->string('proof_file');
+            $table->text('proof_file');
             $table->enum('status', ['MENUNGGU', 'DIPROSES', 'SELESAI']);
             $table->timestamps();
 

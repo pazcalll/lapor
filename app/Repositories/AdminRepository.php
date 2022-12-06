@@ -80,7 +80,7 @@ class AdminRepository extends UsersRepository
         // $report = Report::where('status', 'DIPROSES')->get()->toArray();
         $report = Report::with([
             "assignment" => function ($query) {
-                return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at');
+                return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at', 'finished_at', 'file_finish');
             },
             "assignment.officer" => function ($query) {
                 return $query->select('id', 'name', 'role');

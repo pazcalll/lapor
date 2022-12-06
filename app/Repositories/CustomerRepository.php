@@ -32,7 +32,7 @@ class CustomerRepository extends UsersRepository
                 'user_id' => JWTAuth::toUser(request()->header('Authorization'))['id'],
                 'location' => $validate['location'],
                 'issue' => $validate['issue'],
-                'proof_file' => $filename,
+                'proof_file' => "storage/proof" . $filename,
                 'status' => "MENUNGGU"
             ];
             Report::create($data);

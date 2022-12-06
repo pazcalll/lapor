@@ -79,5 +79,5 @@
 </div>
 
 <script>
-    getFinishedReports()
+    getFinishedReports("{{ asset('storage/proof') }}")
 </script>

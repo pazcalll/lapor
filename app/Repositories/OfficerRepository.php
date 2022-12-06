@@ -3,7 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Assignment;
+use App\Models\Report;
+use Illuminate\Support\Facades\DB;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+
+use function Lcobucci\Clock\now;
 
 class OfficerRepository extends UsersRepository
 {
@@ -25,5 +29,40 @@ class OfficerRepository extends UsersRepository
             ->where('user_id', $user['id'])
             ->get();
         return $assignments;
+    }
+
+    public function finishAssignment()
+    {
+        try {
+            $validator = request()->validate([
+                'referral' => 'required|max:12',
+                'file_finish' => 'required|file|max:1024'
+            ], [
+                'max' => 'Ukuran berkas maksimal 1 MB'
+            ]);
+            DB::beginTransaction();
+
+            $filename = time() . '_' . request()->file('file_finish')->getClientOriginalName();
+            request()->file('file_finish')->storeAs('public/finish', $filename);
+
+            $user_id = JWTAuth::toUser(request()->header('Authorization'))['id'];
+            $assignmentUpdate = Assignment::whereHas('report', function ($query) {
+                return $query->where('referral', request()->post('referral'));
+            })
+                ->whereNull('file_finish')
+                ->update([
+                    'file_finish' => 'storage/finish/' . $filename,
+                    'finished_at' => now()
+                ]);
+            $reportUpdate = Report::where('referral', request()->post('referral'))
+                ->update([
+                    'status' => 'SELESAI'
+                ]);
+
+            DB::commit();
+            return response()->json(['success' => true, 'status' => 200], 200);
+        } catch (\Exception $th) {
+            return response()->json(["error" => $th], 500);
+        }
     }
 }

@@ -27,4 +27,9 @@ class OfficerController extends Controller
         $assignents = $this->officer->getIncomingAssignments();
         return datatables($assignents)->toJson();
     }
+
+    public function finishAssignment()
+    {
+        return $this->officer->finishAssignment();
+    }
 }
