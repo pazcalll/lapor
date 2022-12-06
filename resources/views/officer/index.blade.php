@@ -42,7 +42,6 @@
                 indexjs.setAttribute('type', 'text/javascript');
                 indexjs.setAttribute('src', webBaseUrl+'/js/officer.js');
                 document.head.appendChild(indexjs);
-                $('#content').html(res)
             },
             error: (err) => {
                 console.log(err)

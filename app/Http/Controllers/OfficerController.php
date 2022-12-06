@@ -21,4 +21,10 @@ class OfficerController extends Controller
     {
         return view('officer.home');
     }
+
+    public function getIncomingAssignments()
+    {
+        $assignents = $this->officer->getIncomingAssignments();
+        return datatables($assignents)->toJson();
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,9 @@ Route::prefix('v1')->group(function () {
             Route::get('officers', [AdminController::class, 'getofficers'])->name('getOfficers');
             Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
+        });
+        Route::prefix('officer')->middleware('officer')->group(function () {
+            Route::get('incoming-assignments', [OfficerController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
         });
     });
 });
