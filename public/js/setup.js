@@ -28,6 +28,8 @@ function authCheck() {
                 indexjs.setAttribute('type', 'text/javascript');
                 indexjs.setAttribute('src', webBaseUrl+'/js/main.js');
                 document.body.appendChild(indexjs);
+                
+                setUser()
             },
             error: (err, text, statusMessage) => {
                 // console.log(text, err, statusMessage)
@@ -46,3 +48,15 @@ function authCheck() {
     }
 }
 authCheck()
+
+
+function setUser() {
+    $.ajax({
+        url: apiBaseUrl + "/user/get-profile",
+        type: "GET",
+        success: (res) => {
+            console.log(res)
+            $('#welcome').html('Selamat Datang '+ res.name + "!")
+        }
+    })
+}

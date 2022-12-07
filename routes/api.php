@@ -32,12 +32,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::post('login', [UserController::class, 'login'])->name('login');
     Route::post('register', [UserController::class, 'register'])->name('register');
-    Route::get('get-profile', [UserController::class, 'getProfile'])->name('getProfile');
     Route::get('get-disposable-token', [UserController::class, 'getDisposableToken'])->name('getDisposableToken');
     Route::get('use-disposable-token/{token}', [UserController::class, 'useDisposableToken'])->name('useDisposableToken');
     Route::prefix('user')->middleware('jwtauth')->group(function () {
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
         Route::get('get-facilities', [UserController::class, 'getFacilities'])->name('getFacilities');
+        Route::get('get-profile', [UserController::class, 'getProfile'])->name('getProfile');
         Route::prefix('customer')->middleware('customer')->group(function () {
             Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
             Route::get('reports', [CustomerController::class, 'getReports'])->name('getReports');

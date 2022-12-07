@@ -21,7 +21,7 @@
             <div class="nav-item dropdown">
                 <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pegawai</a>
                 <div class="dropdown-menu dropend shadow-sm m-0" style="right: 0; left: auto; text-align: right;">
-                    {{-- <a href="javascript:void(0)" class="dropdown-item" id="profile">Profil</a> --}}
+                    <a href="javascript:void(0)" class="dropdown-item disabled" id="welcome"></a>
                     <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
                 </div>
             </div>
@@ -31,22 +31,9 @@
 <!-- Navbar End -->
 <div id="content">
     <script>
-        $.ajax({
-            url: webBaseUrl + '/officer/home-page',
-            type: "GET",
-            headers: {
-                Authorization: 'bearer ' + localStorage.getItem('_token')
-            },
-            success: (res) => {
-                let indexjs = document.createElement('script');
-                indexjs.setAttribute('type', 'text/javascript');
-                indexjs.setAttribute('src', webBaseUrl+'/js/officer.js');
-                document.head.appendChild(indexjs);
-            },
-            error: (err) => {
-                console.log(err)
-                $('#content').html(err)
-            }
-        })
+        let indexjs = document.createElement('script');
+        indexjs.setAttribute('type', 'text/javascript');
+        indexjs.setAttribute('src', webBaseUrl+'/js/officer.js');
+        document.head.appendChild(indexjs);
     </script>
 </div>

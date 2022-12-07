@@ -21,8 +21,8 @@
             <a onclick="reportHistoryPage()" href="javascript:void(0)" class="nav-item nav-link" id="history">Riwayat</a>
             <div class="nav-item dropdown">
                 <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pengguna</a>
-                <div class="dropdown-menu shadow-sm m-0">
-                    <a href="javascript:void(0)" class="dropdown-item" id="profile">Profil</a>
+                <div class="dropdown-menu shadow-sm m-0" style="right: 0; left: auto; text-align: right;">
+                    <a href="javascript:void(0)" class="dropdown-item disabled" id="welcome"></a>
                     <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
                 </div>
             </div>
