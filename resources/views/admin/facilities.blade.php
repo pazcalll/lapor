@@ -36,7 +36,7 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input class="form-control" disabled name="facility_name_add" id="facility_name_add">
+                                <input class="form-control" name="facility_name_add" id="facility_name_add">
                                 <label for="facility_name_add">Nama Fasilitas</label>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Tambahkan</button>
+                    <button type="submit" class="btn btn-primary">Tambahkan</button>
                 </div>
             </form>
         </div>
@@ -64,14 +64,23 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <span>Nama : </span><span class="facility_name_edit"></span>
+                                <span>Nama : </span><span class="facility_name_modal_edit"></span>
+                                <input type="hidden" name="facility_name_old" id="facility_name_old">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <div class="form-floating">
+                                    <input class="form-control" name="facility_name_new" id="facility_name_new">
+                                    <label for="facility_name_new">Nama Baru Fasilitas</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">Edit</button>
+                    <button type="submit" class="btn btn-warning">Edit</button>
                 </div>
             </form>
         </div>
@@ -91,15 +100,15 @@
                     <div class="row g-3">
                         <div class="col-md-12" style="width: 100%">
                             <div class="form-floating">
-                                <span>Apakah anda yakin ingin menghapus fasilitas </span><span class="facility_modal"></span>?
-                                <input type="hidden" name="facility_delete" id="facility_delete">
+                                <span>Apakah anda yakin ingin menghapus fasilitas </span><b><span class="facility_name_modal_delete"></span></b>?
+                                <input type="hidden" name="facility_name_delete" id="facility_name_delete">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Iya</button>
+                    <button type="submit" class="btn btn-danger">Iya</button>
                 </div>
             </div>
         </form>

@@ -94,4 +94,21 @@ class AdminController extends Controller
         $data = $this->admin->getFacilitiesDatatable();
         return datatables($data)->toJson();
     }
+
+    public function createFacility()
+    {
+        $create = $this->admin->createFacility();
+        return $create;
+    }
+
+    public function editFacility()
+    {
+        $edit = $this->admin->editFacility();
+        return $edit;
+    }
+    public function deleteFacility()
+    {
+        $delete = $this->admin->deleteFacility();
+        return $delete;
+    }
 }

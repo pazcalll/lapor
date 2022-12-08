@@ -139,4 +139,53 @@ class AdminRepository extends UsersRepository
         $data = Facility::select('id', 'name', 'created_at', 'updated_at')->get();
         return $data;
     }
+
+    public function createFacility()
+    {
+        $create = Facility::create([
+            'name' => request()->post('name')
+        ]);
+        return $create;
+    }
+
+    public function editFacility()
+    {
+        try {
+            DB::beginTransaction();
+
+            $validate = request()->validate([
+                'name_old' => 'required',
+                'name_new' => 'required',
+            ], [
+                'required' => 'Semua field wajib diisi'
+            ]);
+            $edit = Facility::where("name", $validate['name_old'])->update([
+                "name" => $validate['name_new']
+            ]);
+
+            DB::commit();
+            return $edit;
+        } catch (\Exception $th) {
+            return response()->json(["error" => $th], 400);
+        }
+    }
+
+    public function deleteFacility()
+    {
+        try {
+            DB::beginTransaction();
+
+            $validate = request()->validate([
+                'name_delete' => 'required',
+            ], [
+                'required' => 'Semua field wajib diisi'
+            ]);
+            $edit = Facility::where("name", $validate['name_delete'])->delete();
+
+            DB::commit();
+            return $edit;
+        } catch (\Exception $th) {
+            return response()->json(["error" => $th], 400);
+        }
+    }
 }

@@ -86,7 +86,6 @@ function incomingReportDatatable(storageLink) {
             {
                 data: null,
                 render: function(data, type, full, meta) {
-                    console.log(data)
                     return `
                         <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
                         <a data-href="${data.proof_file}" class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
@@ -128,7 +127,6 @@ function getOfficers() {
         url: apiBaseUrl + "/user/admin/officers",
         type: "GET",
         success: (res) => {
-            console.log(res)
             options = `<option disabled hidden selected>Pilih Pegawai</option>`
             res.data.forEach((officer, _index) => {
                 options += `<option value='${officer.id}'>`+officer.name+"</option>"
@@ -207,7 +205,6 @@ function processPage() {
 }
 
 function getAcceptedReports(storageLink) {
-    console.log(storageLink)
     dt = $('#inprocess_report').DataTable({
         ajax: {
             url: apiBaseUrl+"/user/admin/accepted-reports",
@@ -541,7 +538,7 @@ function facilitiesPage() {
 }
 
 function getFacilitiesDatatable() {
-    $('#facilities_table').DataTable({
+    dt = $('#facilities_table').DataTable({
         ajax : {
             url: apiBaseUrl + "/user/admin/facilities-datatable",
             type: "GET",
@@ -588,6 +585,7 @@ function getFacilitiesDatatable() {
                             data-bs-backdrop="false" 
                             data-bs-toggle="modal" 
                             data-bs-target="#editFacilityModal" 
+                            data-name=${data.name}
                             type="button" 
                             class="btn btn-info btn-edit-facility" 
                         >
@@ -598,13 +596,113 @@ function getFacilitiesDatatable() {
                             data-bs-backdrop="false" 
                             data-bs-toggle="modal" 
                             data-bs-target="#deleteFacilityModal" 
-                            class="btn btn-danger"
+                            data-delete="${data.name}"
+                            class="btn btn-danger btn-delete-facility"
                         >
                             Hapus
                         </button>
                     `
                 }
             }
-        ]
+        ],
+        drawCallback: () => {
+            $('.btn-edit-facility').on('click', function () {  
+                $('.facility_name_modal_edit').html($(this).data('name'))
+                $('#facility_name_old').val($(this).data('name'))
+            })
+            $(".btn-delete-facility").on("click", function () {  
+                $('.facility_name_modal_delete').html($(this).data('delete'))
+                $('#facility_name_delete').val($(this).data('delete'))
+            })
+        }
+    })
+}
+
+function addFacility(e) {
+    e.preventDefault()
+    let fd = new FormData()
+    fd.append('name', $('#facility_name_add').val())
+    fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
+    $.ajax({
+        url: apiBaseUrl + "/user/admin/facility",
+        type: "POST",
+        data: fd,
+        processData: false,
+        contentType: false,
+        beforeSend: () => {
+            $(".modal-close").click()
+            $('.facility_name_modal_edit').val("")
+            $('#facility_name_old').val("")
+            $('#facility_name_new').val("")
+            toastr.warning("Mohon tunggu")
+        },
+        success: (res) => {
+            console.log(res)
+            toastr.remove()
+            toastr.success("Penambahan fasilitas berhasil")
+            dt.ajax.reload()
+        },
+        error: (err) => {
+            console.log(err)
+            toastr.error("Penambahan fasilitas gagal")
+        }
+    })
+}
+
+function editFacility(e) {
+    let name_old = $('#facility_name_old').val()
+    let name_new = $('#facility_name_new').val()
+    let _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    $.ajax({
+        url: apiBaseUrl + "/user/admin/facility",
+        type: "PATCH",
+        data: {
+            name_old: name_old,
+            name_new: name_new,
+            _token: _token,
+        },
+        beforeSend: () => {
+            $(".modal-close").click()
+            $('#facility_name_old').val("")
+            $('#facility_name_new').val("")
+            toastr.warning("Mohon tunggu")
+        },
+        success: (res) => {
+            console.log(res)
+            toastr.remove()
+            toastr.success("Perubahan fasilitas berhasil")
+            dt.ajax.reload()
+        },
+        error: (err) => {
+            console.log(err)
+            toastr.error("Perubahan fasilitas gagal")
+        }
+    })
+}
+
+function deleteFacility(e) {
+    e.preventDefault()
+    let name_delete = $('#facility_name_delete').val()
+    let _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    $.ajax({
+        url: apiBaseUrl + "/user/admin/facility",
+        type: "DELETE",
+        data: {
+            name_delete: name_delete,
+            _token: _token,
+        },
+        beforeSend: () => {
+            $(".modal-close").click()
+            $('#facility_name_delete').val("")
+            toastr.warning("Mohon tunggu")
+        },
+        success: (res) => {
+            toastr.remove()
+            toastr.success("Penghapusan fasilitas berhasil")
+            dt.ajax.reload()
+        },
+        error: (err) => {
+            toastr.error("Penghapusan fasilitas gagal")
+        }
     })
 }
