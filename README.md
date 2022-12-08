@@ -29,6 +29,12 @@ Last command to implement API secret key:
 php artisan jwt:secret
 ```
 
+In order to perform file upload into the system, execute command below:
+
+```
+php artisan storage:link
+```
+
 Finally:
 
 ```
