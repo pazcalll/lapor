@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
 use App\Models\Assignment;
+use App\Models\Facility;
 use App\Models\Report;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -131,5 +132,11 @@ class AdminRepository extends UsersRepository
         User::where('username', request()->post('username'))->update([
             "role" => request()->post('role')
         ]);
+    }
+
+    public function getFacilitiesDatatable()
+    {
+        $data = Facility::select('id', 'name', 'created_at', 'updated_at')->get();
+        return $data;
     }
 }

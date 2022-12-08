@@ -518,3 +518,93 @@ function editUser(e) {
         }
     })
 }
+// ------------------------------- FACILITIES-----------------------
+
+function facilitiesPage() {
+    $.ajax({
+        url: webBaseUrl + "/admin/facilities-page",
+        type: "GET",
+        beforeSend: () => {
+            $(".nav-item").removeClass('active')
+            $("#content").html(`
+                <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                    <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                </span>
+            `)
+        },
+        success: (res) => {
+            $('#content').html(res)
+        }
+    })
+}
+
+function getFacilitiesDatatable() {
+    $('#facilities_table').DataTable({
+        ajax : {
+            url: apiBaseUrl + "/user/admin/facilities-datatable",
+            type: "GET",
+            headers: headers
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Tambah Fasilitas',
+                className: "btn btn-success btn-add-facility-modal",
+                attr:  {
+                    "data-bs-backdrop": 'false',
+                    "data-bs-toggle": 'modal',
+                    "data-bs-target": "#addFacilityModal"
+                }
+            }
+        ],
+        lengthChange: false,
+        scrollX: true,
+        language: {
+            url: webBaseUrl + "/json/datatable-indonesia.json"
+        },
+        columnDefs: [
+            { width: '20%', targets: 0 },
+            { width: '25%', targets: 1 },
+            { width: '25%', targets: 2 },
+            { width: '30%', targets: 3 },
+        ],
+        columns: [
+            {
+                data: 'name',
+            },
+            {
+                data: 'created_at',
+            },
+            {
+                data: 'updated_at',
+            },
+            {
+                data: null,
+                render: function(data, type, full, meta) {
+                    return `
+                        <button 
+                            data-bs-backdrop="false" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#editFacilityModal" 
+                            type="button" 
+                            class="btn btn-info btn-edit-facility" 
+                        >
+                            <i class="bi bi-pencil-square"></i> 
+                            Edit
+                        </button>
+                        <button
+                            data-bs-backdrop="false" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#deleteFacilityModal" 
+                            class="btn btn-danger"
+                        >
+                            Hapus
+                        </button>
+                    `
+                }
+            }
+        ]
+    })
+}

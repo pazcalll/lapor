@@ -37,6 +37,11 @@ class AdminController extends Controller
         return view('admin.config');
     }
 
+    public function facilitiesPage()
+    {
+        return view('admin.facilities');
+    }
+
     public function getUnacceptedReports()
     {
         $data = $this->admin->getUnacceptedReports();
@@ -82,5 +87,11 @@ class AdminController extends Controller
     {
         $edit = $this->admin->editUser();
         return $edit;
+    }
+
+    public function getFacilitiesDatatable()
+    {
+        $data = $this->admin->getFacilitiesDatatable();
+        return datatables($data)->toJson();
     }
 }

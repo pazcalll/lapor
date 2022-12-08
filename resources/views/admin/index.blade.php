@@ -24,6 +24,7 @@
                 <div class="dropdown-menu dropend shadow-sm m-0" style="right: 0; left: auto; text-align: right;">
                     <a href="javascript:void(0)" class="dropdown-item disabled" id="welcome"></a>
                     <a onclick="configPage()" href="javascript:void(0)" class="dropdown-item" id="config">User Config</a>
+                    <a onclick="facilitiesPage()" href="javascript:void(0)" class="dropdown-item" id="facilities">Fasilitas</a>
                     <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
                 </div>
             </div>

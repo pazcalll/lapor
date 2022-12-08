@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

@@ -52,6 +52,7 @@ Route::prefix('v1')->group(function () {
             Route::get('officers', [AdminController::class, 'getofficers'])->name('getOfficers');
             Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
+            Route::get('facilities-datatable', [AdminController::class, 'getFacilitiesDatatable'])->name('getFacilitiesDatatable');
         });
         Route::prefix('officer')->middleware('officer')->group(function () {
             Route::post('finish-assignment', [OfficerController::class, 'finishAssignment'])->name('finishAssignment');
