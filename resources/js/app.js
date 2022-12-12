@@ -5,8 +5,20 @@
  */
 
 import './bootstrap';
-import { createApp } from 'vue';
-import App from './App.vue'
+
+import '../sass/app.scss'
+
+// import 'datepicker-bootstrap'
+// import 'bootstrap-colorpicker'
+// import 'bootstrap-markdown'
+// import 'bootstrap4-datetimepicker'
+// import 'c3'
+// import 'datatables.net-bs4'
+// import 'dropzone'
+
+
+// import { createApp } from 'vue';
+// import App from './App.vue'
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -14,10 +26,10 @@ import App from './App.vue'
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+// const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+// import ExampleComponent from './components/ExampleComponent.vue';
+// app.component('example-component', ExampleComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -39,4 +51,4 @@ app.component('example-component', ExampleComponent);
 
 // app.mount('#app');
 
-createApp(App).mount("#app")
+// createApp(App).mount("#app")
