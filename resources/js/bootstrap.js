@@ -3,7 +3,7 @@ window._ = loadash
 
 import '@popperjs/core'
 
-import "bootstrap/dist/css/bootstrap.min.css" 
+import "../css/app.css"
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

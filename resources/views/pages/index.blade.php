@@ -26,15 +26,7 @@
     <!-- Jumbo-core stylesheet -->
     <link href="css/jumbo-core.min.css" rel="stylesheet">
     <!-- /jumbo-core stylesheet --> --}}
-    @vite([
-        'resources/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css',
-        'resources/css/jumbo-bootstrap.min.css',
-        'resources/css/jumbo-core.min.css',
-        'resources/css/jumbo-forms.css',
-        'resources/sass/app.scss',
-        'resources/js/app.js',
-        'resources/js/functions.js',
-    ])
+    @vite('resources/js/app.js')
 
 </head>
 
@@ -260,6 +252,6 @@
 
 <!--Custom JQuery-->
 <script src="js/functions.js"></script> --}}
-
+@vite('resources/js/functions.js')
 </body>
 </html>

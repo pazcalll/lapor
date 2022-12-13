@@ -8,12 +8,9 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css',
-                'resources/css/jumbo-bootstrap.min.css',
-                'resources/css/jumbo-core.min.css',
-                'resources/css/jumbo-forms.css',
-                'resources/sass/app.scss',
-                'resources/js/functions.js',
+                // 'resources/sass/app.scss',
                 'resources/js/app.js',
+                'resources/js/functions.js',
             ],
             refresh: true,
         }),
@@ -31,8 +28,12 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
+            '~jQuery': path.resolve(__dirname, 'node_modules/jquery'),
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
             // vue: 'vue/dist/vue.esm-bundler.js',
         },
+    },
+    build: {
+        chunkSizeWarningLimit: 1600,
     },
 });

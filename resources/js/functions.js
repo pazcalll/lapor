@@ -1,12 +1,8 @@
 "use strict";
-import "bootstrap/dist/css/bootstrap.min.css"
-import "../../node_modules/jquery/dist/jquery.min.js"
-import "../../node_modules/jquery-ui/dist/jquery-ui.js"
-import "bootstrap/dist/js/bootstrap.min.js" 
-import "bootstrap/dist/js/bootstrap.bundle.min.js"
-import '../../node_modules/bootstrap/js/dist/tooltip.js' 
-import '../../node_modules/bootstrap/js/dist/popover.js' 
-import '../../node_modules/perfect-scrollbar/dist/perfect-scrollbar.js'
+import jQuery from "../../node_modules/jquery/dist/jquery.js"
+import "bootstrap/dist/js/bootstrap.bundle"
+import PerfectScrollbar from "perfect-scrollbar"
+import '../../node_modules/bigslide/dist/bigslide.min.js'
 
 // window.jQuery = jQuery;
 
