@@ -9,6 +9,7 @@ export default defineConfig({
             input: [
                 'resources/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css',
                 // 'resources/sass/app.scss',
+                'node_modules/jquery/dist/jquery.js',
                 'resources/js/app.js',
                 'resources/js/functions.js',
             ],

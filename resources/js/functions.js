@@ -7,6 +7,7 @@ import '../../node_modules/bigslide/dist/bigslide.min.js'
 // window.jQuery = jQuery;
 
 (function ($) {
+    console.log($('#none').val())
     var $window = $(window);
     var window_width = $window.outerWidth();
     var $body = $('body');

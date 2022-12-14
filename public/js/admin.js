@@ -19,10 +19,6 @@ function homePage() {
             `)
         },
         success: (res) => {
-            // let mainjs = document.createElement('script');
-            // mainjs.setAttribute('type', 'text/javascript');
-            // mainjs.setAttribute('src', webBaseUrl+'/js/main.js');
-            // document.head.appendChild(mainjs);
             $('#content').html(res)
         },
         error: (err) => {

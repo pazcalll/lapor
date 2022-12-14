@@ -24,10 +24,10 @@ function authCheck() {
             success: (res) => {
                 // console.log(res)
                 $('#app').html(res)
-                let indexjs = document.createElement('script');
-                indexjs.setAttribute('type', 'text/javascript');
-                indexjs.setAttribute('src', webBaseUrl+'/js/main.js');
-                document.body.appendChild(indexjs);
+                let functionsjs = document.createElement('script');
+                functionsjs.setAttribute('type', 'text/javascript');
+                functionsjs.setAttribute('src', webBaseUrl+'/js/functions.js');
+                document.body.appendChild(functionsjs);
                 
                 setUser()
             },

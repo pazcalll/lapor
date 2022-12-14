@@ -10,7 +10,7 @@ import './bootstrap';
 // import "../css/jumbo-bootstrap.min.css"
 // import "../css/jumbo-core.min.css"
 
-// import "../../node_modules/jquery/dist/jquery.min.js"
+import "../../node_modules/jquery/dist/jquery.js"
 
 // import 'datepicker-bootstrap'
 // import 'bootstrap-colorpicker'
