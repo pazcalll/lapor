@@ -70,6 +70,7 @@
         class="bi bi-arrow-up"></i></a>
 
 <script>
+    $('#title-label').html('Pengaturan Pengguna')
     userTable()
     getEnumUser()
 </script>

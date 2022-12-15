@@ -46,14 +46,25 @@
             <div id="main-menu" class="main-menu navbar-collapse collapse">
                 <ul class="nav-menu">
                     <li class="nav-header"><span class="nav-text">Admin</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-list zmdi-hc-fw"></i>
+                            <span class="nav-text">Laporan</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Masuk</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="processPage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Sedang Diproses</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="finishedPage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Selesai</span></a></li>
+                        </ul>
+                    </li>
                     <li class="menu no-arrow">
-                        <a href="javascript:void(0)" onclick="configPage()">
+                        <a href="javascript:void(0)" onclick="configPage(); $('.menu-backdrop').click()">
                             <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
                             <span class="nav-text">User Config</span>
                         </a>
                     </li>
                     <li class="menu no-arrow">
-                        <a href="javascript:void(0)" onclick="facilitiesPage()">
+                        <a href="javascript:void(0)" onclick="facilitiesPage(); $('.menu-backdrop').click()">
                             <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
                             <span class="nav-text">Fasilitas</span>
                         </a>
@@ -100,12 +111,7 @@
             <div class="gx-wrapper">
                 <div class="dashboard">
                     <div class="page-heading d-sm-flex justify-content-sm-between align-items-sm-center">
-                        <h2 class="title mb-3 mb-sm-0">Starter Template</h2>
-                        <nav class="mb-0 breadcrumb">
-                            <a href="index.html" class="breadcrumb-item">Jumbo</a>
-                            <a href="index.html" class="breadcrumb-item">Starter</a>
-                            <span class="active breadcrumb-item">Default</span>
-                        </nav>
+                        <h2 class="title mb-3 mb-sm-0" id="title-label" style="font-weight: 500"></h2>
                     </div>
 
                     <div id="content">

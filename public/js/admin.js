@@ -83,7 +83,7 @@ function incomingReportDatatable(storageLink) {
                 data: null,
                 render: function(data, type, full, meta) {
                     return `
-                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
+                        <button data-backdrop="false" data-toggle="modal" data-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
                         <a data-href="${data.proof_file}" class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
                     `
                 }
@@ -233,7 +233,7 @@ function getAcceptedReports(storageLink) {
                 data: null,
                 render: function(data, type, full, meta) {
                     return `
-                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#detailModal" type="button" class="btn btn-info btn-detail" data-issue="${data.issue}" data-facility="${data.facility.name}" data-officer="${data.assignment.officer.name}" data-location="${data.location}" data-reporter="${data.reporter.name}" data-additional="${data.assignment.additional}" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
+                        <button data-backdrop="false" data-toggle="modal" data-target="#detailModal" type="button" class="btn btn-info btn-detail" data-issue="${data.issue}" data-facility="${data.facility.name}" data-officer="${data.assignment.officer.name}" data-location="${data.location}" data-reporter="${data.reporter.name}" data-additional="${data.assignment.additional}" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
                         <button class="btn btn-warning btn-proof" data-item="${data.proof_file}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5Zm-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z"/>
@@ -339,7 +339,7 @@ function getFinishedReports(storageLink) {
                 data: null,
                 render: function(data, type, full, meta) {
                     return `
-                        <button data-bs-backdrop="false" data-bs-toggle="modal" data-bs-target="#detailModal" type="button" class="btn btn-info btn-detail" data-issue="${data.issue}" data-facility="${data.facility.name}" data-officer="${data.assignment.officer.name}" data-location="${data.location}" data-reporter="${data.reporter.name}" data-additional="${data.assignment.additional}" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
+                        <button data-backdrop="false" data-toggle="modal" data-target="#detailModal" type="button" class="btn btn-info btn-detail" data-issue="${data.issue}" data-facility="${data.facility.name}" data-officer="${data.assignment.officer.name}" data-location="${data.location}" data-reporter="${data.reporter.name}" data-additional="${data.assignment.additional}" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
                         <button class="btn btn-warning btn-proof" data-item="${data.proof_file}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5Zm-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z"/>
@@ -443,9 +443,9 @@ function userTable() {
                 render: function(data, type, full, meta) {
                     return `
                         <button 
-                            data-bs-backdrop="false" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#editUserModal" 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#editUserModal" 
                             type="button" 
                             class="btn btn-info btn-edit-user" 
                             data-username="${data.username}"
@@ -546,9 +546,9 @@ function getFacilitiesDatatable() {
                 text: 'Tambah Fasilitas',
                 className: "btn btn-success btn-add-facility-modal",
                 attr:  {
-                    "data-bs-backdrop": 'false',
-                    "data-bs-toggle": 'modal',
-                    "data-bs-target": "#addFacilityModal"
+                    "data-backdrop": 'false',
+                    "data-toggle": 'modal',
+                    "data-target": "#addFacilityModal"
                 }
             }
         ],
@@ -578,9 +578,9 @@ function getFacilitiesDatatable() {
                 render: function(data, type, full, meta) {
                     return `
                         <button 
-                            data-bs-backdrop="false" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#editFacilityModal" 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#editFacilityModal" 
                             data-name=${data.name}
                             type="button" 
                             class="btn btn-info btn-edit-facility" 
@@ -589,9 +589,9 @@ function getFacilitiesDatatable() {
                             Edit
                         </button>
                         <button
-                            data-bs-backdrop="false" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#deleteFacilityModal" 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#deleteFacilityModal" 
                             data-delete="${data.name}"
                             class="btn btn-danger btn-delete-facility"
                         >

@@ -78,5 +78,6 @@
 </div>
 
 <script>
+    $('#title-label').html('Laporan Diproses')
     getAcceptedReports("{{ asset('storage/proof') }}")
 </script>

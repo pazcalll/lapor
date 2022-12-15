@@ -79,5 +79,6 @@
 </div>
 
 <script>
+    $('#title-label').html("Laporan Selesai")
     getFinishedReports("{{ asset('storage/proof') }}")
 </script>

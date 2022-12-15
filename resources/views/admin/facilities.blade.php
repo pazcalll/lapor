@@ -116,5 +116,6 @@
 </div>
 
 <script>
+    $('#title-label').html('Fasilitas')
     getFacilitiesDatatable()
 </script>
