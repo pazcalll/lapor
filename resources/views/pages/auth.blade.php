@@ -43,21 +43,54 @@
 
 <body>
     <!-- Header Start -->
-    <div class="container-fluid hero-header py-5 mb-5">
+    <div class="container-fluid hero-header py-5" style="margin-top: 5rem; margin-bottom: 5rem">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6 pb-xl-5 pt-xl-5">
                     <h1 class="display-4 mb-3 animated slideInDown">Aplikasi Lapor</h1>
                     <p class="animated slideInDown">
                         Sebuah aplikasi yang dibuat untuk memproses laporan atau aduan masyarakat
                         terhadap suatu masalah yang terjadi di lingkup kota ini dengan sistem yang
                         manusiawi.
                     </p>
-                    <a href="#form-content" class="btn btn-primary py-3 px-4 animated slideInDown">Ke Form Login</a>
+                    <a href="#report-step" class="btn btn-primary py-3 px-4 animated slideInDown">Langkah Pelaporan</a>
                 </div>
-                <div class="col-lg-6 animated fadeIn">
-                    <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="https://img.freepik.com/free-vector/smiling-man-talking-loudspeaker-monitor-social-media-computer-online-flat-vector-illustration-communication-digital-technology_74855-13238.jpg"
-                        alt="">
+                <div class="col-lg-6 pb-xl-5 pt-xl-5">
+                    <!-- Contact Start -->
+                    <span class="d-flex align-items-center justify-content-center visually-hidden form-spinner" style="z-index: 3; background-color: white; width: auto; height: auto; align-content: center">
+                        <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </span>
+                    </span>
+                    <!-- Contact End -->
+                    <div class="auth-content">
+                        <div>
+                            <p class="mb-4 animated slideInDown">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
+                            <div class="errors alert alert-danger visually-hidden" id="errors">
+                                
+                            </div>
+                            <form onsubmit="login(event)">
+                                @csrf
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <div class="form-floating animated slideInDown">
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                                            <label for="username">Username</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-floating animated slideInDown">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                            <label for="password">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 animated slideInDown">
+                                        <button class="btn btn-primary py-3 px-4" type="submit">Login</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,7 +100,7 @@
     <div class="container-xxl bg-light py-5 my-5">
         <div class="container py-5">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-6">Langkah Pelaporan</h1>
+                <h1 class="display-6" id="report-step">Langkah Pelaporan</h1>
                 {{-- <p class="text-primary fs-5 mb-5">Buy, Sell And Exchange Cryptocurrency</p> --}}
             </div>
             <div class="row g-4">
@@ -131,51 +164,6 @@
         </div>
     </div>
 
-    <!-- Contact Start -->
-    <span class="d-flex align-items-center justify-content-center visually-hidden form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 100%; align-content: center">
-        <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </span>
-    </span>
-    <div class="container-xxl py-5 auth-content" style="margin-bottom: 200px">
-        <div class="container" id="form-content">
-            <div class="row g-5 mb-5 wow fadeInUp">
-                <div class="col-lg-6">
-                    <h1 class="display-6">Login Sekarang</h1>
-                    <p class="text-primary fs-5 mb-0">Laporkan masalah publik yang ada disekitar</p>
-                </div>
-            </div>
-            <div class="row g-5">
-                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
-                    <p class="mb-4">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
-                    <div class="errors alert alert-danger visually-hidden" id="errors">
-                        
-                    </div>
-                    <form onsubmit="login(event)">
-                        @csrf
-                        <div class="row g-3">
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-                                    <label for="username">Username</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                                    <label for="password">Password</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary py-3 px-4" type="submit">Login</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Contact End -->
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
