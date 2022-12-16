@@ -193,6 +193,36 @@ function homePage() {
         success: (res) => {
             $('#content').html(res)
             
+            $('#makeReport').on('submit', function (e) {  
+                e.preventDefault()
+                let fd = new FormData()
+                fd.append('proof', $('#proof')[0].files[0])
+                fd.append('issue', $('#issue').val())
+                fd.append('facility', $('#facility').val())
+                fd.append('location', $('#location').val())
+                fd.append('_token', "{{ csrf_token() }}")
+                
+                $('.btn-close').click()
+                $('#issue').val(null)
+                $('#facility').val(null)
+                $('#location').val(null)
+
+                $.ajax({
+                    url: '{{ route("createReport") }}',
+                    type: 'POST',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: (res) => {
+                        toastr.success('Laporan terkirim!')
+                        console.log(res)
+                    },
+                    error: (err) => {
+                        toastr.error('Laporan gagal terkirim')
+                        console.log(err)
+                    }
+                })
+            })
             getFacilities()
         },
         error: (err) => {
@@ -206,6 +236,57 @@ function homePage() {
     })
 }
 homePage()
+
+function removeFileInput(element) {
+    let e = element 
+    let uploaderCounter = document.getElementsByClassName('dropify')
+    
+    if (uploaderCounter.length == 1) {
+        return
+    }
+    
+    e.parentElement.parentElement.remove()
+}
+
+function addFileUploader(adder) {
+    let uploaderCounter = document.getElementsByClassName('dropify')
+    for (var i = 0; i < uploaderCounter.length; i++) {
+        if (uploaderCounter[i].value == "" || uploaderCounter[i].value == null) {
+            return
+        }
+        else if (uploaderCounter.length >= 5){
+            return
+        }
+    }
+    $('.uploader-adder').remove()
+    let timestamp = Date.now()
+    $('.proof-container .row').append(`
+        <div class="col-sm-2">
+            <input type="file" id="proof${timestamp}" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
+        </div>
+    `)
+    $('#proof'+timestamp).dropify({
+        messages: {
+            'default': 'Masukkan bukti',
+            'replace': 'Masukkan ganti dengan bukti lain',
+            'remove':  'Hapus',
+            'error':   'Maaf, terjadi kesalahan.'
+        },
+        error: {
+            'fileSize': 'Ukuran terlalu besar (1 mb max).',
+        },
+        tpl: {
+            clearButton: '<button type="button" onclick="removeFileInput(this)" class="dropify-clear">Hapus</button>'
+        }
+    })
+    $('.proof-container .row').append(`
+        <div class="col-sm-2 justify-content-center align-self-center uploader-adder">
+            <button type="button" onclick="addFileUploader(this)" class="btn btn-success" title="Tambah Masukan Bukti" style="border-radius: 10px; height: max-content; transform: translateY(-50%); position: absolute; top: 50%; bottom: 50%;">
+                <i class="zmdi zmdi-plus zmdi-hc-4x"></i>
+            </button>
+        </div>
+    `)
+}
 
 function logout() {
     $.ajax({

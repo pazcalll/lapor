@@ -70,7 +70,16 @@
                             </div>
                         </div>
                         <div class="col-md-12 proof-container">
-                            <input type="file" name="proof" id="proof" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <input type="file" name="proof" id="proof" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
+                                </div>
+                                <div class="col-sm-2 justify-content-center align-self-center uploader-adder">
+                                    <button type="button" onclick="addFileUploader()" class="btn btn-success" title="Tambah Masukan Bukti" style="border-radius: 10px; height: max-content; transform: translateY(-50%); position: absolute; top: 50%; bottom: 50%;">
+                                        <i class="zmdi zmdi-plus zmdi-hc-4x"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,38 +104,10 @@
         },
         error: {
             'fileSize': 'Ukuran terlalu besar (1 mb max).',
+        },
+        tpl: {
+            clearButton: '<button type="button" onclick="removeFileInput(this)" class="dropify-clear">Hapus</button>'
         }
-    })
-
-    $('#makeReport').on('submit', function (e) {  
-        e.preventDefault()
-        let fd = new FormData()
-        fd.append('proof', $('#proof')[0].files[0])
-        fd.append('issue', $('#issue').val())
-        fd.append('facility', $('#facility').val())
-        fd.append('location', $('#location').val())
-        fd.append('_token', "{{ csrf_token() }}")
-        
-        $('.btn-close').click()
-        $('#issue').val(null)
-        $('#facility').val(null)
-        $('#location').val(null)
-
-        $.ajax({
-            url: '{{ route("createReport") }}',
-            type: 'POST',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: (res) => {
-                toastr.success('Laporan terkirim!')
-                console.log(res)
-            },
-            error: (err) => {
-                toastr.error('Laporan gagal terkirim')
-                console.log(err)
-            }
-        })
     })
     
 </script>

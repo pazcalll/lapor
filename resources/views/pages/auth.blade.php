@@ -47,7 +47,7 @@
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 pb-xl-5 pt-xl-5">
-                    <h1 class="display-4 mb-3 animated slideInDown">Aplikasi Lapor</h1>
+                    <h1 class="display-4 mb-3 animated slideInDown">Wadul Guse</h1>
                     <p class="animated slideInDown">
                         Sebuah aplikasi yang dibuat untuk memproses laporan atau aduan masyarakat
                         terhadap suatu masalah yang terjadi di lingkup kota ini dengan sistem yang
@@ -65,7 +65,7 @@
                     <!-- Contact End -->
                     <div class="auth-content">
                         <div>
-                            <p class="mb-4 animated slideInDown">Belum punya akun? klik di <a class="fs-5" style="background-color: yellow" onclick="registerPage()" href="javascript:void(0)">sini</a></p>
+                            <h1 class="display-4 mb-3 animated slideInDown">Login</h1>
                             <div class="errors alert alert-danger visually-hidden" id="errors">
                                 
                             </div>
