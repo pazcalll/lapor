@@ -111,7 +111,7 @@
             <div class="gx-wrapper">
                 <div class="dashboard">
                     <div class="page-heading d-sm-flex justify-content-sm-between align-items-sm-center">
-                        <h2 class="title mb-3 mb-sm-0" id="title-label" style="font-weight: 500"></h2>
+                        <h2 class="title mb-3 mb-sm-0" id="title-label" style="font-weight: 500; font-size: 28pt"></h2>
                     </div>
 
                     <div id="content">

@@ -24,7 +24,6 @@ function getFacilities() {
         }
     })
 }
-getFacilities()
 
 function reportPage() {  
     $.ajax({
@@ -206,6 +205,7 @@ function homePage() {
         }
     })
 }
+homePage()
 
 function logout() {
     $.ajax({

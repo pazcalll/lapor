@@ -13,10 +13,12 @@
     <link href="{{ asset('lib/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jumbo-core.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/dropify/dist/css/dropify.min.css') }}" rel="stylesheet">
     <link id="override-css-id" href="{{ asset('css/theme-dark-cyan.css') }}" rel="stylesheet">
-
+    
     <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('lib/dropify/dist/js/dropify.min.js') }}"></script>
     
     <script src="{{ asset('js/setup.js') }}" defer></script>
 

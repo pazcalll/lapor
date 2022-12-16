@@ -1,54 +1,135 @@
-<!-- Spinner Start -->
-<div id="spinner"
-    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-grow text-primary" role="status"></div>
+<!-- Loader Backdrop -->
+<div class="loader-backdrop">
+    <!-- Loader -->
+    <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+        </svg>
+    </div>
+    <!-- /loader-->
 </div>
-<!-- Spinner End -->
+<!-- loader backdrop -->
 
+<!-- Page container -->
+<div class="gx-container">
 
-<!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 px-4 px-lg-5">
-    <a href="index.html" class="navbar-brand d-flex align-items-center">
-        <h2 class="m-0 text-primary">Lapor</h2>
-    </a>
-    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto py-4 py-lg-0">
-            <a onclick="homePage()" href="javascript:void(0)" id="home" class="nav-item nav-link active">Home</a>
-            <a onclick="reportPage()" href="javascript:void(0)" id="report" class="nav-item nav-link">Laporan</a>
-            <a onclick="reportHistoryPage()" href="javascript:void(0)" class="nav-item nav-link" id="history">Riwayat</a>
-            <div class="nav-item dropdown">
-                <a href="javascript:void(0)" class="nav-link dropdown-toggle customer-drop" data-bs-toggle="dropdown">Pengguna</a>
-                <div class="dropdown-menu shadow-sm m-0" style="right: 0; left: auto; text-align: right;">
-                    <a href="javascript:void(0)" class="dropdown-item disabled" id="welcome"></a>
-                    <a onclick="logout()" href="javascript:void(0)" id="logout" class="dropdown-item text-danger">Logout</a>
+    <!-- Page Sidebar -->
+    <div id="menu" class="side-nav gx-sidebar">
+        <div class="navbar-expand-lg">
+            <!-- Sidebar header  -->
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <img class="user-avatar" alt="Domnic" src="images/placeholder.jpg">
+
+                    <div class="user-detail">
+                        <h4 class="user-name">
+                            <span class="dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" id="userAccount"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pelanggan
+                                </a>
+
+                                <span class="dropdown-menu dropdown-menu-left" aria-labelledby="userAccount">
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="logout()">
+                                        <i class="zmdi zmdi-account zmdi-hc-fw mr-2"></i>
+                                        Profil
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="logout()">
+                                        <i class="zmdi zmdi-sign-in zmdi-hc-fw mr-2"></i>
+                                        Logout
+                                    </a>
+                                </span>
+                            </span>
+                        </h4>
+                    </div>
                 </div>
             </div>
+            <!-- /sidebar header -->
+
+            <!-- Main navigation -->
+            <div id="main-menu" class="main-menu navbar-collapse collapse">
+                <ul class="nav-menu">
+                    <li class="nav-header"><span class="nav-text">Pelanggan</span></li>
+                    <li class="menu">
+                        <a href="javascript:void(0)">
+                            <i class="zmdi zmdi-view-list zmdi-hc-fw"></i>
+                            <span class="nav-text">Laporan</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()"><span class="nav-text">Buat Laporan</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="reportPage(); $('.menu-backdrop').click()"><span class="nav-text">Antrean Laporan</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="reportHistoryPage(); $('.menu-backdrop').click()"><span class="nav-text">Riwayat Laporan</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="javascript:void(0)" onclick="configPage(); $('.menu-backdrop').click()">
+                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <span class="nav-text">User Config</span>
+                        </a>
+                    </li>
+                    <li class="menu no-arrow">
+                        <a href="javascript:void(0)" onclick="facilitiesPage(); $('.menu-backdrop').click()">
+                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <span class="nav-text">Fasilitas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /main navigation -->
         </div>
     </div>
-</nav>
-<!-- Navbar End -->
-<div id="content">
-    <script>
-        $.ajax({
-            url: webBaseUrl + '/customer/home-page',
-            type: "GET",
-            headers: {
-                Authorization: 'bearer ' + localStorage.getItem('_token')
-            },
-            success: (res) => {
-                let indexjs = document.createElement('script');
-                indexjs.setAttribute('type', 'text/javascript');
-                indexjs.setAttribute('src', webBaseUrl+'/js/customer.js');
-                document.head.appendChild(indexjs);
-                $('#content').html(res)
-            },
-            error: (err) => {
-                console.log(err)
-                $('#content').html(err)
-            }
-        })
-    </script>
+    <!-- /page sidebar -->
+
+    <!-- Main Container -->
+    <div class="gx-main-container">
+
+        <!-- Main Header -->
+        <header class="main-header">
+            <div class="gx-toolbar" style="left: 0px">
+                <a class="site-logo" href="index.html">
+                    <span style="color: white; font-size: x-large; font-weight: 700; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                        Wadul Guse
+                    </span>
+                </a>
+
+                <ul class="quick-menu header-notifications ml-auto">                    
+                    <li class="dropdown">
+                        <a class="gx-menu-icon menu-toggle" href="#menu">
+                            <span class="menu-icon"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <!-- /main header -->
+
+        <!-- Main Content -->
+        <div class="gx-main-content">
+            <!--gx-wrapper-->
+            <div class="gx-wrapper">
+                <div class="dashboard">
+                    <div class="page-heading d-sm-flex justify-content-sm-between align-items-sm-center">
+                        <h2 class="title mb-3 mb-sm-0" id="title-label" style="font-weight: 500; font-size: 28pt"></h2>
+                    </div>
+
+                    <div id="content">
+                        <script>
+                            let indexjs = document.createElement('script');
+                            indexjs.setAttribute('type', 'text/javascript');
+                            indexjs.setAttribute('src', webBaseUrl+'/js/customer.js');
+                            document.head.appendChild(indexjs)
+                        </script>
+                    </div>
+
+                </div>
+            </div>
+            <!--/gx-wrapper-->
+
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /main container -->
+
 </div>
+<!-- /page container -->
