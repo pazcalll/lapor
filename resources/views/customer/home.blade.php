@@ -33,7 +33,7 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="location">Lokasi</label>
+                                <label for="location">Lokasi <span style="color: red">*</span></label>
                                 <div id="location" name="location">
                                     <input type="text" class="form-control mt-1 mb-1" id="road" name="road" placeholder="Nama Jalan">
                                     <div class="row">
@@ -51,25 +51,26 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="facility">Fasilitas</label>
+                                <label for="facility">Fasilitas <span style="color: red">*</span></label>
                                 <select name="facility" id="facility" class="form-control mt-1 mb-1" aria-placeholder="">
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="opd">OPD (Organisasi Perangkat Daerah)</label>
+                                <label for="opd">OPD (Organisasi Perangkat Daerah) <span style="color: red">*</span></label>
                                 <select name="opd" id="opd" class="form-control mt-1 mb-1" aria-placeholder="">
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="issue">Detail Masalah</label>
+                                <label for="issue">Detail Masalah <span style="color: red">*</span></label>
                                 <textarea class="form-control mt-1 mb-1" style="height: 100px" name="issue" id="issue" placeholder="Detail Masalah" cols="30" rows="50"></textarea>
                             </div>
                         </div>
                         <div class="col-md-12 proof-container">
+                            <label>Bukti <span style="color: red">*</span></label>
                             <div class="row">
                                 <div class="col-sm-2">
                                     <input type="file" name="proof" id="proof" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >

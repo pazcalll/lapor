@@ -22,13 +22,16 @@ class CustomerController extends Controller
     }
     public function createReport()
     {
-        // dd(request()->all());
-        // dd();
         return $this->user->createReport();
     }
     public function getReports()
     {
         $data = $this->user->getReports();
+        return datatables($data)->toJson();
+    }
+    public function getUnacceptedReports()
+    {
+        $data = $this->user->getUnacceptedReports();
         return datatables($data)->toJson();
     }
     public function reportPage()

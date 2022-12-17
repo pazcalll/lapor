@@ -52,7 +52,14 @@ class CustomerRepository extends UsersRepository
     public function getReports()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        $data = Report::where('user_id', $user['id'])->get();
+        $data = Report::where('user_id', $user['id'])->where('status', 'SELESAI')->get();
+        return $data;
+    }
+
+    public function getUnacceptedReports()
+    {
+        $user = JWTAuth::toUser(request()->bearerToken());
+        $data = Report::where('user_id', $user['id'])->where('status', 'MENUNGGU')->get();
         return $data;
     }
 }

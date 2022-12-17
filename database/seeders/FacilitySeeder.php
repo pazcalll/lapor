@@ -16,11 +16,11 @@ class FacilitySeeder extends Seeder
     public function run()
     {
         //
-        $data = [
-            ['name' => 'Stasiun Bus'],
-            ['name' => 'Tiang Listrik'],
-            ['name' => 'Selokan']
-        ];
+        $data = [];
+        $facility = ['Infrastruktur (Jalan, Tiang PJU, Jembatan, Sanitasi Air)', 'Kesehatan', 'Pendidikan', 'Keamanan dan Ketertiban', 'Administrasi'];
+        foreach ($facility as $key => $value) {
+            $data[] = ['name' => $value];
+        }
         foreach ($data as $key => $value) {
             Facility::create($value);
         }

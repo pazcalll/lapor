@@ -1,4 +1,4 @@
-
+var dt = null
 
 // customer begin
 function getFacilities() {
@@ -59,44 +59,39 @@ function reportPage() {
                     'fileSize': 'Ukuran terlalu besar (1 mb max).',
                 }
             })
-
-            $('#makeReport').on('submit', function (e) {  
-                e.preventDefault()
-                let fd = new FormData()
-                fd.append('proof', $('#proof')[0].files[0])
-                fd.append('issue', $('#issue').val())
-                fd.append('facility', $('#facility').val())
-                fd.append('location', $('#location').val())
-                fd.append('_token', "{{ csrf_token() }}")
-
-                $.ajax({
-                    url: apiBaseUrl + '/user/customer/report',
-                    type: 'POST',
+            dt = $('#report_queue').DataTable({
+                ajax: {
+                    url: apiBaseUrl + '/user/customer/unaccepted-reports',
                     headers: {
-                        Authorization: 'bearer' + localStorage.getItem('_token')
+                        Authorization: "bearer " + localStorage.getItem('_token')
                     },
-                    data: fd,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: () => {
-                        $("#form-content").addClass('visually-hidden')
-                        $(".form-spinner").removeClass('visually-hidden')
-                        $(".dropify-clear").click()
-                        $('#issue').val(null)
-                        $('#facility').val(0)
-                        $('#location').val(null)
+                    cache: true
+                },
+                lengthChange: false,
+                scrollX: true,
+                language: {
+                    url: webBaseUrl + "/json/datatable-indonesia.json"
+                },
+                columnDefs: [
+                    { width: '15%', targets: 0 },
+                    { width: '40%', targets: 1 },
+                    { width: '25%', targets: 2 },
+                    { width: '20%', targets: 3 },
+                ],
+                columns: [
+                    {
+                        data: 'referral',
                     },
-                    success: (res) => {
-                        toastr.success('Laporan terkirim!')
-                        $(".form-spinner").addClass('visually-hidden')
-                        $("#form-content").removeClass('visually-hidden')
-                        console.log(res)
+                    {
+                        data: 'issue',
                     },
-                    error: (err) => {
-                        toastr.error('Laporan gagal terkirim')
-                        console.log(err)
+                    {
+                        data: 'created_at',
+                    },
+                    {
+                        data: 'status'
                     }
-                })
+                ]
             })
         },
         error: (err) => {
@@ -132,7 +127,7 @@ function reportHistoryPage() {
         success: (res) => {
             $('#content').html(res)
             
-            $('.table').DataTable({
+            dt = $('.table').DataTable({
                 ajax: {
                     url: apiBaseUrl + '/user/customer/reports',
                     headers: {
@@ -252,9 +247,11 @@ function addFileUploader(adder) {
     let uploaderCounter = document.getElementsByClassName('dropify')
     for (var i = 0; i < uploaderCounter.length; i++) {
         if (uploaderCounter[i].value == "" || uploaderCounter[i].value == null) {
+            toastr.error("Form upload bukti yang ada wajib diisi sebelum membuat yang baru!")
             return
         }
         else if (uploaderCounter.length >= 5){
+            toastr.error("Form upload bukti tidak bisa lebih dari 5!")
             return
         }
     }

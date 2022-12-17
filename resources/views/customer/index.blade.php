@@ -61,18 +61,6 @@
                             <li><a href="javascript:void(0)" onclick="reportHistoryPage(); $('.menu-backdrop').click()"><span class="nav-text">Riwayat Laporan</span></a></li>
                         </ul>
                     </li>
-                    <li class="menu no-arrow">
-                        <a href="javascript:void(0)" onclick="configPage(); $('.menu-backdrop').click()">
-                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
-                            <span class="nav-text">User Config</span>
-                        </a>
-                    </li>
-                    <li class="menu no-arrow">
-                        <a href="javascript:void(0)" onclick="facilitiesPage(); $('.menu-backdrop').click()">
-                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
-                            <span class="nav-text">Fasilitas</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
             <!-- /main navigation -->
