@@ -208,8 +208,38 @@ function homePage() {
                 
                 $('.btn-close').click()
                 $('#issue').val(null)
-                $('#facility').val(null)
-                $('#location').val(null)
+                $('#facility').val(0)
+                $('#rt').val(null)
+                $('#rw').val(null)
+                $('#sub_district').val(null)
+                $('#village').val(null)
+                $('#street').val(null)
+                $('.proof-container').html(`
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <input type="file" name="proof" id="proof" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
+                        </div>
+                        <div class="col-sm-2 justify-content-center align-self-center uploader-adder">
+                            <button type="button" onclick="addFileUploader()" class="btn btn-success" title="Tambah Masukan Bukti" style="border-radius: 10px; height: max-content; transform: translateY(-50%); position: absolute; top: 50%; bottom: 50%;">
+                                <i class="zmdi zmdi-plus zmdi-hc-4x"></i>
+                            </button>
+                        </div>
+                    </div>
+                `)
+                $('.dropify').dropify({
+                    messages: {
+                        'default': 'Masukkan bukti',
+                        'replace': 'Masukkan ganti dengan bukti lain',
+                        'remove':  'Hapus',
+                        'error':   'Maaf, terjadi kesalahan.'
+                    },
+                    error: {
+                        'fileSize': 'Ukuran terlalu besar (1 mb max).',
+                    },
+                    tpl: {
+                        clearButton: '<button type="button" onclick="removeFileInput(this)" class="dropify-clear">Hapus</button>'
+                    }
+                })
 
                 $.ajax({
                     url: apiBaseUrl+'/user/customer/report',
