@@ -89,6 +89,11 @@ class UserController extends Controller
         return $data;
     }
 
+    public function profilePage()
+    {
+        return view('pages.profile');
+    }
+
     public function getDisposableToken(Request $request)
     {
         $token = request()->session()->token();

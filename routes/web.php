@@ -25,6 +25,7 @@ Route::middleware('jwtnoauth')->group(function () {
 });
 Route::middleware('jwtauth')->group(function () {
     Route::get('/authenticator', [UserController::class, 'authenticator'])->name('authenticator');
+    Route::get('/profile-page', [UserController::class, 'profilePage'])->name('profilePage');
     Route::prefix('customer')->middleware('customer')->group(function () {
         Route::get('/home-page', [CustomerController::class, 'homePage'])->name('customerHomePage');
         Route::get('/report-page', [CustomerController::class, 'reportPage'])->name('customerReportPage');

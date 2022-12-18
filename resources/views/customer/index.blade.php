@@ -24,7 +24,7 @@
                     <div class="user-detail">
                         <h4 class="user-name">
                             <span class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="userAccount"
+                                <a class="dropdown-toggle user-fullname" href="#" role="button" id="userAccount"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Pelanggan
                                 </a>

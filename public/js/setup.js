@@ -56,7 +56,7 @@ function setUser() {
         type: "GET",
         success: (res) => {
             console.log(res)
-            $('#welcome').html('Selamat Datang '+ res.name + "!")
+            $('.user-fullname').html(res.name)
         }
     })
 }
