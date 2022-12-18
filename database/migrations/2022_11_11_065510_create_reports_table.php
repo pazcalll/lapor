@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('referral');
             $table->integer('facility_id')->nullable();
             $table->integer('user_id');
-            $table->string('location');
             $table->string('issue');
-            $table->text('proof_file');
             $table->enum('status', ['MENUNGGU', 'DIPROSES', 'SELESAI']);
             $table->timestamps();
 

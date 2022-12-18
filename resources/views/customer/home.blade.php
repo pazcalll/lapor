@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <label for="location">Lokasi <span style="color: red">*</span></label>
                                 <div id="location" name="location">
-                                    <input type="text" class="form-control mt-1 mb-1" id="road" name="road" placeholder="Nama Jalan">
+                                    <input type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
                                     <input type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
-                                    <input type="text" class="form-control mt-1 mb-1" id="district" name="district" placeholder="Kecamatan">
+                                    <input type="text" class="form-control mt-1 mb-1" id="sub_district" name="sub_district" placeholder="Kecamatan">
                                 </div>
                             </div>
                         </div>
@@ -53,13 +53,6 @@
                             <div class="form-group">
                                 <label for="facility">Fasilitas <span style="color: red">*</span></label>
                                 <select name="facility" id="facility" class="form-control mt-1 mb-1" aria-placeholder="">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="opd">OPD (Organisasi Perangkat Daerah) <span style="color: red">*</span></label>
-                                <select name="opd" id="opd" class="form-control mt-1 mb-1" aria-placeholder="">
                                 </select>
                             </div>
                         </div>

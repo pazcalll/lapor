@@ -191,11 +191,20 @@ function homePage() {
             $('#makeReport').on('submit', function (e) {  
                 e.preventDefault()
                 let fd = new FormData()
-                fd.append('proof', $('#proof')[0].files[0])
+                let fileSelector = document.getElementsByClassName('dropify')
+                let files = []
+                for (let i = 0; i < fileSelector.length; i++) {
+                    // files.push(fileSelector[i])
+                    fd.append('proof[]', $('.dropify')[i].files[0])
+                }
                 fd.append('issue', $('#issue').val())
                 fd.append('facility', $('#facility').val())
-                fd.append('location', $('#location').val())
-                fd.append('_token', "{{ csrf_token() }}")
+                fd.append('street', $('#street').val())
+                fd.append('village', $('#village').val())
+                fd.append('sub_district', $('#sub_district').val())
+                fd.append('rw', $('#rw').val())
+                fd.append('rt', $('#rt').val())
+                // fd.append('_token', "{{ csrf_token() }}")
                 
                 $('.btn-close').click()
                 $('#issue').val(null)
@@ -203,7 +212,7 @@ function homePage() {
                 $('#location').val(null)
 
                 $.ajax({
-                    url: '{{ route("createReport") }}',
+                    url: apiBaseUrl+'/user/customer/report',
                     type: 'POST',
                     data: fd,
                     contentType: false,
