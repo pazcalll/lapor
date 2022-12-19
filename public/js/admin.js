@@ -585,6 +585,52 @@ function editUser(e) {
         }
     })
 }
+
+
+function addCustomer(e) {
+    e.preventDefault()
+    let elements = e.target.elements
+    let authContent = ''
+    let fd = new FormData();
+    
+    fd.append('username', elements.username.value)
+    fd.append('password', elements.password.value)
+    fd.append('name', elements.name.value)
+    fd.append('phone', elements.phone.value)
+    fd.append('street', elements.street.value)
+    fd.append('rt', elements.rt.value)
+    fd.append('rw', elements.rw.value)
+    fd.append('village', elements.village.value)
+    fd.append('sub_district', elements.sub_district.value)
+    fd.append('appointment_letter', elements.appointment_letter.files[0])
+    $.ajax({
+        url: apiBaseUrl + '/user/admin/register-customer',
+        type: "POST",
+        contentType: false,
+        processData: false,
+        data: fd,
+        success: (res) => {
+            $('.modal-close').click()
+            toastr.success('Sukses mendaftarkan akun')
+            dt.ajax.reload()
+        },
+        error: function (err) {
+            let errMsg = ''
+            err.responseJSON.errors.forEach(msg => {
+                errMsg += '<li>'+msg+'</li>'
+            });
+            $(document).ready(function () {  
+                $('.errors').html(errMsg)
+                $('.errors').css('display', 'block')
+            })
+            toastr.error('Gagal mendaftarkan akun, atribut dengan tanda * wajib diissi, harap cek ulang form anda!')
+        },
+        complete: function () {  
+            $('.form-spinner').addClass('visually-hidden')
+            $('.auth-content').html(authContent)
+        }
+    })
+}
 // ------------------------------- FACILITIES-----------------------
 
 function facilitiesPage() {

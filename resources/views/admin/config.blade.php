@@ -81,19 +81,19 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <label for="username">Username</label>
+                                <label for="username">Username <span style="color: red">*</span></label>
                                 <input type="text" placeholder="Username" class="form-control" name="username" id="username">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <label for="password">Password</label>
+                                <label for="password">Password <span style="color: red">*</span></label>
                                 <input type="password" placeholder="Password" class="form-control" name="password" id="password">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <label for="name">Nama Lengkap</label>
+                                <label for="name">Nama Lengkap <span style="color: red">*</span></label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Nama Lengkap">
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <label for="phone">Nomor Telepon</label>
+                                <label for="phone">Nomor Telepon <span style="color: red">*</span></label>
                                 <input type="text" placeholder="Nomor Telepon" class="form-control" name="phone" id="phone">
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Edit Data</button>
+                    <button type="submit" class="btn btn-primary">Tambahkan Data</button>
                 </div>
             </form>
         </div>
@@ -147,15 +147,24 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row g-3">
+                        {{-- <div class="errors alert alert-danger" style="display: none">
+
+                        </div> --}}
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <div>Username</div>
+                                <div>Username <span style="color: red">*</span></div>
                                 <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <span>Nama Lengkap</span>
+                                <div>Password <span style="color: red">*</span></div>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <span>Nama Lengkap <span style="color: red">*</span></span>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Nama Lengkap">
                             </div>
                         </div>
@@ -179,13 +188,13 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <div>Nomor Telepon</div>
+                                <div>Nomor Telepon <span style="color: red">*</span></div>
                                 <input type="text" placeholder="Nomor Telepon" class="form-control" name="phone" id="phone">
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-floating">
-                                <div>SK Pengangkatan</div>
+                            <div class="form-floating mt-1">
+                                <div>SK Pengangkatan <span style="color: red">*</span></div>
                                 <input type="file" name="appointment_letter" id="appointment_letter" class="dropify">
                             </div>
                         </div>
@@ -193,7 +202,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Edit Data</button>
+                    <button type="submit" class="btn btn-primary">Tambahkan Data</button>
                 </div>
             </form>
         </div>

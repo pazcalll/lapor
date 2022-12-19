@@ -117,4 +117,9 @@ class AdminController extends Controller
         $delete = $this->admin->deleteFacility();
         return $delete;
     }
+    public function registerCustomer()
+    {
+        $register = $this->admin->registerCustomer();
+        return $register;
+    }
 }

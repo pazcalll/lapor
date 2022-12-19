@@ -44,6 +44,7 @@ Route::prefix('v1')->group(function () {
             Route::get('unaccepted-reports', [CustomerController::class, 'getUnacceptedReports'])->name('getUnacceptedReports');
         });
         Route::prefix('admin')->middleware('admin')->group(function () {
+            Route::post('register-customer', [AdminController::class, 'registerCustomer'])->name('registerCustomer');
             Route::post('process-report', [AdminController::class, 'processReport'])->name('processReportAdmin');
             Route::post('edit-user', [AdminController::class, 'editUser'])->name('adminEditUser');
 
