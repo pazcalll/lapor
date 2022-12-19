@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'customer', 'officer']);
-            $table->integer('phone')->nullable();
-            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

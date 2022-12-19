@@ -393,6 +393,57 @@ function configPage() {
         },
         success: (res) => {
             $('#content').html(res)
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Masukkan bukti',
+                    'replace': 'Masukkan ganti dengan bukti lain',
+                    'remove':  'Hapus',
+                    'error':   'Maaf, terjadi kesalahan.'
+                },
+                error: {
+                    'fileSize': 'Ukuran terlalu besar (1 mb max).',
+                }
+            })
+            $('#addOpdForm').on('submit', function(e) {
+                e.preventDefault()
+                $.ajax({
+                    url: apiBaseUrl + "/user/admin/opd",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: (res) => {
+                        $('.modal-close').click()
+                        $('.form-control').val('')
+                        toastr.success('OPD Telah Ditambahkan')
+                    },
+                    error: (err) => {
+                        console.log(err)
+                        toastr.error('Gagal menambahkan OPD, harap periksa lagi form anda atau coba lagi nanti!')
+                    },
+                    complete: () => {
+                        dt.ajax.reload()
+                    }
+                })
+            })
+            $('#addCustomerForm').on('submit', function(e) {
+                e.preventDefault()
+                $.ajax({
+                    url: apiBaseUrl + "/user/admin/opd",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: (res) => {
+                        $('.modal-close').click()
+                        $('.form-control').val('')
+                        toastr.success('OPD Telah Ditambahkan')
+                    },
+                    error: (err) => {
+                        console.log(err)
+                        toastr.error('Gagal menambahkan OPD, harap periksa lagi form anda atau coba lagi nanti!')
+                    },
+                    complete: () => {
+                        dt.ajax.reload()
+                    }
+                })
+            })
         },
         error: (err) => {
             console.log(err)
@@ -409,18 +460,44 @@ function userTable() {
             cache: true,
             headers: headers
         },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Tambah Pelanggan',
+                className: "btn btn-success btn-add-customer-modal",
+                init: function(api, node, config) {
+                    $(node).removeClass('btn-secondary')
+                },
+                attr:  {
+                    "data-backdrop": 'false',
+                    "data-toggle": 'modal',
+                    "data-target": "#addCustomerModal"
+                }
+            },
+            {
+                text: 'Tambah OPD',
+                className: "btn btn-info btn-add-officer-modal",
+                init: function(api, node, config) {
+                    $(node).removeClass('btn-secondary')
+                },
+                attr:  {
+                    "data-backdrop": 'false',
+                    "data-toggle": 'modal',
+                    "data-target": "#addOpdModal"
+                }
+            }
+        ],
         lengthChange: false,
         scrollX: true,
         language: {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
         columnDefs: [
-            { width: '20%', targets: 0 },
-            { width: '10%', targets: 1 },
-            { width: '10%', targets: 2 },
-            { width: '10%', targets: 3 },
+            { width: '30%', targets: 0 },
+            { width: '15%', targets: 1 },
+            { width: '15%', targets: 2 },
+            { width: '15%', targets: 3 },
             { width: '25%', targets: 4 },
-            { width: '25%', targets: 5 },
         ],
         columns: [
             {
@@ -434,9 +511,6 @@ function userTable() {
             },
             {
                 data: 'phone',
-            },
-            {
-                data: 'address',
             },
             {
                 data: null,

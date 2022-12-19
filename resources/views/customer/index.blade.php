@@ -30,7 +30,7 @@
                                 </a>
 
                                 <span class="dropdown-menu dropdown-menu-left" aria-labelledby="userAccount">
-                                    <a class="dropdown-item" href="javascript:void(0)" onclick="logout()">
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="profilePage()">
                                         <i class="zmdi zmdi-account zmdi-hc-fw mr-2"></i>
                                         Profil
                                     </a>

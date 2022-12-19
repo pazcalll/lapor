@@ -54,6 +54,7 @@ Route::prefix('v1')->group(function () {
             Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
             Route::get('facilities-datatable', [AdminController::class, 'getFacilitiesDatatable'])->name('getFacilitiesDatatable');
+            Route::post('opd', [AdminController::class, 'createOpd'])->name('createOpd');
             Route::post('facility', [AdminController::class, 'createFacility'])->name('createFacility');
             Route::patch('facility', [AdminController::class, 'editFacility'])->name('editFacility');
             Route::delete('facility', [AdminController::class, 'deleteFacility'])->name('deleteFacility');

@@ -70,4 +70,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function userAddressDetail()
+    {
+        return $this->belongsTo(UserAddressDetail::class, 'id', 'user_id');
+    }
 }

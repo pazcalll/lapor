@@ -95,6 +95,12 @@ class AdminController extends Controller
         return datatables($data)->toJson();
     }
 
+    public function createOpd()
+    {
+        $data = $this->admin->createOpd();
+        return $data;
+    }
+
     public function createFacility()
     {
         $create = $this->admin->createFacility();

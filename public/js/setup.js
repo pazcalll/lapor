@@ -60,3 +60,13 @@ function setUser() {
         }
     })
 }
+
+function profilePage() {
+    $.ajax({
+        url: webBaseUrl + "/profile-page",
+        type: "GET",
+        success: (res) => {
+            console.log(res)
+        }
+    })
+}

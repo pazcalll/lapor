@@ -250,6 +250,7 @@ function homePage() {
                     success: (res) => {
                         toastr.success('Laporan terkirim!')
                         console.log(res)
+                        reportPage()
                     },
                     error: (err) => {
                         toastr.error('Laporan gagal terkirim')

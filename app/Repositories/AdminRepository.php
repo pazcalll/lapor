@@ -7,7 +7,10 @@ use App\Models\Assignment;
 use App\Models\Facility;
 use App\Models\Report;
 use App\Models\User;
+use App\Models\UserAddressDetail;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Enum;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
@@ -27,11 +30,6 @@ class AdminRepository extends UsersRepository
 
     public function processReport()
     {
-        // $reportData = [
-        //     'referral' => request()->post('referral')
-        // ];
-        // $report = Report::where('referral', $reportData['referral'])->first()->toArray();
-        // dd($report);
         try {
             DB::beginTransaction();
             $reportData = [
@@ -186,6 +184,47 @@ class AdminRepository extends UsersRepository
             return $edit;
         } catch (\Exception $th) {
             return response()->json(["error" => $th], 400);
+        }
+    }
+
+    public function createOpd()
+    {
+        try {
+            DB::beginTransaction();
+            $validate = request()->validate([
+                'username' => 'required|unique',
+                'name' => 'required',
+                'password' => 'required',
+                'rt' => 'nullable',
+                'rw' => 'nullable',
+                'street' => 'nullable',
+                'village' => 'nullable',
+                'sub_district' => 'nullable',
+                'phone' => 'required',
+            ], [
+                'required' => 'Semua field dengan tanda bintang wajib diisi',
+                'username.unique' => 'Username tidak boleh ada yang sama'
+            ]);
+            $newOpd = User::create([
+                'username' => $validate['username'],
+                'name' => $validate['name'],
+                'password' => Hash::make($validate['password']),
+                'role' => 'officer',
+                'phone' => $validate['phone']
+            ]);
+            $opdAddressDetail = UserAddressDetail::create([
+                'street' => $validate['street'],
+                'village' => $validate['village'],
+                'rt' => $validate['rt'],
+                'rw' => $validate['rw'],
+                'sub_district' => $validate['sub_district'],
+                'user_id' => $newOpd->id,
+            ]);
+
+            DB::commit();
+            return $newOpd;
+        } catch (Exception $th) {
+            return response()->json($th, 400);
         }
     }
 }

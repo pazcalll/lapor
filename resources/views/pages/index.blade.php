@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('css/jumbo-bootstrap.css') }}">
     <link href="{{ asset('lib/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/datatables.net-buttons-dt/css/buttons.dataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/datatables.net-buttons-bs4/css/buttons.bootstrap4.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/toastr/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jumbo-core.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/dropify/dist/css/dropify.min.css') }}" rel="stylesheet">
@@ -20,7 +22,7 @@
     <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('lib/dropify/dist/js/dropify.min.js') }}"></script>
-    
+
     <script src="{{ asset('js/setup.js') }}" defer></script>
 
     <style>
@@ -44,5 +46,8 @@
     <script src="{{ asset('lib/bigslide/dist/bigSlide.min.js') }}"></script>
     <script src="{{ asset('lib/datatables.net/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('lib/datatables.net-bs4/js/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('lib/datatables.net-buttons/js/dataTables.buttons.js') }}"></script>
+    <script src="{{ asset('lib/datatables.net-buttons-dt/js/buttons.dataTables.js') }}"></script>
+    <script src="{{ asset('lib/datatables.net-buttons-bs4/js/buttons.bootstrap4.js') }}"></script>
 </body>
 </html>
