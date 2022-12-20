@@ -19,7 +19,7 @@ class AdminRepository extends UsersRepository
 {
 	public function getUnacceptedReports()
 	{
-		$data = Report::where('status', 'MENUNGGU')->get();
+		$data = Report::with('reportFile')->where('status', 'MENUNGGU')->get();
 		return $data;
 	}
 
@@ -252,17 +252,17 @@ class AdminRepository extends UsersRepository
 		try {
 			DB::beginTransaction();
 			$validator = $validator->validate();
+
+			$filename = time() . '_' . $validator['appointment_letter']->getClientOriginalName();
+			$validator['appointment_letter']->storeAs('public/appointment_letter', $filename);
 			$newCustomer = User::create([
 				'name' => $validator['name'],
 				'username' => $validator['username'],
 				'password' => Hash::make($validator['password']),
 				'phone' => $validator['phone'],
 				'role' => 'customer',
-				'appointment_letter' => 'customer',
+				'appointment_letter' => $filename,
 			]);
-
-			$filename = time() . '_' . $validator['appointment_letter']->getClientOriginalName();
-			$validator['appointment_letter']->storeAs('public/appointment_letter', $filename);
 
 			$customerAddress = UserAddressDetail::create([
 				'street' => $validator['street'],

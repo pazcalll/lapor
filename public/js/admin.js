@@ -85,6 +85,7 @@ function incomingReportDatatable(storageLink) {
                     return `
                         <button data-backdrop="false" data-toggle="modal" data-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
                         <a data-href="${data.proof_file}" class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
+                        <a class="btn btn-danger btn-proof" href="javascript:void(0)">Tolak Laporan</a>
                     `
                 }
             }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UserAddressDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,16 @@ class UserSeeder extends Seeder
                 'username' => 'user' . $i,
                 'password' => Hash::make('password'),
                 'role' => 'customer',
-                'phone' => '123467890'
+                'phone' => '123467890',
+                'appointment_letter' => '339640.png'
+            ]);
+            $customerAddressDetail = UserAddressDetail::create([
+                'street' => "Jalan " . $i,
+                'rt' => "0" . $i,
+                'rw' => "0" . $i,
+                'village' => "Desa " . $i,
+                'sub_district' => "Kecamatan " . $i,
+                'user_id' => $customer->id,
             ]);
             $officer = User::create([
                 'name' => 'officer' . $i,
@@ -40,6 +50,14 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'officer',
                 'phone' => '123467890'
+            ]);
+            $officerAddressDetail = UserAddressDetail::create([
+                'street' => "Jalan OPD " . $i,
+                'rt' => "0" . $i,
+                'rw' => "0" . $i,
+                'village' => "Desa OPD " . $i,
+                'sub_district' => "Kecamatan OPD " . $i,
+                'user_id' => $officer->id
             ]);
         }
         DB::commit();

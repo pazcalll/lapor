@@ -33,4 +33,9 @@ class Report extends Model
     {
         return $this->hasOne(Facility::class, 'id', 'facility_id');
     }
+
+    public function reportFile()
+    {
+        return $this->hasMany(ReportFile::class);
+    }
 }
