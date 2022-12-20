@@ -4,10 +4,11 @@
         <table id="incoming_report" class="table table-striped table-borderless" style="width: 100%">
             <thead>
                 <tr>
-                    <td>Referral</td>
-                    <td>Deskripsi Laporan</td>
-                    <td>Waktu Laporan</td>
-                    <td>Tindakan</td>
+                    <th></th>
+                    <th>Referral</th>
+                    <th>Deskripsi Laporan</th>
+                    <th>Waktu Laporan</th>
+                    <th>Tindakan</th>
                 </tr>
             </thead>
             <tbody></tbody>

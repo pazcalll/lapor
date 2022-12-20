@@ -51,6 +51,42 @@ function logout() {
 }
 
 function incomingReportDatatable(storageLink) {
+    let format = function(d) {
+        // `d` is the original data object for the row
+        return (
+            `
+            <div class="d-flex justify-content-around">
+                <table cellpadding="3" cellspacing="0" border="0">
+                    <tr>
+                        <td>Jalan</td>
+                        <td>:</td>
+                        <td>${d.street}</td>
+                    </tr>
+                    <tr>
+                        <td>RT</td>
+                        <td>:</td>
+                        <td>${d.rt}</td>
+                    </tr>
+                    <tr>
+                        <td>RW</td>
+                        <td>:</td>
+                        <td>${d.rw}</td>
+                    </tr>
+                    <tr>
+                        <td>Desa</td>
+                        <td>:</td>
+                        <td>${d.village}</td>
+                    </tr>
+                    <tr>
+                        <td>Kecamatan</td>
+                        <td>:</td>
+                        <td>${d.sub_district}</td>
+                    </tr>
+                </table>
+            </div>
+            `
+        );
+    }
     dt = $('#incoming_report').DataTable({
         ajax: {
             url: apiBaseUrl+"/user/admin/unaccepted-reports",
@@ -64,12 +100,19 @@ function incomingReportDatatable(storageLink) {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
         columnDefs: [
-            { width: '15%', targets: 0 },
-            { width: '40%', targets: 1 },
-            { width: '20%', targets: 2 },
-            { width: '25%', targets: 3 },
+            { width: '5%', targets: 0 },
+            { width: '15%', targets: 1 },
+            { width: '30%', targets: 2 },
+            { width: '20%', targets: 3 },
+            { width: '30%', targets: 4 },
         ],
         columns: [
+            {
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: '<button type="button" class="btn btn-info">&plus;</button>',
+            },
             {
                 data: 'referral',
             },
@@ -131,6 +174,24 @@ function incomingReportDatatable(storageLink) {
             })
         }
     })
+    $('#incoming_report tbody').on('click', 'td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = dt.row(tr);
+ 
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+            
+            $(this).html('<button type="button" class="btn btn-info">&plus;</button>')
+        } else {
+            // Open this row
+            row.child(format(row.data().report_location)).show();
+            tr.addClass('shown');
+
+            $(this).html('<button type="button" class="btn btn-danger">&minus;</button>')
+        }
+    });
 }
 
 function getOfficers() {

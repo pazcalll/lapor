@@ -19,7 +19,7 @@ class AdminRepository extends UsersRepository
 {
 	public function getUnacceptedReports()
 	{
-		$data = Report::with('reportFile')->where('status', 'MENUNGGU')->get();
+		$data = Report::with(['reportFile', 'reportLocation'])->where('status', 'MENUNGGU')->get();
 		return $data;
 	}
 

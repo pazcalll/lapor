@@ -29,6 +29,9 @@
         .dataTables_paginate {
             float: right !important;
         }
+        .dataTables_scrollBody thead {
+            visibility: hidden;
+        }
     </style>
 </head>
 

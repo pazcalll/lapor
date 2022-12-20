@@ -11,7 +11,7 @@ class Report extends Model
 {
     use HasFactory;
     use Notifiable;
-    protected $fillable = ['referral', 'facility_id', 'user_id', 'location', 'issue', 'proof_file', 'status'];
+    protected $fillable = ['referral', 'facility_id', 'user_id', 'issue', 'proof_file', 'status'];
 
     protected function serializeDate(DateTimeInterface $date)
     {
@@ -37,5 +37,10 @@ class Report extends Model
     public function reportFile()
     {
         return $this->hasMany(ReportFile::class);
+    }
+
+    public function reportLocation()
+    {
+        return $this->hasOne(reportLocation::class);
     }
 }
