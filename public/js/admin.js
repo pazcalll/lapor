@@ -82,9 +82,13 @@ function incomingReportDatatable(storageLink) {
             {
                 data: null,
                 render: function(data, type, full, meta) {
+                    let dataFiles = ``
+                    data.report_file.forEach((ele, _index) => {
+                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                    })
                     return `
                         <button data-backdrop="false" data-toggle="modal" data-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
-                        <a data-href="${data.proof_file}" class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
+                        <a data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#proofModal" ${dataFiles} class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
                         <a class="btn btn-danger btn-proof" href="javascript:void(0)">Tolak Laporan</a>
                     `
                 }
@@ -95,8 +99,18 @@ function incomingReportDatatable(storageLink) {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#referral').val($(this).data('referral'))
             })
-            $('.btn-proof').on('click', function () {  
-                window.open($(this).data('href'), '_blank');
+            $('.btn-proof').on('click', function () {
+                $('.referral_proof').html($(this).data('referral'))
+                let proofs = ``
+                let i = 0
+                while (true) {
+                    i += 1
+                    if ($(this).data(`file${i}`)===undefined) {
+                        break
+                    }
+                    proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
+                }
+                $('.proof-container').html(proofs)
             })
             $.ajax({
                 url: apiBaseUrl + "/user/get-facilities",
@@ -124,7 +138,7 @@ function getOfficers() {
         url: apiBaseUrl + "/user/admin/officers",
         type: "GET",
         success: (res) => {
-            options = `<option disabled hidden selected>Pilih Pegawai</option>`
+            options = `<option disabled hidden selected>Pilih OPD</option>`
             res.data.forEach((officer, _index) => {
                 options += `<option value='${officer.id}'>`+officer.name+"</option>"
             });

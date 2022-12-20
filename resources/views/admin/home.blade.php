@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="officer">Pegawai</label>
+                                <label for="officer">OPD</label>
                                 <select name="officer" id="officer" class="form-select form-control" aria-placeholder="">
                                 </select>
                             </div>
@@ -75,14 +75,7 @@
                 <div class="row g-3">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <span>Referral : </span><span class="referral_modal"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="officer">Pegawai</label>
-                            <select name="officer" id="officer" class="form-select form-control" aria-placeholder="">
-                            </select>
+                            <span>Referral : </span><span class="referral_proof"></span>
                         </div>
                     </div>
                     <div class="col-md-12">
