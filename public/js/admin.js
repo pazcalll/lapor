@@ -198,16 +198,16 @@ function incomingReportDatatable(storageLink) {
     });
 }
 
-function getOfficers() {
+function getOpds() {
     $.ajax({
-        url: apiBaseUrl + "/user/admin/officers",
+        url: apiBaseUrl + "/user/admin/opds",
         type: "GET",
         success: (res) => {
             options = `<option disabled hidden selected>Pilih OPD</option>`
-            res.data.forEach((officer, _index) => {
-                options += `<option value='${officer.id}'>`+officer.name+"</option>"
+            res.data.forEach((opd, _index) => {
+                options += `<option value='${opd.id}'>`+opd.name+"</option>"
             });
-            $('#officer').html(options)
+            $('#opd').html(options)
         },
         error: (err) => {
             console.log(err)
@@ -242,7 +242,7 @@ function processReport(e) {
     e.preventDefault()
     let fd = new FormData()
     fd.append('referral', $('#referral').val())
-    fd.append('officer', $('#officer').val())
+    fd.append('opd', $('#opd').val())
     fd.append('additional', $('#additional').val())
     fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
 
@@ -257,7 +257,7 @@ function processReport(e) {
             $('.report-form').addClass('visually-hidden')
             $('.modal-close').click()
             $('#referral').val('')
-            $('#officer').val('Pilih Pegawai')
+            $('#opd').val('Pilih Pegawai')
             $('#additional').val('')
         },
         success: (res) => {
@@ -327,7 +327,7 @@ function getAcceptedReports(storageLink) {
                 data: 'referral',
             },
             {
-                data: 'assignment.officer.name',
+                data: 'assignment.opd.name',
             },
             {
                 data: 'assignment.created_at',
@@ -348,7 +348,7 @@ function getAcceptedReports(storageLink) {
                             class="btn btn-info btn-detail" 
                             data-issue="${data.issue}" 
                             data-facility="${data.facility.name}" 
-                            data-officer="${data.assignment.officer.name}" 
+                            data-opd="${data.assignment.opd.name}" 
                             data-street="${data.report_location.street}" 
                             data-rt="${data.report_location.rt}" 
                             data-rw="${data.report_location.rw}" 
@@ -388,7 +388,7 @@ function getAcceptedReports(storageLink) {
             })
             $('.btn-detail').on('click', function () {  
                 $('.referral_modal').html($(this).data('referral'))
-                $('#officer').val($(this).data('officer'))
+                $('#opd').val($(this).data('opd'))
                 $('#reporter').val($(this).data('reporter'))
                 $('#street').val($(this).data('street'))
                 $('#rt').val($(this).data('rt'))
@@ -469,7 +469,7 @@ function getFinishedReports(storageLink) {
                 data: 'referral',
             },
             {
-                data: 'assignment.officer.name',
+                data: 'assignment.opd.name',
             },
             {
                 data: 'assignment.created_at',
@@ -481,7 +481,7 @@ function getFinishedReports(storageLink) {
                 data: null,
                 render: function(data, type, full, meta) {
                     return `
-                        <button data-backdrop="false" data-toggle="modal" data-target="#detailModal" type="button" class="btn btn-info btn-detail" data-issue="${data.issue}" data-facility="${data.facility.name}" data-officer="${data.assignment.officer.name}" data-location="${data.location}" data-reporter="${data.reporter.name}" data-additional="${data.assignment.additional}" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
+                        <button data-backdrop="false" data-toggle="modal" data-target="#detailModal" type="button" class="btn btn-info btn-detail" data-issue="${data.issue}" data-facility="${data.facility.name}" data-opd="${data.assignment.opd.name}" data-location="${data.location}" data-reporter="${data.reporter.name}" data-additional="${data.assignment.additional}" data-referral="${data.referral}"><i class="bi bi-sticky"></i> Detail</button>
                         <button class="btn btn-warning btn-proof" data-item="${data.proof_file}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5Zm-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z"/>
@@ -507,7 +507,7 @@ function getFinishedReports(storageLink) {
             })
             $('.btn-detail').on('click', function () {  
                 $('.referral_modal').html($(this).data('referral'))
-                $('#officer').val($(this).data('officer'))
+                $('#opd').val($(this).data('opd'))
                 $('#reporter').val($(this).data('reporter'))
                 $('#location').val($(this).data('location'))
                 $('#issue').val($(this).data('issue'))
@@ -618,7 +618,7 @@ function userTable() {
             },
             {
                 text: 'Tambah OPD',
-                className: "btn btn-info btn-add-officer-modal",
+                className: "btn btn-info btn-add-opd-modal",
                 init: function(api, node, config) {
                     $(node).removeClass('btn-secondary')
                 },
@@ -657,7 +657,7 @@ function userTable() {
             {
                 data: null,
                 render: function(data, type, full, meta) {
-                    return `
+                    let btn = `
                         <button 
                             data-backdrop="false" 
                             data-toggle="modal" 
@@ -672,6 +672,18 @@ function userTable() {
                             Edit
                         </button>
                     `
+                    if (data.appointment_letter !== null) {
+                        btn += `
+                            <button 
+                                onclick="window.open('${webBaseUrl}/storage/appointment_letter/${data.appointment_letter}', '_blank')"
+                                class="btn btn-success"
+                                type="button"
+                            >
+                                Cek SK
+                            </button>
+                        `
+                    }
+                    return btn
                 }
             }
         ],

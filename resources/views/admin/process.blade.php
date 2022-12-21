@@ -35,8 +35,8 @@
                     </div>
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
-                            <label for="officer">Penanggung Jawab</label>
-                            <input class="form-control" disabled name="officer" id="officer">
+                            <label for="opd">Penanggung Jawab</label>
+                            <input class="form-control" disabled name="opd" id="opd">
                         </div>
                     </div>
                     <div class="col-md-12 mt-1">

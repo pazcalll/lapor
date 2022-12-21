@@ -2,5 +2,5 @@
 
 namespace App\Interfaces;
 
-interface OfficerInterface
+interface OpdInterface
 { }

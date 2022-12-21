@@ -44,20 +44,20 @@ class UserSeeder extends Seeder
                 'sub_district' => "Kecamatan " . $i,
                 'user_id' => $customer->id,
             ]);
-            $officer = User::create([
-                'name' => 'officer' . $i,
-                'username' => 'officer' . $i,
+            $opd = User::create([
+                'name' => 'opd' . $i,
+                'username' => 'opd' . $i,
                 'password' => Hash::make('password'),
-                'role' => 'officer',
+                'role' => 'opd',
                 'phone' => '123467890'
             ]);
-            $officerAddressDetail = UserAddressDetail::create([
+            $opdAddressDetail = UserAddressDetail::create([
                 'street' => "Jalan OPD " . $i,
                 'rt' => "0" . $i,
                 'rw' => "0" . $i,
                 'village' => "Desa OPD " . $i,
                 'sub_district' => "Kecamatan OPD " . $i,
-                'user_id' => $officer->id
+                'user_id' => $opd->id
             ]);
         }
         DB::commit();

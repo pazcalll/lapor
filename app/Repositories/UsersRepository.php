@@ -20,7 +20,7 @@ class UsersRepository implements UserInterface
                     'username' => 'required|unique:users|max:12|min:4|regex:/^[a-zA-Z0-9]+$/u',
                     'password' => 'required|max:16|min:6',
                     'address' => 'nullable',
-                    // 'role' => 'required|in:admin,officer,customer',
+                    // 'role' => 'required|in:admin,opd,customer',
                     'phone' => 'nullable|min:10|max:12'
                 ],
                 [
@@ -97,8 +97,8 @@ class UsersRepository implements UserInterface
             return view('customer.index');
         } else if ($user['role'] == 'admin') {
             return view('admin.index');
-        } else if ($user['role'] == 'officer') {
-            return view('officer.index');
+        } else if ($user['role'] == 'opd') {
+            return view('opd.index');
         }
     }
 

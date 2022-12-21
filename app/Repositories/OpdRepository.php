@@ -8,13 +8,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-class OfficerRepository extends UsersRepository
+class OpdRepository extends UsersRepository
 {
     public function getIncomingAssignments()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
         $assignments = Assignment::with([
-            'officer' => function ($query) {
+            'opd' => function ($query) {
                 return $query->select('id', 'name');
             }, 'report' => function ($query) {
                 return $query->select('id', 'user_id', 'proof_file', 'referral', 'issue', 'location', 'status', 'created_at');
@@ -35,7 +35,7 @@ class OfficerRepository extends UsersRepository
     {
         $user = JWTAuth::toUser(request()->bearerToken());
         $assignments = Assignment::with([
-            'officer' => function ($query) {
+            'opd' => function ($query) {
                 return $query->select('id', 'name');
             }, 'report' => function ($query) {
                 return $query->select('id', 'user_id', 'proof_file', 'referral', 'issue', 'location', 'status', 'created_at');

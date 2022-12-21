@@ -12,7 +12,7 @@ $.ajaxSetup({
     statusCode: {
         500: function(xhr) {
             if(window.console) console.log(xhr.responseText);
-            window.location.href(webBaseUrl+'/login')
+            window.location.href = webBaseUrl+'/login'
         }
     }
 })

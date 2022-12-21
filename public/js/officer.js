@@ -2,7 +2,7 @@ var dt = null
 
 function homePage() {
     $.ajax({
-        url: webBaseUrl + '/officer/home-page',
+        url: webBaseUrl + '/opd/home-page',
         type: "GET",
         beforeSend: () => {
             $(".nav-item").removeClass('active')
@@ -28,7 +28,7 @@ homePage()
 
 function historyPage() {
     $.ajax({
-        url: webBaseUrl + '/officer/history-page',
+        url: webBaseUrl + '/opd/history-page',
         type: "GET",
         beforeSend: () => {
             $(".nav-item").removeClass('active')
@@ -75,7 +75,7 @@ function logout() {
 function getIncomingAssignments() {
     dt = $('#incoming_assignment').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/officer/incoming-assignments",
+            url: apiBaseUrl+"/user/opd/incoming-assignments",
             type: "GET",
             cache: true,
             headers: headers
@@ -124,7 +124,7 @@ function getIncomingAssignments() {
                             data-reporter="${data.report.reporter.name}"
                             data-location="${data.report.location}"
                             data-issue="${data.report.issue}"
-                            data-officer="${data.officer.name}"
+                            data-opd="${data.opd.name}"
                             data-additional="${data.additional}"
                             data-bs-backdrop="false" 
                             data-bs-toggle="modal" 
@@ -150,7 +150,7 @@ function getIncomingAssignments() {
         drawCallback: (res) => {
             $('.btn-detail-assignment').on('click', function () {  
                 $(".referral_modal").val($(this).data('referral'))
-                $("#officer_detail").val($(this).data('officer'))
+                $("#opd_detail").val($(this).data('opd'))
                 $("#reporter_detail").val($(this).data('reporter'))
                 $("#location_detail").val($(this).data('location'))
                 $("#issue_detail").val($(this).data('issue'))
@@ -167,7 +167,7 @@ function getIncomingAssignments() {
 function getFinishedAssignments() {
     dt = $('#finished_assignments').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/officer/finished-assignments",
+            url: apiBaseUrl+"/user/opd/finished-assignments",
             type: "GET",
             cache: true,
             headers: headers
@@ -216,7 +216,7 @@ function getFinishedAssignments() {
                             data-reporter="${data.report.reporter.name}"
                             data-location="${data.report.location}"
                             data-issue="${data.report.issue}"
-                            data-officer="${data.officer.name}"
+                            data-opd="${data.opd.name}"
                             data-additional="${data.additional}"
                             data-proof-url="${data.report.proof_file}"
                             data-bs-backdrop="false" 
@@ -240,7 +240,7 @@ function getFinishedAssignments() {
         drawCallback: (res) => {
             $('.btn-detail-assignment').on('click', function () {  
                 $(".referral_modal").val($(this).data('referral'))
-                $("#officer_detail").val($(this).data('officer'))
+                $("#opd_detail").val($(this).data('opd'))
                 $("#reporter_detail").val($(this).data('reporter'))
                 $("#location_detail").val($(this).data('location'))
                 $("#issue_detail").val($(this).data('issue'))
@@ -260,7 +260,7 @@ function finishAssignment(e) {
     fd.append('referral', $('#referral_finish').val())
     fd.append('file_finish', $('#file_finish')[0].files[0])
     $.ajax({
-        url: apiBaseUrl+"/user/officer/finish-assignment",
+        url: apiBaseUrl+"/user/opd/finish-assignment",
         type: "POST",
         data: fd,
         contentType: false,

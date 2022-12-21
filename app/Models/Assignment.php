@@ -19,7 +19,7 @@ class Assignment extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    public function officer()
+    public function opd()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

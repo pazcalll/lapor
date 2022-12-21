@@ -48,9 +48,9 @@ class AdminController extends Controller
         return datatables($data)->toJson();
     }
 
-    public function getOfficers()
+    public function getOpds()
     {
-        $data = $this->admin->getOfficers();
+        $data = $this->admin->getOpds();
         return datatables($data)->toJson();
     }
 

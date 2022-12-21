@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +51,7 @@ Route::prefix('v1')->group(function () {
             Route::get('unaccepted-reports', [AdminController::class, 'getUnacceptedReports'])->name('getUnacceptedReport');
             Route::get('accepted-reports', [AdminController::class, 'getAcceptedReports'])->name('getAcceptedReport');
             Route::get('finished-reports', [AdminController::class, 'getFinishedReports'])->name('getFinishedReport');
-            Route::get('officers', [AdminController::class, 'getofficers'])->name('getOfficers');
+            Route::get('opds', [AdminController::class, 'getOpds'])->name('getOpds');
             Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
             Route::get('facilities-datatable', [AdminController::class, 'getFacilitiesDatatable'])->name('getFacilitiesDatatable');
@@ -61,10 +61,10 @@ Route::prefix('v1')->group(function () {
             Route::delete('facility', [AdminController::class, 'deleteFacility'])->name('deleteFacility');
             Route::patch('reject-report', [AdminController::class, 'rejectReport'])->name('rejectReport');
         });
-        Route::prefix('officer')->middleware('officer')->group(function () {
-            Route::post('finish-assignment', [OfficerController::class, 'finishAssignment'])->name('finishAssignment');
-            Route::get('incoming-assignments', [OfficerController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
-            Route::get('finished-assignments', [OfficerController::class, 'getFinishedAssignments'])->name('getFinishedAssignments');
+        Route::prefix('opd')->middleware('opd')->group(function () {
+            Route::post('finish-assignment', [OpdController::class, 'finishAssignment'])->name('finishAssignment');
+            Route::get('incoming-assignments', [OpdController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
+            Route::get('finished-assignments', [OpdController::class, 'getFinishedAssignments'])->name('getFinishedAssignments');
         });
     });
 });

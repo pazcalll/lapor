@@ -40,8 +40,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="officer">OPD</label>
-                                <select name="officer" id="officer" class="form-select form-control" aria-placeholder="">
+                                <label for="opd">OPD</label>
+                                <select name="opd" id="opd" class="form-select form-control" aria-placeholder="">
                                 </select>
                             </div>
                         </div>
@@ -135,5 +135,5 @@
     $("#title-label").html('Laporan Masuk')
 
     incomingReportDatatable('{{ asset("storage/proof") }}')
-    getOfficers()
+    getOpds()
 </script>

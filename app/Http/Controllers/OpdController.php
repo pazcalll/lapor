@@ -5,42 +5,42 @@ namespace App\Http\Controllers;
 use App\Interfaces\UserInterface;
 use Illuminate\Http\Request;
 
-class OfficerController extends Controller
+class OpdController extends Controller
 {
-    private $officer;
+    private $opd;
     public function __construct(UserInterface $userInterface)
     {
         parent::__construct();
         $this->middleware('jwtauth')->except([]);
         $this->middleware('jwtnoauth')->only([]);
-        $this->officer = $userInterface;
+        $this->opd = $userInterface;
     }
 
     //
     public function homePage()
     {
-        return view('officer.home');
+        return view('opd.home');
     }
 
     public function historyPage()
     {
-        return view('officer.history');
+        return view('opd.history');
     }
 
     public function getIncomingAssignments()
     {
-        $assignents = $this->officer->getIncomingAssignments();
+        $assignents = $this->opd->getIncomingAssignments();
         return datatables($assignents)->toJson();
     }
 
     public function finishAssignment()
     {
-        return $this->officer->finishAssignment();
+        return $this->opd->finishAssignment();
     }
 
     public function getFinishedAssignments()
     {
-        $finishedAssignments = $this->officer->getFinishedAssignments();
+        $finishedAssignments = $this->opd->getFinishedAssignments();
         return datatables($finishedAssignments)->toJson();
     }
 }

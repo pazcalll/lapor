@@ -4,12 +4,12 @@ namespace App\Providers;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use App\Interfaces\UserInterface;
 use App\Repositories\AdminRepository;
 use App\Repositories\CustomerRepository;
-use App\Repositories\OfficerRepository;
+use App\Repositories\OpdRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,10 +41,10 @@ class RepositoryServiceProvider extends ServiceProvider
                 return new AdminRepository;
             });
 
-        $this->app->when(OfficerController::class)
+        $this->app->when(OpdController::class)
             ->needs(UserInterface::class)
             ->give(function () {
-                return new OfficerRepository;
+                return new OpdRepository;
             });
     }
 

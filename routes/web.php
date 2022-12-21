@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +38,8 @@ Route::middleware('jwtauth')->group(function () {
         Route::get('/config-page', [AdminController::class, 'configPage'])->name('adminConfigPage');
         Route::get('/facilities-page', [AdminController::class, 'facilitiesPage'])->name('adminFacilitiesPage');
     });
-    Route::prefix('officer')->middleware('officer')->group(function () {
-        Route::get('/home-page', [OfficerController::class, 'homePage'])->name('officerHomePage');
-        Route::get('/history-page', [OfficerController::class, 'historyPage'])->name('officerHistoryPage');
+    Route::prefix('opd')->middleware('opd')->group(function () {
+        Route::get('/home-page', [OpdController::class, 'homePage'])->name('opdHomePage');
+        Route::get('/history-page', [OpdController::class, 'historyPage'])->name('opdHistoryPage');
     });
 });

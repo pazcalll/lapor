@@ -33,7 +33,7 @@
     <script>
         let indexjs = document.createElement('script');
         indexjs.setAttribute('type', 'text/javascript');
-        indexjs.setAttribute('src', webBaseUrl+'/js/officer.js');
+        indexjs.setAttribute('src', webBaseUrl+'/js/opd.js');
         document.head.appendChild(indexjs);
     </script>
 </div>

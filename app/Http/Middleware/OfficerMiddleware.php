@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-class OfficerMiddleware
+class OpdMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class OfficerMiddleware
     {
         $user = JWTAuth::toUser(request()->header('Authorization'));
         // $user = JWTAuth::toUser(request()->bearerToken());
-        if ($user['role'] == 'officer') {
+        if ($user['role'] == 'opd') {
             return $next($request);
         } else {
             return response()->json(['error' => 'unauthorized'], 401);

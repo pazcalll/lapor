@@ -23,9 +23,9 @@ class AdminRepository extends UsersRepository
 		return $data;
 	}
 
-	public function getOfficers()
+	public function getOpds()
 	{
-		$data = User::where('role', 'officer')->get();
+		$data = User::where('role', 'opd')->get();
 		return $data;
 	}
 
@@ -42,7 +42,7 @@ class AdminRepository extends UsersRepository
 			}
 			// dd($report);
 			$data = [
-				'user_id' => request()->post('officer'),
+				'user_id' => request()->post('opd'),
 				'report_id' => $report['id'],
 				'additional' => request()->post('additional')
 			];
@@ -62,7 +62,7 @@ class AdminRepository extends UsersRepository
 			"assignment" => function ($query) {
 				return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at');
 			},
-			"assignment.officer" => function ($query) {
+			"assignment.opd" => function ($query) {
 				return $query->select('id', 'name', 'role');
 			},
 			"reporter" => function ($query) {
@@ -88,7 +88,7 @@ class AdminRepository extends UsersRepository
 			"assignment" => function ($query) {
 				return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at', 'finished_at', 'file_finish');
 			},
-			"assignment.officer" => function ($query) {
+			"assignment.opd" => function ($query) {
 				return $query->select('id', 'name', 'role');
 			},
 			"reporter" => function ($query) {
@@ -199,7 +199,7 @@ class AdminRepository extends UsersRepository
 		try {
 			DB::beginTransaction();
 			$validate = request()->validate([
-				'username' => 'required|unique',
+				'username' => 'required|unique:users',
 				'name' => 'required',
 				'password' => 'required',
 				'rt' => 'nullable',
@@ -216,7 +216,7 @@ class AdminRepository extends UsersRepository
 				'username' => $validate['username'],
 				'name' => $validate['name'],
 				'password' => Hash::make($validate['password']),
-				'role' => 'officer',
+				'role' => 'opd',
 				'phone' => $validate['phone']
 			]);
 			$opdAddressDetail = UserAddressDetail::create([
@@ -231,7 +231,7 @@ class AdminRepository extends UsersRepository
 			DB::commit();
 			return $newOpd;
 		} catch (Exception $th) {
-			return response()->json($th, 400);
+			return response()->json(["errors" => $th->getMessage()], 400);
 		}
 	}
 
