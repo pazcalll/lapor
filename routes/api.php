@@ -59,6 +59,7 @@ Route::prefix('v1')->group(function () {
             Route::post('facility', [AdminController::class, 'createFacility'])->name('createFacility');
             Route::patch('facility', [AdminController::class, 'editFacility'])->name('editFacility');
             Route::delete('facility', [AdminController::class, 'deleteFacility'])->name('deleteFacility');
+            Route::patch('reject-report', [AdminController::class, 'rejectReport'])->name('rejectReport');
         });
         Route::prefix('officer')->middleware('officer')->group(function () {
             Route::post('finish-assignment', [OfficerController::class, 'finishAssignment'])->name('finishAssignment');

@@ -279,4 +279,23 @@ class AdminRepository extends UsersRepository
 			return response()->json(['error' => $th->getMessage()], 400);
 		}
 	}
+
+	public function rejectReport()
+	{
+		$validator = Validator::make(request()->all(), [
+			'referral' => 'required'
+		]);
+		if ($validator->fails()) {
+			return response()->json(['errors' => $validator->errors()->all()], 400);
+		}
+		$validator = $validator->validate();
+		try {
+			$reject = Report::where('referral', $validator['referral'])->update([
+				'status' => 'DITOLAK'
+			]);
+			return response()->json($reject, 200);
+		} catch (\Throwable $th) {
+			return response()->json(['error' => $th->getMessage()], 400);
+		}
+	}
 }

@@ -132,7 +132,7 @@ function incomingReportDatatable(storageLink) {
                     return `
                         <button data-backdrop="false" data-toggle="modal" data-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
                         <a data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#proofModal" ${dataFiles} class="btn btn-info btn-proof" href="javascript:void(0)">Lihat Bukti</a>
-                        <a class="btn btn-danger btn-proof" href="javascript:void(0)">Tolak Laporan</a>
+                        <a data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#rejectModal" class="btn btn-danger btn-reject-report" href="javascript:void(0)">Tolak Laporan</a>
                     `
                 }
             }
@@ -154,6 +154,10 @@ function incomingReportDatatable(storageLink) {
                     proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
                 }
                 $('.proof-container').html(proofs)
+            })
+            $('.btn-reject-report').on('click', function () {  
+                $('.referral_reject').html(`${$(this).data('referral')}`)
+                $('#rejectReferral').val(`${$(this).data('referral')}`)
             })
             $.ajax({
                 url: apiBaseUrl + "/user/get-facilities",
@@ -207,6 +211,29 @@ function getOfficers() {
         },
         error: (err) => {
             console.log(err)
+        }
+    })
+}
+
+function rejectReport(e) {
+    e.preventDefault()
+    let elements = e.target.elements
+    $.ajax({
+        url: apiBaseUrl + '/user/admin/reject-report',
+        type: "PATCH",
+        data: {
+            referral: elements.rejectReferral.value
+        },
+        success: (res) => {
+            toastr.success('Laporan telah ditolak')
+            dt.ajax.reload()
+            $('.referral_reject').html('');
+            $('#rejectReferral').val('');
+            $('.modal-close').click()
+        },
+        error: (err) => {
+            console.log(err)
+            toastr.error('Maaf, terjadi masalah. Silakan coba lagi nanti!')
         }
     })
 }

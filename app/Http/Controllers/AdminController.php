@@ -122,4 +122,9 @@ class AdminController extends Controller
         $register = $this->admin->registerCustomer();
         return $register;
     }
+    public function rejectReport()
+    {
+        $reject = $this->admin->rejectReport();
+        return $reject;
+    }
 }

@@ -96,6 +96,41 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Penolakan Laporan</h5>
+                <button type="button" class="btn-close close modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="rejectReport" onsubmit="rejectReport(event)">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span>Referral : </span><span class="referral_reject"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <p for="additional">Apakah anda ingin menolak laporan ini? </p>
+                                <input type="hidden" name="rejectReferral" id="rejectReferral">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     $("#title-label").html('Laporan Masuk')
 
