@@ -8,6 +8,12 @@ $.ajaxSetup({
     error: (err) => {
         console.log(err.responseJSON)
         window.location.reload()
+    },
+    statusCode: {
+        500: function(xhr) {
+            if(window.console) console.log(xhr.responseText);
+            window.location.reload()
+        }
     }
 })
 
