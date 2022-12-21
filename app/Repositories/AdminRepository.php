@@ -70,8 +70,14 @@ class AdminRepository extends UsersRepository
 			},
 			"facility" => function ($query) {
 				return $query->select('id', 'name');
+			},
+			"reportFile" => function ($query) {
+				return $query->select('report_id', 'proof_file');
+			},
+			"reportLocation" => function ($query) {
+				return $query->select('report_id', 'street', 'rt', 'rw', 'village', 'sub_district');
 			}
-		])->select('id', 'referral', 'facility_id', 'user_id', 'location', 'issue', 'proof_file')->where('status', "DIPROSES")->get()->toArray();
+		])->select('id', 'referral', 'facility_id', 'user_id', 'issue')->where('status', "DIPROSES")->get()->toArray();
 		return $report;
 	}
 
