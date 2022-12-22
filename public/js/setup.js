@@ -61,7 +61,7 @@ function setUser() {
         url: apiBaseUrl + "/user/get-profile",
         type: "GET",
         success: (res) => {
-            console.log(res)
+            // console.log(res)
             $('.user-fullname').html(res.name)
         }
     })

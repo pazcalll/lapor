@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserAddressDetail extends Model
 {
     use HasFactory;
-    protected $fillable = ['street', 'rt', 'rw', 'village', 'sub-district', 'user_id'];
+    protected $fillable = ['street', 'rt', 'rw', 'village', 'sub_district', 'user_id'];
 
     protected function serializeDate(DateTimeInterface $date)
     {

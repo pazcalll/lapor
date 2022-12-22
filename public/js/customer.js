@@ -1,171 +1,6 @@
 var dt = null
 
-// customer begin
-function getFacilities() {
-    $.ajax({
-        url: apiBaseUrl+'/user/get-facilities',
-        type: "GET",
-        success: (res) => {
-            let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
-            res.forEach(facility => {
-                facilityHTML += `
-                    <option value="${facility.id}">${facility.name}</option>
-                `
-            });
-            $('#facility').html(facilityHTML)
-        },
-        error: (err) => {
-            if (err.responseJSON.status == 400) {
-                localStorage.setItem('_token', err.responseJSON._token)
-                getFacilities()
-            }else {
-                window.location.reload()
-            }
-        }
-    })
-}
-
-function reportPage() {  
-    $.ajax({
-        url: webBaseUrl + '/customer/report-page',
-        type: "GET",
-        headers: {
-            Authorization: "bearer "+localStorage.getItem('_token')
-        },
-        beforeSend: () => {
-            $('#content').html(`
-            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
-                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </span>
-            </span>
-            `)
-            $('.nav-item').removeClass('active')
-            $('.dropdown-item').removeClass('active')
-            $('#report').addClass('active')
-        },
-        success: (res) => {
-            $('#content').html(res)
-            
-            getFacilities()
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Masukkan bukti',
-                    'replace': 'Masukkan ganti dengan bukti lain',
-                    'remove':  'Hapus',
-                    'error':   'Maaf, terjadi kesalahan.'
-                },
-                error: {
-                    'fileSize': 'Ukuran terlalu besar (1 mb max).',
-                }
-            })
-            dt = $('#report_queue').DataTable({
-                ajax: {
-                    url: apiBaseUrl + '/user/customer/unaccepted-reports',
-                    headers: {
-                        Authorization: "bearer " + localStorage.getItem('_token')
-                    },
-                    cache: true
-                },
-                lengthChange: false,
-                scrollX: true,
-                language: {
-                    url: webBaseUrl + "/json/datatable-indonesia.json"
-                },
-                columnDefs: [
-                    { width: '15%', targets: 0 },
-                    { width: '40%', targets: 1 },
-                    { width: '25%', targets: 2 },
-                    { width: '20%', targets: 3 },
-                ],
-                columns: [
-                    {
-                        data: 'referral',
-                    },
-                    {
-                        data: 'issue',
-                    },
-                    {
-                        data: 'created_at',
-                    },
-                    {
-                        data: 'status'
-                    }
-                ]
-            })
-        },
-        error: (err) => {
-            if (err.responseJSON.status == 400) {
-                localStorage.setItem('_token', err.responseJSON._token)
-                reportPage()
-            }else {
-                window.location.reload()
-            }
-        }
-    })
-}
-
-function reportHistoryPage() {
-    $.ajax({
-        url: webBaseUrl + '/customer/report-history-page',
-        type: "GET",
-        headers: {
-            Authorization: "bearer "+localStorage.getItem('_token')
-        },
-        beforeSend: () => {
-            $('#content').html(`
-            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
-                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </span>
-            </span>
-            `)
-            $('.nav-item').removeClass('active')
-            $('.dropdown-item').removeClass('active')
-            $('#history').addClass('active')
-        },
-        success: (res) => {
-            $('#content').html(res)
-            
-            dt = $('.table').DataTable({
-                ajax: {
-                    url: apiBaseUrl + '/user/customer/reports',
-                    headers: {
-                        Authorization: "bearer " + localStorage.getItem('_token')
-                    },
-                    cache: true
-                },
-                lengthChange: false,
-                // searching: false,
-                scrollX: true,
-                language: {
-                    url: webBaseUrl + "/json/datatable-indonesia.json"
-                },
-                columnDefs: [
-                    { width: '15%', targets: 0 },
-                    { width: '40%', targets: 1 },
-                    { width: '25%', targets: 2 },
-                    { width: '20%', targets: 3 },
-                ],
-                columns: [
-                    {
-                        data: 'referral',
-                    },
-                    {
-                        data: 'issue',
-                    },
-                    {
-                        data: 'created_at',
-                    },
-                    {
-                        data: 'status'
-                    }
-                ]
-            })
-        }
-    })
-}
-
+// ====================================== HOME PAGE =================================================
 function homePage() {
     $.ajax({
         url: webBaseUrl + '/customer/home-page',
@@ -342,6 +177,215 @@ function logout() {
             }else {
                 window.location.reload()
             }
+        }
+    })
+}
+
+function getFacilities() {
+    $.ajax({
+        url: apiBaseUrl+'/user/get-facilities',
+        type: "GET",
+        success: (res) => {
+            let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
+            res.forEach(facility => {
+                facilityHTML += `
+                    <option value="${facility.id}">${facility.name}</option>
+                `
+            });
+            $('#facility').html(facilityHTML)
+        },
+        error: (err) => {
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                getFacilities()
+            }else {
+                window.location.reload()
+            }
+        }
+    })
+}
+
+// ==================================================== REPORT PAGE ===============================================
+function reportPage() {  
+    $.ajax({
+        url: webBaseUrl + '/customer/report-page',
+        type: "GET",
+        headers: {
+            Authorization: "bearer "+localStorage.getItem('_token')
+        },
+        beforeSend: () => {
+            $('#content').html(`
+            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+            </span>
+            `)
+            $('.nav-item').removeClass('active')
+            $('.dropdown-item').removeClass('active')
+            $('#report').addClass('active')
+        },
+        success: (res) => {
+            $('#content').html(res)
+            
+            getFacilities()
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Masukkan bukti',
+                    'replace': 'Masukkan ganti dengan bukti lain',
+                    'remove':  'Hapus',
+                    'error':   'Maaf, terjadi kesalahan.'
+                },
+                error: {
+                    'fileSize': 'Ukuran terlalu besar (1 mb max).',
+                }
+            })
+            dt = $('#report_queue').DataTable({
+                ajax: {
+                    url: apiBaseUrl + '/user/customer/unaccepted-reports',
+                    headers: {
+                        Authorization: "bearer " + localStorage.getItem('_token')
+                    },
+                    cache: true
+                },
+                lengthChange: false,
+                scrollX: true,
+                language: {
+                    url: webBaseUrl + "/json/datatable-indonesia.json"
+                },
+                columnDefs: [
+                    { width: '15%', targets: 0 },
+                    { width: '40%', targets: 1 },
+                    { width: '25%', targets: 2 },
+                    { width: '20%', targets: 3 },
+                ],
+                columns: [
+                    {
+                        data: 'referral',
+                    },
+                    {
+                        data: 'issue',
+                    },
+                    {
+                        data: 'created_at',
+                    },
+                    {
+                        data: 'status'
+                    }
+                ]
+            })
+        },
+        error: (err) => {
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                reportPage()
+            }else {
+                window.location.reload()
+            }
+        }
+    })
+}
+
+// ================================================================ HISTORY PAGE =================================================
+
+function reportHistoryPage() {
+    $.ajax({
+        url: webBaseUrl + '/customer/report-history-page',
+        type: "GET",
+        headers: {
+            Authorization: "bearer "+localStorage.getItem('_token')
+        },
+        beforeSend: () => {
+            $('#content').html(`
+            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+            </span>
+            `)
+            $('.nav-item').removeClass('active')
+            $('.dropdown-item').removeClass('active')
+            $('#history').addClass('active')
+        },
+        success: (res) => {
+            $('#content').html(res)
+            
+            dt = $('.table').DataTable({
+                ajax: {
+                    url: apiBaseUrl + '/user/customer/reports',
+                    headers: {
+                        Authorization: "bearer " + localStorage.getItem('_token')
+                    },
+                    cache: true
+                },
+                lengthChange: false,
+                // searching: false,
+                scrollX: true,
+                language: {
+                    url: webBaseUrl + "/json/datatable-indonesia.json"
+                },
+                columnDefs: [
+                    { width: '15%', targets: 0 },
+                    { width: '40%', targets: 1 },
+                    { width: '25%', targets: 2 },
+                    { width: '20%', targets: 3 },
+                ],
+                columns: [
+                    {
+                        data: 'referral',
+                    },
+                    {
+                        data: 'issue',
+                    },
+                    {
+                        data: 'created_at',
+                    },
+                    {
+                        data: 'status'
+                    }
+                ]
+            })
+        }
+    })
+}
+
+// ============================================ PROFILE PAGE ==========================================
+function profilePage() {
+    $.ajax({
+        url: webBaseUrl + "/profile-page",
+        type: "GET",
+        beforeSend:() => {
+            $('#content').html(`
+            <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
+                <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+            </span>
+            `)
+        },
+        success: (res1) => {
+            $('.menu-backdrop').click()
+
+            $.ajax({
+                url: apiBaseUrl + "/user/get-profile",
+                type: "GET",
+                success: (res2) => {
+                    $("#content").html(res1)
+
+                    $('#name').val(res2.name)
+                    $('#username').val(res2.username)
+                    $('#street').val(res2.user_address_detail.street)
+                    $('#rt').val(res2.user_address_detail.rt)
+                    $('#rw').val(res2.user_address_detail.rw)
+                    $('#village').val(res2.user_address_detail.village)
+                    $('#sub_district').val(res2.user_address_detail.sub_district)
+                    $('#appointment_letter_link').data('url', webBaseUrl+"/storage/appointment_letter/"+res2.appointment_letter)
+
+                    $('#appointment_letter_link').on('click', function () {  
+                        window.open($(this).data('url'), '_blank')
+                    })
+                }
+            })
         }
     })
 }

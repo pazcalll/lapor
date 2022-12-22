@@ -80,6 +80,7 @@ class UserController extends Controller
     public function getProfile()
     {
         $user = $this->user->getProfile();
+        $user = $this->user->getProfileDetail($user->getData());
         return $user;
     }
 
@@ -91,7 +92,7 @@ class UserController extends Controller
 
     public function profilePage()
     {
-        return view('pages.profile');
+        return $this->user->profilePage();
     }
 
     public function getDisposableToken(Request $request)

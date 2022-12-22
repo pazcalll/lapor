@@ -108,6 +108,14 @@ class UsersRepository implements UserInterface
         return response()->json($user, 200);
     }
 
+    public function getProfileDetail($auth)
+    {
+        $user = User::with(['userAddressDetail' => function ($query) {
+            return $query->select('street', 'rt', 'rw', 'village', 'sub_district', 'user_id');
+        }])->where('id', $auth->id)->where('username', $auth->username)->first();
+        return response()->json($user, 200);
+    }
+
     public function getFacilities()
     {
         $data = Facility::select(['id', 'name'])->get();
@@ -116,6 +124,18 @@ class UsersRepository implements UserInterface
 
     public function updateProfile()
     { }
+
+    public function profilePage()
+    {
+        $user = JWTAuth::toUser(request()->bearerToken());
+        if ($user['role'] == 'customer') {
+            return view('customer.profile');
+        } else if ($user['role'] == 'admin') {
+            return view('admin.profile');
+        } else if ($user['role'] == 'opd') {
+            return view('opd.profile');
+        }
+    }
 
     public function respondWithToken($token)
     {
