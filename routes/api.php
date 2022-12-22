@@ -36,6 +36,7 @@ Route::prefix('v1')->group(function () {
     Route::get('use-disposable-token/{token}', [UserController::class, 'useDisposableToken'])->name('useDisposableToken');
     Route::prefix('user')->middleware('jwtauth')->group(function () {
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
+        Route::patch('update-profile', [UserController::class, 'updateProfile'])->name('updateProfile');
         Route::get('get-facilities', [UserController::class, 'getFacilities'])->name('getFacilities');
         Route::get('get-profile', [UserController::class, 'getProfile'])->name('getProfile');
         Route::prefix('customer')->middleware('customer')->group(function () {

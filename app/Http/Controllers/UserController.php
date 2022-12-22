@@ -95,6 +95,13 @@ class UserController extends Controller
         return $this->user->profilePage();
     }
 
+    public function updateProfile()
+    {
+        // return response()->json(request()->all(), 200);
+        $update = $this->user->updateProfile();
+        return $update;
+    }
+
     public function getDisposableToken(Request $request)
     {
         $token = request()->session()->token();

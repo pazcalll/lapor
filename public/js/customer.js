@@ -374,6 +374,8 @@ function profilePage() {
 
                     $('#name').val(res2.name)
                     $('#username').val(res2.username)
+                    $('#password').val(res2.password)
+                    $('#phone').val(res2.phone)
                     $('#street').val(res2.user_address_detail.street)
                     $('#rt').val(res2.user_address_detail.rt)
                     $('#rw').val(res2.user_address_detail.rw)
@@ -388,4 +390,42 @@ function profilePage() {
             })
         }
     })
+}
+
+function updateProfile(e) {
+    e.preventDefault()
+
+    if ($('#password').val() == $('#password_confirm').val()) {
+        $.ajax({
+            url: apiBaseUrl + '/user/update-profile',
+            type: "PATCH",
+            data: {
+                name: $('#name').val(),
+                username: $('#username').val(),
+                password: $('#password').val(),
+                street: $('#street').val(),
+                rt: $('#rt').val(),
+                rw: $('#rw').val(),
+                village: $('#village').val(),
+                sub_district: $('#sub_district').val(),
+                phone: $('#phone').val()
+            },
+            beforeSend: () => {
+                $('.btn-submit').css('display', 'none')
+                $('.p-loading').css('display', 'flex')
+            },
+            success: (res) => {
+                toastr.success('Data Berhasil diperbarui')
+            },
+            error: (err) => {
+                toastr.error('Aksi gagal, mohon coba lagi nanti')
+            },
+            complete: () => {
+                $('.btn-submit').css('display', 'block')
+                $('.p-loading').css('display', 'none')
+            }
+        })
+    } else {
+        toastr.error('Password baru dan konfirmasi tidak sama!')
+    }
 }

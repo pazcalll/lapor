@@ -5,7 +5,11 @@ namespace App\Repositories;
 use App\Interfaces\UserInterface;
 use App\Models\Facility;
 use App\Models\User;
+use App\Models\UserAddressDetail;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class UsersRepository implements UserInterface
@@ -123,7 +127,51 @@ class UsersRepository implements UserInterface
     }
 
     public function updateProfile()
-    { }
+    {
+        // DO NOT USE FORMDATA TO ANY 'PATCH' ROUTES
+        $validator = Validator::make(request()->all(), [
+            'name' => 'required',
+            'password' => 'nullable|min:6|max:16',
+            'rt' => 'required',
+            'rw' => 'required',
+            'street' => 'required',
+            'village' => 'required',
+            'sub_district' => 'required',
+            'phone' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 400);
+        }
+
+        try {
+            $user = JWTAuth::toUser(request()->bearerToken());
+            $validator = $validator->validate();
+
+            DB::beginTransaction();
+            // return response()->json($validator['password'] == null, 200);
+            $userUpdate = User::where('id', $user['id'])->update([
+                'name' => $validator['name'],
+                'phone' => $validator['phone'],
+            ]);
+            if ($validator['password'] != null) {
+                $userPasswordUpdate = User::where('id', $user['id'])->update([
+                    'password' => $validator['password']
+                ]);
+            }
+            $userDetailUpdate = UserAddressDetail::where('user_id', $user['id'])->update([
+                'rt' => $validator['rt'],
+                'rw' => $validator['rw'],
+                'street' => $validator['street'],
+                'village' => $validator['village'],
+                'sub_district' => $validator['sub_district'],
+            ]);
+
+            DB::commit();
+            return response()->json([$userUpdate, $userDetailUpdate], 200);
+        } catch (Exception $th) {
+            return response()->json($th->getMessage(), 500);
+        }
+    }
 
     public function profilePage()
     {
