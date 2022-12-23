@@ -83,12 +83,11 @@ function homePage() {
                     contentType: false,
                     processData: false,
                     success: (res) => {
-                        toastr.success('Laporan terkirim!')
-                        console.log(res)
+                        toastr.success('Sukses membuat laporan!')
                         reportPage()
                     },
                     error: (err) => {
-                        toastr.error('Laporan gagal terkirim')
+                        toastr.error('Laporan gagal dikirim, coba lagi nanti!')
                         console.log(err)
                     }
                 })
@@ -186,7 +185,7 @@ function getFacilities() {
         url: apiBaseUrl+'/user/get-facilities',
         type: "GET",
         success: (res) => {
-            let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
+            let facilityHTML = '<option selected disabled hidden>Pilih Fasilitas</option>'
             res.forEach(facility => {
                 facilityHTML += `
                     <option value="${facility.id}">${facility.name}</option>
@@ -254,25 +253,57 @@ function reportPage() {
                     url: webBaseUrl + "/json/datatable-indonesia.json"
                 },
                 columnDefs: [
-                    { width: '15%', targets: 0 },
-                    { width: '40%', targets: 1 },
-                    { width: '25%', targets: 2 },
-                    { width: '20%', targets: 3 },
+                    { width: '10%', targets: 0 },
+                    { width: '15%', targets: 1 },
+                    { width: '15%', targets: 2 },
+                    { width: '25%', targets: 3 },
+                    { width: '15%', targets: 4 },
+                    { width: '20%', targets: 5 },
                 ],
                 columns: [
                     {
                         data: 'referral',
                     },
                     {
+                        data: 'created_at',
+                    },
+                    {
+                        data: 'facility.name',
+                    },
+                    {
                         data: 'issue',
                     },
                     {
-                        data: 'created_at',
+                        data: null,
+                        render: function(data, type, full, meta) {
+                            let dataFiles = ``
+                            data.report_file.forEach((ele, _index) => {
+                                dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                            })
+                            return `
+                                <button data-backdrop="false" data-toggle="modal" data-target="#proofModal" type="button" class="btn btn-success btn-proof" data-referral="${data.referral}" ${dataFiles}>Bukti</button>
+                            `
+                        }
                     },
                     {
                         data: 'status'
                     }
-                ]
+                ],
+                drawCallback: () => {
+                    $('.btn-proof').on('click', function () {
+                        $('.referral_proof').html($(this).data('referral'))
+                        let proofs = ``
+                        let i = 0
+                        while (true) {
+                            i += 1
+                            if ($(this).data(`file${i}`)===undefined) {
+                                break
+                            }
+                            proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
+                        }
+                        $('.proof-container').html(proofs)
+                    })
+                }
             })
         },
         error: (err) => {
@@ -319,31 +350,66 @@ function reportHistoryPage() {
                     cache: true
                 },
                 lengthChange: false,
-                // searching: false,
                 scrollX: true,
                 language: {
                     url: webBaseUrl + "/json/datatable-indonesia.json"
                 },
                 columnDefs: [
-                    { width: '15%', targets: 0 },
-                    { width: '40%', targets: 1 },
-                    { width: '25%', targets: 2 },
-                    { width: '20%', targets: 3 },
+                    { width: '10%', targets: 0 },
+                    { width: '15%', targets: 1 },
+                    { width: '15%', targets: 2 },
+                    { width: '15%', targets: 3 },
+                    { width: '25%', targets: 4 },
+                    { width: '10%', targets: 5 },
+                    { width: '10%', targets: 6 },
                 ],
                 columns: [
                     {
                         data: 'referral',
                     },
                     {
+                        data: 'created_at',
+                    },
+                    {
+                        data: 'facility.name',
+                    },
+                    {
+                        data: 'assignment.opd.name',
+                    },
+                    {
                         data: 'issue',
                     },
                     {
-                        data: 'created_at',
+                        data: null,
+                        render: function(data, type, full, meta) {
+                            let dataFiles = ``
+                            data.report_file.forEach((ele, _index) => {
+                                dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                            })
+                            return `
+                                <button data-backdrop="false" data-toggle="modal" data-target="#proofModal" type="button" class="btn btn-success btn-proof" data-referral="${data.referral}" ${dataFiles}>Bukti</button>
+                            `
+                        }
                     },
                     {
                         data: 'status'
                     }
-                ]
+                ],
+                drawCallback: () => {
+                    $('.btn-proof').on('click', function () {
+                        $('.referral_proof').html($(this).data('referral'))
+                        let proofs = ``
+                        let i = 0
+                        while (true) {
+                            i += 1
+                            if ($(this).data(`file${i}`)===undefined) {
+                                break
+                            }
+                            proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
+                        }
+                        $('.proof-container').html(proofs)
+                    })
+                }
             })
         }
     })
@@ -418,7 +484,16 @@ function updateProfile(e) {
                 toastr.success('Data Berhasil diperbarui')
             },
             error: (err) => {
-                toastr.error('Aksi gagal, mohon coba lagi nanti')
+                console.log(err)
+                if (err.responseJSON.errors !== null) {
+                    for (let i = 0; i < err.responseJSON.errors.length; i++) {
+                        toastr.error(err.responseJSON.errors[i])
+                    }
+                }
+                else{
+                    toastr.error('Aksi gagal, harap coba lagi nanti atau hubungi admin!')
+                    console.log(err)
+                }
             },
             complete: () => {
                 $('.btn-submit').css('display', 'block')

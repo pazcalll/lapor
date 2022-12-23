@@ -65,24 +65,42 @@ class CustomerRepository extends UsersRepository
             return response()->json(['success' => true, 'status' => 200], 200);
         } catch (Exception $th) {
             return response()->json(['error' => $th, 'status' => 400], 400);
-            // try {
-            // } catch (\Exception $e) {
-            //     return response()->json(['error' => $th, 'status' => 400], 400);
-            // }
         }
     }
 
     public function getReports()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        $data = Report::where('user_id', $user['id'])->where('status', 'SELESAI')->get();
+        $data = Report::with([
+            'reportFile' => function ($query) {
+                return $query->select('report_id', 'proof_file');
+            },
+            'facility' => function ($query) {
+                return $query->select('id', 'name');
+            },
+            'assignment' => function ($query) {
+                return $query->select('report_id', 'user_id', 'file_finish', 'finished_at');
+            },
+            'assignment.opd' => function ($query) {
+                return $query->select('id', 'name');
+            }
+        ])
+            ->where('user_id', $user['id'])->whereIn('status', ['SELESAI', 'DIPROSES', 'DITOLAK'])->get();
         return $data;
     }
 
     public function getUnacceptedReports()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        $data = Report::where('user_id', $user['id'])->where('status', 'MENUNGGU')->get();
+        $data = Report::with([
+            'reportFile' => function ($query) {
+                return $query->select('report_id', 'proof_file');
+            },
+            'facility' => function ($query) {
+                return $query->select('id', 'name');
+            }
+        ])
+            ->where('user_id', $user['id'])->where('status', 'MENUNGGU')->get();
         return $data;
     }
 }

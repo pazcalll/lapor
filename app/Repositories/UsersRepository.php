@@ -132,12 +132,23 @@ class UsersRepository implements UserInterface
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'password' => 'nullable|min:6|max:16',
-            'rt' => 'required',
-            'rw' => 'required',
-            'street' => 'required',
-            'village' => 'required',
-            'sub_district' => 'required',
+            'rt' => 'required|min:1|max:4',
+            'rw' => 'required|min:1|max:4',
+            'street' => 'required|max:64',
+            'village' => 'required|max:32',
+            'sub_district' => 'required|max:32',
             'phone' => 'required',
+        ], [
+            'required' => 'Semua field wajib diisi',
+            'password.min' => 'Password minimal 6 karakter',
+            'password.max' => 'Password maksimal 16 karakter',
+            'rt.min' => 'RT minimal 1 angka',
+            'rw.min' => 'RW minimal 1 angka',
+            'rt.max' => 'RT maksimal 4 angka',
+            'rw.max' => 'RW maksimal 4 angka',
+            'street.max' => 'Atribut jalan maksimal 64 karakter',
+            'village.max' => 'Atribut desa maksimal 64 karakter',
+            'sub_district.max' => 'Atribut kecamatan maksimal 64 karakter'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 400);

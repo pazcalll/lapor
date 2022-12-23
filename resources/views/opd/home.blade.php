@@ -113,6 +113,7 @@
 </div>
 
 <script>
+    $("#title-label").html('Tugas Masuk')
     $('.dropify').dropify({
         messages: {
             'default': 'Masukkan bukti',
