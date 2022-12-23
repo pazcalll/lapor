@@ -4,11 +4,14 @@
         <table id="finished_report" class="table table-striped table-borderless" style="width: 100%">
             <thead>
                 <tr>
-                    <td>Referral</td>
-                    <td>Penanggung Jawab</td>
-                    <td>Tanggal Penugasan</td>
-                    <td>Tanggal Selesai</td>
-                    <td>Tindakan</td>
+                    <td>No. Pelaporan</td>
+                    <td>Waktu Pelaporan</td>
+                    <td>Waktu Penugasan</td>
+                    <td>Waktu Selesai</td>
+                    <td>Fasilitas</td>
+                    <td>Deskripsi Laporan</td>
+                    <td>Dokumen Pendukung / Bukti</td>
+                    <td>Status</td>
                 </tr>
             </thead>
             <tbody></tbody>

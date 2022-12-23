@@ -22,7 +22,7 @@ function homePage() {
             $('#content').html(res)
         },
         error: (err) => {
-            console.log(err)
+            // console.log(err)
             window.location.reload()
         }
     })
@@ -232,7 +232,7 @@ function rejectReport(e) {
             $('.modal-close').click()
         },
         error: (err) => {
-            console.log(err)
+            // console.log(err)
             toastr.error('Maaf, terjadi masalah. Silakan coba lagi nanti!')
         }
     })
@@ -459,23 +459,32 @@ function getFinishedReports(storageLink) {
         },
         columnDefs: [
             { width: '10%', targets: 0 },
-            { width: '25%', targets: 1 },
-            { width: '20%', targets: 2 },
-            { width: '20%', targets: 3 },
-            { width: '25%', targets: 4 },
+            { width: '15%', targets: 1 },
+            { width: '15%', targets: 2 },
+            { width: '25%', targets: 3 },
+            { width: '15%', targets: 4 },
+            { width: '20%', targets: 5 },
+            { width: '20%', targets: 6 },
+            { width: '20%', targets: 7 },
         ],
         columns: [
             {
                 data: 'referral',
             },
             {
-                data: 'assignment.opd.name',
+                data: 'created_at',
             },
             {
                 data: 'assignment.created_at',
             },
             {
                 data: 'assignment.finished_at',
+            },
+            {
+                data: 'facility.name',
+            },
+            {
+                data: 'issue',
             },
             {
                 data: null,
@@ -496,6 +505,9 @@ function getFinishedReports(storageLink) {
                         </button>
                     `
                 }
+            },
+            {
+                data: 'status'
             }
         ],
         drawCallback: (res) => {

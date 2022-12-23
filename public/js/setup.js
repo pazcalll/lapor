@@ -10,10 +10,10 @@ $.ajaxSetup({
         window.location.reload()
     },
     statusCode: {
-        500: function(xhr) {
-            if(window.console) console.log(xhr.responseText);
-            window.location.href = webBaseUrl+'/login'
-        }
+        // 500: function(xhr) {
+        //     if(window.console) console.log(xhr.responseText);
+        //     window.location.href = webBaseUrl+'/login'
+        // }
     }
 })
 

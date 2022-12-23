@@ -484,7 +484,6 @@ function updateProfile(e) {
                 toastr.success('Data Berhasil diperbarui')
             },
             error: (err) => {
-                console.log(err)
                 if (err.responseJSON.errors !== null) {
                     for (let i = 0; i < err.responseJSON.errors.length; i++) {
                         toastr.error(err.responseJSON.errors[i])
@@ -492,7 +491,6 @@ function updateProfile(e) {
                 }
                 else{
                     toastr.error('Aksi gagal, harap coba lagi nanti atau hubungi admin!')
-                    console.log(err)
                 }
             },
             complete: () => {
