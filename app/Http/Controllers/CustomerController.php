@@ -42,4 +42,9 @@ class CustomerController extends Controller
     {
         return view('customer.reportHistory');
     }
+    public function createFeedback()
+    {
+        $feedback = $this->user->createFeedback();
+        return $feedback;
+    }
 }

@@ -3,11 +3,13 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
+use App\Models\Feedback;
 use App\Models\Report;
 use App\Models\ReportFile;
 use App\Models\ReportLocation;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class CustomerRepository extends UsersRepository
@@ -83,6 +85,9 @@ class CustomerRepository extends UsersRepository
             },
             'assignment.opd' => function ($query) {
                 return $query->select('id', 'name');
+            },
+            'feedback' => function ($query) {
+                return $query->select('report_id', 'feedback');
             }
         ])
             ->where('user_id', $user['id'])->whereIn('status', ['SELESAI', 'DIPROSES', 'DITOLAK'])->get();
@@ -98,9 +103,47 @@ class CustomerRepository extends UsersRepository
             },
             'facility' => function ($query) {
                 return $query->select('id', 'name');
+            },
+            'reportLocation' => function ($query) {
+                return $query->select('street', 'rt', 'rw', 'sub_district', 'village', 'report_id');
             }
         ])
             ->where('user_id', $user['id'])->where('status', 'MENUNGGU')->get();
         return $data;
+    }
+
+    public function createFeedback()
+    {
+        $validator = Validator::make(request()->all(), [
+            'referral' => 'required',
+            'feedback' => 'required'
+        ], [
+            'required' => 'Semua field wajib diisi'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()], 400);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $validator = $validator->validate();
+            $report = Report::where('referral', $validator['referral'])->first();
+            $feedback = Feedback::where('report_id', $validator['referral'])->first();
+
+            if (!empty($feedback)) {
+                return response()->json(['errors' => 'Laporan ini sudah diberi feedback'], 400);
+            }
+            $newFeedback = Feedback::create([
+                'report_id' => $report['id'],
+                'feedback' => $validator['feedback']
+            ]);
+
+            DB::commit();
+            return response()->json($newFeedback, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 400);
+        }
     }
 }

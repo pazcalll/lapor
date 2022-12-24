@@ -11,6 +11,7 @@
                         <td>Deskripsi Laporan</td>
                         <td>Dokumen Pendukung / Bukti</td>
                         <td>Status</td>
+                        <td>Buat Feedback</td>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -49,6 +50,43 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambahkan Feedback</h5>
+                <button type="button" class="btn-close close modal-close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form onsubmit="addFeedback(event)">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span>Referral : </span><span class="referral_feedback"></span>
+                                <input type="hidden" name="referral_feedback" id="referral_feedback">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="additional">Isi feedback: </label>
+                                <textarea class="form-control" name="feedback" id="feedback" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

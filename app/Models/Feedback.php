@@ -9,9 +9,10 @@ use Illuminate\Notifications\Notifiable;
 
 class Feedback extends Model
 {
+    protected $table = "feedbacks";
     use HasFactory;
     use Notifiable;
-    protected $fillable = ['user_id', 'feedback'];
+    protected $fillable = ['feedback', 'report_id'];
 
     protected function serializeDate(DateTimeInterface $date)
     {

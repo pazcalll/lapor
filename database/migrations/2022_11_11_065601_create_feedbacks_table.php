@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
-            $table->integer('user_id');
-            $table->string('feedback');
+            $table->integer('report_id');
+            $table->text('feedback');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

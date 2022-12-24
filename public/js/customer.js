@@ -280,6 +280,13 @@ function reportPage() {
                             data.report_file.forEach((ele, _index) => {
                                 dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
                             })
+                            // let dataLocation = `
+                            //     data-street="${data.report_location.street}"
+                            //     data-rt="${data.report_location.rt}"
+                            //     data-rw="${data.report_location.rw}"
+                            //     data-village="${data.report_location.village}"
+                            //     data-sub_district="${data.report_location.sub_district}"
+                            // `
                             return `
                                 <button data-backdrop="false" data-toggle="modal" data-target="#proofModal" type="button" class="btn btn-success btn-proof" data-referral="${data.referral}" ${dataFiles}>Bukti</button>
                             `
@@ -358,10 +365,11 @@ function reportHistoryPage() {
                     { width: '10%', targets: 0 },
                     { width: '15%', targets: 1 },
                     { width: '15%', targets: 2 },
-                    { width: '15%', targets: 3 },
-                    { width: '25%', targets: 4 },
+                    { width: '10%', targets: 3 },
+                    { width: '20%', targets: 4 },
                     { width: '10%', targets: 5 },
                     { width: '10%', targets: 6 },
+                    { width: '10%', targets: 7 }
                 ],
                 columns: [
                     {
@@ -393,6 +401,19 @@ function reportHistoryPage() {
                     },
                     {
                         data: 'status'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, full, meta) {
+                            let btn = ''
+                            console.log(data.feedback != null)
+                            if (data.status == "SELESAI" && data.feedback == null) {
+                                btn += `<button data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#feedbackModal" type="button" class="btn btn-primary btn-add-feedback">Feedback</button>`
+                            }else {
+                                btn = 'Feedback telah diberikan'
+                            }
+                            return btn
+                        }
                     }
                 ],
                 drawCallback: () => {
@@ -409,8 +430,35 @@ function reportHistoryPage() {
                         }
                         $('.proof-container').html(proofs)
                     })
+                    $('.btn-add-feedback').on('click', function () {  
+                        $('#referral_feedback').val($(this).data('referral'))
+                        $('.referral_feedback').html($(this).data('referral'))
+                    })
                 }
             })
+        }
+    })
+}
+
+function addFeedback(e) {
+    e.preventDefault()
+    let elements = e.target.elements
+    $.ajax({
+        url: apiBaseUrl + '/user/customer/feedback',
+        type: "POST",
+        data: {
+            referral: elements.referral_feedback.value,
+            feedback: elements.feedback.value
+        },
+        success: (res) => {
+            toastr.success('Feedback telah dikirim!')
+            dt.ajax.reload()
+            $('textarea').val('')
+            $('.modal-close').click()
+        },
+        error: (err) => {
+            toastr.error('Feedback gagal dikirim, mohon periksa ulang form anda atau hubungi pihak terkait!')
+            console.log(err)
         }
     })
 }

@@ -43,4 +43,9 @@ class Report extends Model
     {
         return $this->hasOne(reportLocation::class);
     }
+
+    public function feedback()
+    {
+        return $this->belongsTo(Feedback::class, 'id', 'report_id');
+    }
 }
