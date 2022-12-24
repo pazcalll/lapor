@@ -246,15 +246,56 @@ function profilePage() {
                     $('#rw').val(res2.user_address_detail.rw)
                     $('#village').val(res2.user_address_detail.village)
                     $('#sub_district').val(res2.user_address_detail.sub_district)
-                    $('#appointment_letter_link').data('url', webBaseUrl+"/storage/appointment_letter/"+res2.appointment_letter)
-
-                    $('#appointment_letter_link').on('click', function () {  
-                        window.open($(this).data('url'), '_blank')
-                    })
                 }
             })
         }
     })
+}
+
+function updateProfile(e) {
+    e.preventDefault()
+
+    if ($('#password').val() == $('#password_confirm').val()) {
+        $.ajax({
+            url: apiBaseUrl + '/user/update-profile',
+            type: "PATCH",
+            data: {
+                name: $('#name').val(),
+                username: $('#username').val(),
+                password: $('#password').val(),
+                street: $('#street').val(),
+                rt: $('#rt').val(),
+                rw: $('#rw').val(),
+                village: $('#village').val(),
+                sub_district: $('#sub_district').val(),
+                phone: $('#phone').val()
+            },
+            beforeSend: () => {
+                $('.btn-submit').css('display', 'none')
+                $('.p-loading').css('display', 'flex')
+            },
+            success: (res) => {
+                toastr.success('Data Berhasil diperbarui')
+                $("#userAccount").html($('#name').val())
+            },
+            error: (err) => {
+                if (err.responseJSON.errors !== null) {
+                    for (let i = 0; i < err.responseJSON.errors.length; i++) {
+                        toastr.error(err.responseJSON.errors[i])
+                    }
+                }
+                else{
+                    toastr.error('Aksi gagal, harap coba lagi nanti atau hubungi admin!')
+                }
+            },
+            complete: () => {
+                $('.btn-submit').css('display', 'block')
+                $('.p-loading').css('display', 'none')
+            }
+        })
+    } else {
+        toastr.error('Password baru dan konfirmasi tidak sama!')
+    }
 }
 
 // ========================================FINISHED ASSIGNMENT PAGE===================================

@@ -482,6 +482,7 @@ function updateProfile(e) {
             },
             success: (res) => {
                 toastr.success('Data Berhasil diperbarui')
+                $("#userAccount").html($('#name').val())
             },
             error: (err) => {
                 if (err.responseJSON.errors !== null) {
