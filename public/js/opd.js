@@ -87,10 +87,12 @@ function getIncomingAssignments() {
         },
         columnDefs: [
             { width: '10%', targets: 0 },
-            { width: '20%', targets: 1 },
-            { width: '20%', targets: 2 },
-            { width: '25%', targets: 3 },
+            { width: '10%', targets: 1 },
+            { width: '10%', targets: 2 },
+            { width: '15%', targets: 3 },
             { width: '25%', targets: 4 },
+            { width: '15%', targets: 5 },
+            { width: '20%', targets: 6 },
         ],
         columns: [
             { 
@@ -116,6 +118,27 @@ function getIncomingAssignments() {
             },
             {
                 data: null,
+                render: function (data, type, full, meta) {  
+                    return `${data.report.facility.name}`
+                }
+            },
+            {
+                data: 'report.issue',
+            },
+            {
+                data: null,
+                render: function (data, type, full, meta) {  
+                    let dataFiles = ``
+                    data.report.report_file.forEach((ele, _index) => {
+                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                    })
+                    return `
+                        <button data-backdrop="false" data-toggle="modal" data-target="#proofModal" type="button" class="btn btn-warning btn-proof" data-referral="${data.report.referral}" ${dataFiles}>Lampiran Bukti</button>
+                    `
+                }
+            },
+            {
+                data: null,
                 render: function(data, type, full, meta) {
                     console.log(data)
                     return `
@@ -126,19 +149,24 @@ function getIncomingAssignments() {
                             data-issue="${data.report.issue}"
                             data-opd="${data.opd.name}"
                             data-additional="${data.additional}"
-                            data-bs-backdrop="false" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#detailModal" 
                             type="button" 
                             class="btn btn-info btn-detail-assignment"
+                            data-street="${data.report.report_location.street}"
+                            data-rt="${data.report.report_location.rt}"
+                            data-rw="${data.report.report_location.rw}"
+                            data-village="${data.report.report_location.village}"
+                            data-sub_district="${data.report.report_location.sub_district}"
                         >
                             Detail
                         </button>
                         <button 
                             data-referral="${data.report.referral}"
-                            data-bs-backdrop="false" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#finishModal"
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#finishModal"
                             class="btn btn-success btn-finish-assignment" 
                         >
                             Selesaikan
@@ -149,16 +177,35 @@ function getIncomingAssignments() {
         ],
         drawCallback: (res) => {
             $('.btn-detail-assignment').on('click', function () {  
-                $(".referral_modal").val($(this).data('referral'))
+                $(".referral_modal").html($(this).data('referral'))
                 $("#opd_detail").val($(this).data('opd'))
                 $("#reporter_detail").val($(this).data('reporter'))
                 $("#location_detail").val($(this).data('location'))
                 $("#issue_detail").val($(this).data('issue'))
                 $("#additional_detail").val($(this).data('additional'))
+
+                $('#street').val($(this).data('street'))
+                $('#rt').val($(this).data('rt')) 
+                $('#rw').val($(this).data('rw'))
+                $('#village').val($(this).data('village'))
+                $('#sub_district').val($(this).data('sub_district'))
             })
             $('.btn-finish-assignment').on('click', function () {  
                 $("#referral_finish").val($(this).data('referral'))
                 $(".referral_modal_finish").html($(this).data('referral'))
+            })
+            $('.btn-proof').on('click', function () {
+                $('.referral_proof').html($(this).data('referral'))
+                let proofs = ``
+                let i = 0
+                while (true) {
+                    i += 1
+                    if ($(this).data(`file${i}`)===undefined) {
+                        break
+                    }
+                    proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
+                }
+                $('.proof-container').html(proofs)
             })
         }
     })
@@ -219,9 +266,9 @@ function getFinishedAssignments() {
                             data-opd="${data.opd.name}"
                             data-additional="${data.additional}"
                             data-proof-url="${data.report.proof_file}"
-                            data-bs-backdrop="false" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#detailModal" 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#detailModal" 
                             type="button" 
                             class="btn btn-info btn-detail-assignment"
                         >

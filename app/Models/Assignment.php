@@ -12,7 +12,7 @@ class Assignment extends Model
     use HasFactory;
     use Notifiable;
 
-    protected $fillable = ['user_id', 'report_id', 'additional'];
+    protected $fillable = ['user_id', 'report_id', 'additional', 'file_finish', 'finished_at'];
 
     protected function serializeDate(DateTimeInterface $date)
     {

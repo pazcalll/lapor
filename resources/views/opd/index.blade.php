@@ -56,8 +56,8 @@
                             <span class="nav-text">Laporan</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()"><span class="nav-text">Buat Laporan</span></a></li>
-                            <li><a href="javascript:void(0)" onclick="historyPage(); $('.menu-backdrop').click()"><span class="nav-text">Antrean Laporan</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()"><span class="nav-text">Tugas Masuk</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="historyPage(); $('.menu-backdrop').click()"><span class="nav-text">Tugas Selesai</span></a></li>
                         </ul>
                     </li>
                 </ul>
