@@ -10,6 +10,7 @@
                     <td>Waktu Penugasan</td>
                     <td>Fasilitas</td>
                     <td>Deskripsi Laporan</td>
+                    <td>Status</td>
                     <td>Dokumen Pendukung / Bukti</td>
                     <td>Aksi</td>
                 </tr>
@@ -51,17 +52,23 @@
                         <div class="form-floating">
                             <label for="location">Lokasi</label>
                             <div id="location" name="location">
-                                <input disabled type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input disabled type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
+                                <div class="page-heading">
+                                    <label for="street">Jalan</label>
+                                    <input disabled type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
+                                    <label for="">RT/RW</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input disabled type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input disabled type="text" class="form-control mt-1 mb-1" id="rw" name="rw" placeholder="RW">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input disabled type="text" class="form-control mt-1 mb-1" id="rw" name="rw" placeholder="RW">
-                                    </div>
+                                    <label for="">Desa</label>
+                                    <input disabled type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
+                                    <label for="">Kecamatan</label>
+                                    <input disabled type="text" class="form-control mt-1 mb-1" id="sub_district" name="sub_district" placeholder="Kecamatan">
                                 </div>
-                                <input disabled type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
-                                <input disabled type="text" class="form-control mt-1 mb-1" id="sub_district" name="sub_district" placeholder="Kecamatan">
                             </div>
                         </div>
                     </div>
