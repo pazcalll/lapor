@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('id')->autoIncrement();
             $table->integer('report_id');
             $table->text('feedback');
+            $table->integer('rating');
             $table->timestamps();
 
             $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade')->onUpdate('cascade');

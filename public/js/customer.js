@@ -443,12 +443,14 @@ function reportHistoryPage() {
 function addFeedback(e) {
     e.preventDefault()
     let elements = e.target.elements
+    // console.log(elements.rating.value)
     $.ajax({
         url: apiBaseUrl + '/user/customer/feedback',
         type: "POST",
         data: {
             referral: elements.referral_feedback.value,
-            feedback: elements.feedback.value
+            feedback: elements.feedback.value,
+            rating: elements.rating.value
         },
         success: (res) => {
             toastr.success('Feedback telah dikirim!')

@@ -12,7 +12,7 @@ class Feedback extends Model
     protected $table = "feedbacks";
     use HasFactory;
     use Notifiable;
-    protected $fillable = ['feedback', 'report_id'];
+    protected $fillable = ['feedback', 'report_id', 'rating'];
 
     protected function serializeDate(DateTimeInterface $date)
     {

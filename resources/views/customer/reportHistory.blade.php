@@ -108,8 +108,7 @@
         step: 1,
         showCaption: false,
         clearButton: '<button type="button" class="btn btn-danger">Kosongkan Bintang</button>',
-        clearButtonTitle: 'Bersihkan',
-        min:1
+        clearButtonTitle: 'Bersihkan'
     });
     $('.rating,.kv-uni-star').on('change', function () {
         console.log('Rating selected: ' + $(this).val());

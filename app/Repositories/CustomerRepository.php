@@ -116,7 +116,8 @@ class CustomerRepository extends UsersRepository
     {
         $validator = Validator::make(request()->all(), [
             'referral' => 'required',
-            'feedback' => 'required'
+            'feedback' => 'required',
+            'rating' => 'required'
         ], [
             'required' => 'Semua field wajib diisi'
         ]);
@@ -137,7 +138,8 @@ class CustomerRepository extends UsersRepository
             }
             $newFeedback = Feedback::create([
                 'report_id' => $report['id'],
-                'feedback' => $validator['feedback']
+                'feedback' => $validator['feedback'],
+                'rating' => $validator['rating']
             ]);
 
             DB::commit();
