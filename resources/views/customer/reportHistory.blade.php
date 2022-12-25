@@ -80,6 +80,14 @@
                                 <textarea class="form-control" name="feedback" id="feedback" cols="30" rows="10"></textarea>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="rating">Tingkat Kepuasan: </label>
+                                <div class="rating-container">
+                                    <input id="rating" name="rating" type="text" class="kv-uni-star rating-loading" data-size="md" title="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -93,4 +101,17 @@
 
 <script>
     $('#title-label').html("Riwayat Laporan")
+    $('.kv-uni-star').rating({
+        theme: 'krajee-uni',
+        filledStar: '&#x2605;',
+        emptyStar: '&#x2606;',
+        step: 1,
+        showCaption: false,
+        clearButton: '<button type="button" class="btn btn-danger">Kosongkan Bintang</button>',
+        clearButtonTitle: 'Bersihkan',
+        min:1
+    });
+    $('.rating,.kv-uni-star').on('change', function () {
+        console.log('Rating selected: ' + $(this).val());
+    });
 </script>

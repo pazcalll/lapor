@@ -19,12 +19,17 @@
     <link href="{{ asset('lib/dropify/dist/css/dropify.min.css') }}" rel="stylesheet">
     <link id="override-css-id" href="{{ asset('css/theme-dark-cyan.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/jumbo-forms.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/jquery-rating/css/star-rating.css') }}" media="all" type="text/css"/>
+    <link rel="stylesheet" href="{{ asset('lib/jquery-rating/themes/krajee-uni/theme.css') }}" media="all" type="text/css"/>
     
     <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('lib/dropify/dist/js/dropify.min.js') }}"></script>
 
     <script src="{{ asset('js/setup.js') }}" defer></script>
+
+    <script src="{{ asset('lib/jquery-rating/js/star-rating.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('lib/jquery-rating/themes/krajee-uni/theme.js') }}" type="text/javascript"></script>
 
     <style>
         .dataTables_paginate {
