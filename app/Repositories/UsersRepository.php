@@ -112,6 +112,31 @@ class UsersRepository implements UserInterface
         return response()->json($user, 200);
     }
 
+    public function getGenderEnum()
+    {
+        $type = DB::table('information_schema.columns')
+            ->select('column_type')
+            ->where('table_schema', 'lapor')
+            ->where('table_name', 'users')
+            ->where('column_name', 'gender')
+            ->first();
+        $enum = [];
+        $flag = 0;
+        $newWord = "";
+        for ($i = 0; $i < strlen($type->COLUMN_TYPE); $i++) {
+            if ($flag == 0 && $type->COLUMN_TYPE[$i] == "'") {
+                $flag = 1;
+            } else if ($type->COLUMN_TYPE[$i] == "'" && $flag == 1) {
+                $enum[] = $newWord;
+                $newWord = "";
+                $flag = 0;
+            } else if ($flag == 1) {
+                $newWord = $newWord . $type->COLUMN_TYPE[$i];
+            }
+        }
+        return response()->json($enum, 200);
+    }
+
     public function getProfileDetail($auth)
     {
         $user = User::with(['userAddressDetail' => function ($query) {
@@ -129,9 +154,11 @@ class UsersRepository implements UserInterface
     public function updateProfile()
     {
         // DO NOT USE FORMDATA TO ANY 'PATCH' ROUTES
+        !request()->has('gender') ? request()->request->add(['gender' => null]) : '';
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'password' => 'nullable|min:6|max:16',
+            'gender' => 'nullable|in:PRIA,WANITA',
             'rt' => 'required|min:1|max:4',
             'rw' => 'required|min:1|max:4',
             'street' => 'required|max:64',
@@ -148,7 +175,8 @@ class UsersRepository implements UserInterface
             'rw.max' => 'RW maksimal 4 angka',
             'street.max' => 'Atribut jalan maksimal 64 karakter',
             'village.max' => 'Atribut desa maksimal 64 karakter',
-            'sub_district.max' => 'Atribut kecamatan maksimal 64 karakter'
+            'sub_district.max' => 'Atribut kecamatan maksimal 64 karakter',
+            'gender.in' => 'Gender yang dimasukkan tidak sesuai dengan ketentuan'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()], 400);
@@ -163,6 +191,7 @@ class UsersRepository implements UserInterface
             $userUpdate = User::where('id', $user['id'])->update([
                 'name' => $validator['name'],
                 'phone' => $validator['phone'],
+                'gender' => ($validator['gender'] == null) ? $user['gender'] : $validator['gender']
             ]);
             if ($validator['password'] != null) {
                 $userPasswordUpdate = User::where('id', $user['id'])->update([

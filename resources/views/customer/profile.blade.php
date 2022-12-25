@@ -22,8 +22,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Nama</label>
                     <input required type="text" class="form-control mt-1 mb-1" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Kelamin</label>
+                    <select class="form-control" name="gender" id="gender">
+                        <option selected disabled>Pilih Gender</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="phone">Nomor Telepon / HP</label>

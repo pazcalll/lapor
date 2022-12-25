@@ -84,6 +84,12 @@ class UserController extends Controller
         return $user;
     }
 
+    public function getGenderEnum()
+    {
+        $gender = $this->user->getGenderEnum();
+        return $gender;
+    }
+
     public function getFacilities()
     {
         $data = $this->user->getFacilities();

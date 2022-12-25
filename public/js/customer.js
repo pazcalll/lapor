@@ -484,21 +484,40 @@ function profilePage() {
                 url: apiBaseUrl + "/user/get-profile",
                 type: "GET",
                 success: (res2) => {
-                    $("#content").html(res1)
 
-                    $('#name').val(res2.name)
-                    $('#username').val(res2.username)
-                    $('#password').val(res2.password)
-                    $('#phone').val(res2.phone)
-                    $('#street').val(res2.user_address_detail.street)
-                    $('#rt').val(res2.user_address_detail.rt)
-                    $('#rw').val(res2.user_address_detail.rw)
-                    $('#village').val(res2.user_address_detail.village)
-                    $('#sub_district').val(res2.user_address_detail.sub_district)
-                    $('#appointment_letter_link').data('url', webBaseUrl+"/storage/appointment_letter/"+res2.appointment_letter)
+                    $.ajax({
+                        url: apiBaseUrl + "/user/get-gender-enum",
+                        type: "GET",
+                        beforeSend: () => {
+                            $("#content").html(res1)
+                        },
+                        success: (res3) => {
+                            res3.forEach(gender => {
+                                $('#gender').append(`
+                                    <option value="${gender}">${gender}</option>
+                                `)
+                            });
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        },
+                        complete: () => {
+                            $('#name').val(res2.name)
+                            $('#username').val(res2.username)
+                            $('#password').val(res2.password)
+                            $('#phone').val(res2.phone)
+                            $('#street').val(res2.user_address_detail.street)
+                            $('#rt').val(res2.user_address_detail.rt)
+                            $('#rw').val(res2.user_address_detail.rw)
+                            $('#village').val(res2.user_address_detail.village)
+                            $('#sub_district').val(res2.user_address_detail.sub_district)
+                            $('#appointment_letter_link').data('url', webBaseUrl+"/storage/appointment_letter/"+res2.appointment_letter)
 
-                    $('#appointment_letter_link').on('click', function () {  
-                        window.open($(this).data('url'), '_blank')
+                            $('#appointment_letter_link').on('click', function () {  
+                                window.open($(this).data('url'), '_blank')
+                            })
+                            $('#gender').val(res2.gender)
+                        }
                     })
                 }
             })
@@ -522,7 +541,8 @@ function updateProfile(e) {
                 rw: $('#rw').val(),
                 village: $('#village').val(),
                 sub_district: $('#sub_district').val(),
-                phone: $('#phone').val()
+                phone: $('#phone').val(),
+                gender: $('#gender').val()
             },
             beforeSend: () => {
                 $('.btn-submit').css('display', 'none')

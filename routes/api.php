@@ -39,6 +39,7 @@ Route::prefix('v1')->group(function () {
         Route::patch('update-profile', [UserController::class, 'updateProfile'])->name('updateProfile');
         Route::get('get-facilities', [UserController::class, 'getFacilities'])->name('getFacilities');
         Route::get('get-profile', [UserController::class, 'getProfile'])->name('getProfile');
+        Route::get('get-gender-enum', [UserController::class, 'getGenderEnum'])->name('getGenderEnum');
         Route::prefix('customer')->middleware('customer')->group(function () {
             Route::post('report', [CustomerController::class, 'createReport'])->name('createReport');
             Route::get('reports', [CustomerController::class, 'getReports'])->name('getReports');
