@@ -19,7 +19,20 @@ class AdminRepository extends UsersRepository
 {
 	public function getUnacceptedReports()
 	{
-		$data = Report::with(['reportFile', 'reportLocation'])->where('status', 'MENUNGGU')->get();
+		$data = Report::with([
+			'reportFile' => function ($query) {
+				return $query->select('proof_file', 'report_id');
+			},
+			'reportLocation' => function ($query) {
+				return $query->select('street', 'rt', 'rw', 'sub_district', 'village', 'report_id');
+			},
+			"reporter" => function ($query) {
+				return $query->select('id', 'name', 'role');
+			},
+			"facility" => function ($query) {
+				return $query->select('id', 'name');
+			},
+		])->where('status', 'MENUNGGU')->get();
 		return $data;
 	}
 
@@ -96,8 +109,14 @@ class AdminRepository extends UsersRepository
 			},
 			"facility" => function ($query) {
 				return $query->select('id', 'name');
-			}
-		])->select('id', 'referral', 'facility_id', 'user_id', 'issue')->where('status', "SELESAI")->get()->toArray();
+			},
+			"reportLocation" => function ($query) {
+				return $query->select('street', 'rt', 'rw', 'sub_district', 'village', 'report_id');
+			},
+			"reportFile" => function ($query) {
+				return $query->select('report_id', 'proof_file');
+			},
+		])->select('id', 'referral', 'facility_id', 'user_id', 'issue', 'status', 'created_at')->where('status', "SELESAI")->get()->toArray();
 		return $report;
 	}
 

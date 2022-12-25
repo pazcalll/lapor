@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <td>Referral</td>
-                    <td>Penanggung Jawab</td>
+                    <td>OPD</td>
                     <td>Tanggal Penugasan</td>
                     <td>Tindakan</td>
                 </tr>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
-                            <label for="opd">Penanggung Jawab</label>
+                            <label for="opd">OPD</label>
                             <input class="form-control" disabled name="opd" id="opd">
                         </div>
                     </div>

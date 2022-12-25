@@ -5,10 +5,13 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Referral</th>
-                    <th>Deskripsi Laporan</th>
-                    <th>Waktu Laporan</th>
-                    <th>Tindakan</th>
+                    <td>No. Pelaporan</td>
+                    <td>Waktu Pelaporan</td>
+                    <td>Fasilitas</td>
+                    <td>Deskripsi Laporan</td>
+                    <td>Dokumen Pendukung / Bukti</td>
+                    <td>Status</td>
+                    <td>Tindakan</td>
                 </tr>
             </thead>
             <tbody></tbody>

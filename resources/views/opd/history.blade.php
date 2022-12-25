@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-floating mt-3">
-                            <label for="opd">Penanggung Jawab</label>
+                            <label for="opd">OPD</label>
                             <input class="form-control" disabled name="opd_detail" id="opd_detail">
                         </div>
                     </div>
