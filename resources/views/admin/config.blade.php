@@ -1,8 +1,6 @@
 <!-- Header Start -->
 <div class="container-fluid page-heading py-5 mb-5">
     <div class="row g-5 align-items-center">
-        <p class="container-fluid text-base" style="font-size: 14pt">Pada halaman ini admin bisa mengatur role/peran dari setiap user yang ada. 
-            Gunanya adalah untuk menentukan pengguna mana yang menjadi petugas/pegawai dan pelanggan yang ingin melapor.</p>
         <table id="user_table" class="table table-striped table-borderless" style="width: 100%">
             <thead>
                 <tr>
@@ -44,13 +42,13 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" name="name" id="name" class="form-control" disabled>
                                 <label for="name">Nama Lengkap</label>
+                                <input type="text" name="name" id="name" class="form-control" disabled>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <label for="role">Role</label>
-                            <select name="role" id="role" class="form-select" aria-placeholder="">
+                            <select name="role" id="role" class="form-control" aria-placeholder="">
                             </select>
                         </div>
                     </div>
