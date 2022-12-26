@@ -44,6 +44,19 @@ class AdminRepository extends UsersRepository
 
 	public function processReport()
 	{
+		$validator = Validator::make(request()->all(), [
+			'referral' => 'required',
+			'additional' => 'nullable',
+			'opd' => [
+				'required',
+				Rule::exists('users')->where(function ($query) {
+					$query->where('role', 'opd');
+				}),
+			]
+		]);
+		if ($validator->fails()) {
+			return response()->json(['errors' => $validator->errors()->all()], 400);
+		}
 		try {
 			DB::beginTransaction();
 			$reportData = [

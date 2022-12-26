@@ -8,6 +8,7 @@
                     <td>No. Pelaporan</td>
                     <td>Waktu Pelaporan</td>
                     <td>Fasilitas</td>
+                    <td>OPD</td>
                     <td>Deskripsi Laporan</td>
                     <td>Dokumen Pendukung / Bukti</td>
                     <td>Status</td>
@@ -44,7 +45,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="opd">OPD</label>
-                                <select name="opd" id="opd" class="form-select form-control" aria-placeholder="">
+                                <select name="opd" id="opd" class="opd-select form-control" aria-placeholder="">
                                 </select>
                             </div>
                         </div>
@@ -95,6 +96,46 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmOPDModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Perubahan OPD</h5>
+                <button type="button" class="btn-close close modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form onsubmit="processReport(event)">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span>Referral : </span><span class="referral_confirmOPD"></span>
+                                <input type="hidden" name="referral" id="referral">
+                                <input type="hidden" name="additional" value="" id="additional">
+                                <input type="hidden" name="opd" id="opd">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="additional">
+                                    Mengubah OPD berarti menyetujui laporan dan menyerahkan laporan kepada OPD terkait untuk ditindak lanjuti. 
+                                    Apakah anda ingin mengganti OPD dari laporan ini menjadi <strong class="opd_spill"></strong>?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-warning">Ganti OPD</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

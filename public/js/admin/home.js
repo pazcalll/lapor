@@ -1,4 +1,5 @@
 var dt = null
+var opds = []
 
 function homePage() {
     $.ajax({
@@ -104,10 +105,11 @@ function incomingReportDatatable(storageLink) {
             { width: '10%', targets: 1 },
             { width: '15%', targets: 2 },
             { width: '10%', targets: 3 },
-            { width: '20%', targets: 4 },
+            { width: '15%', targets: 4 },
             { width: '10%', targets: 5 },
             { width: '10%', targets: 6 },
-            { width: '20%', targets: 7 },
+            { width: '10%', targets: 7 },
+            { width: '15%', targets: 8 },
         ],
         columns: [
             {
@@ -124,6 +126,20 @@ function incomingReportDatatable(storageLink) {
             },
             {
                 data: 'facility.name',
+            },
+            {
+                data: null,
+                render: function(data, type, full, meta) {
+                    let select = `
+                        <select class="form-control opd-select" onchange="confirmationOPD('${data.referral}', this)">
+                            <option value="default" selected disabled>Pilih OPD</option>
+                    `
+                    opds.forEach((opd, _index) => {
+                        select += `<option value="${opd.id}">${opd.name}</option>`
+                    });
+                    select += `</select>`
+                    return select
+                }
             },
             {
                 data: 'issue',
@@ -166,6 +182,9 @@ function incomingReportDatatable(storageLink) {
             }
         ],
         drawCallback: (res) => {
+            $('#confirmOPDModal').on('hidden.bs.modal', function () {
+                $('.opd-select').val('default')
+            })
             $('.btn-process').on('click', function () {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#referral').val($(this).data('referral'))
@@ -231,8 +250,13 @@ function getOpds() {
         url: apiBaseUrl + "/user/admin/opds",
         type: "GET",
         success: (res) => {
-            options = `<option disabled hidden selected>Pilih OPD</option>`
+            options = `<option value='default' disabled hidden selected>Pilih OPD</option>`
+            opds = []
             res.data.forEach((opd, _index) => {
+                opds.push({
+                    id: opd.id,
+                    name: opd.name
+                })
                 options += `<option value='${opd.id}'>`+opd.name+"</option>"
             });
             $('#opd').html(options)
@@ -241,6 +265,21 @@ function getOpds() {
             console.log(err)
         }
     })
+}
+
+function confirmationOPD(referral, ele) {
+    $('.referral_confirmOPD').html(referral)
+    $('#confirmOPDModal').modal('show')
+
+    $('#confirmOPDModal #referral').val(referral)
+    for (let i = 0; i < opds.length; i++) {
+        if (opds[i].id == ele.value) {
+            $('.opd_spill').html(opds[i].name)
+        }
+    }
+    $('#confirmOPDModal #opd').val(ele.value)
+    console.log($('#confirmOPDModal #opd'))
+    // console.log($('#confirmOPDModal #referral').val())
 }
 
 function rejectReport(e) {
@@ -268,10 +307,11 @@ function rejectReport(e) {
 
 function processReport(e) {
     e.preventDefault()
+    let elements = e.target.elements
     let fd = new FormData()
-    fd.append('referral', $('#referral').val())
-    fd.append('opd', $('#opd').val())
-    fd.append('additional', $('#additional').val())
+    fd.append('referral', elements.referral.value)
+    fd.append('opd', elements.opd.value)
+    fd.append('additional', elements.additional.value)
     fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
 
     // $('#prosesModal').modal('hide')
@@ -296,6 +336,9 @@ function processReport(e) {
         error: (err) => {
             toastr.error('Mohon Periksa ulang isian anda')
             console.log(err)
+        },
+        complete: () => {
+            $('.opd-select').val('default')
         }
     })
 }
