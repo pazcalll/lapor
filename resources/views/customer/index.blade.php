@@ -102,10 +102,24 @@
 
                     <div id="content">
                         <script>
-                            let indexjs = document.createElement('script');
-                            indexjs.setAttribute('type', 'text/javascript');
-                            indexjs.setAttribute('src', webBaseUrl+'/js/customer.js');
-                            document.head.appendChild(indexjs)
+                            let files = [
+                                'home.js',
+                                'history.js',
+                                'profile.js',
+                                'report.js',
+                            ]
+                            let js = [];
+                            files.forEach((file, _index) => {
+                                js.push(document.createElement('script'))
+                                js[_index].setAttribute('type', 'text/javascript');
+                                js[_index].setAttribute('src', webBaseUrl+'/js/customer/'+file);
+                                js[_index].setAttribute('id', file);
+                                document.head.appendChild(js[_index]);
+                            });
+                            // let indexjs = document.createElement('script');
+                            // indexjs.setAttribute('type', 'text/javascript');
+                            // indexjs.setAttribute('src', webBaseUrl+'/js/customer.js');
+                            // document.head.appendChild(indexjs)
                         </script>
                     </div>
 

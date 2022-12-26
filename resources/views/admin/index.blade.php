@@ -116,14 +116,23 @@
 
                     <div id="content">
                         <script>
-                            let adminjs = document.createElement('script');
-                            adminjs.setAttribute('type', 'text/javascript');
-                            adminjs.setAttribute('src', webBaseUrl+'/js/admin.js');
-                            adminjs.setAttribute('id', 'adminjs');
-                            document.head.appendChild(adminjs);
+                            let files = [
+                                'home.js',
+                                'facility.js',
+                                'finished.js',
+                                'process.js',
+                                'userConfig.js',
+                            ]
+                            let js = [];
+                            files.forEach((file, _index) => {
+                                js.push(document.createElement('script'))
+                                js[_index].setAttribute('type', 'text/javascript');
+                                js[_index].setAttribute('src', webBaseUrl+'/js/admin/'+file);
+                                js[_index].setAttribute('id', file);
+                                document.head.appendChild(js[_index]);
+                            });
                         </script>
                     </div>
-
                 </div>
             </div>
             <!--/gx-wrapper-->

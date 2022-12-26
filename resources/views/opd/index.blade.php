@@ -101,10 +101,19 @@
 
                     <div id="content">
                         <script>
-                            let opdjs = document.createElement('script');
-                            opdjs.setAttribute('type', 'text/javascript');
-                            opdjs.setAttribute('src', webBaseUrl+'/js/opd.js');
-                            document.head.appendChild(opdjs)
+                            let files = [
+                                'home.js',
+                                'finished.js',
+                                'profile.js',
+                            ]
+                            let js = [];
+                            files.forEach((file, _index) => {
+                                js.push(document.createElement('script'))
+                                js[_index].setAttribute('type', 'text/javascript');
+                                js[_index].setAttribute('src', webBaseUrl+'/js/opd/'+file);
+                                js[_index].setAttribute('id', file);
+                                document.head.appendChild(js[_index]);
+                            });
                         </script>
                     </div>
 
