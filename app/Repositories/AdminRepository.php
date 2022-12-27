@@ -336,4 +336,42 @@ class AdminRepository extends UsersRepository
 			return response()->json(['error' => $th->getMessage()], 400);
 		}
 	}
+
+	public function editReport()
+	{
+		$validator = Validator::make(request()->all(), [
+			'referral' => 'required',
+			'rt' => 'required|max:2',
+			'rw' => 'required|max:2',
+			'village' => 'required',
+			'sub_district' => 'required',
+			'street' => 'required',
+			'issue' => 'required'
+		], [
+			'required' => 'Semua field wajib diisi'
+		]);
+		if ($validator->fails()) {
+			return response()->json(['errors' => $validator->errors()->all()], 400);
+		}
+		$validator = $validator->validate();
+
+		try {
+			DB::beginTransaction();
+			$edit = Report::leftJoin('report_locations as rl', 'rl.id', '=', 'reports.id')
+				->where('referral', $validator['referral'])
+				->update([
+					'reports.issue' => $validator['issue'],
+					'rl.street' => $validator['street'],
+					'rl.rt' => $validator['rt'],
+					'rl.rw' => $validator['rw'],
+					'rl.village' => $validator['village'],
+					'rl.sub_district' => $validator['sub_district']
+				]);
+			DB::commit();
+			return response()->json($edit, 200);
+		} catch (\Throwable $th) {
+			//throw $th;
+			return response()->json(['errors' => $th->getMessage()], 400);
+		}
+	}
 }

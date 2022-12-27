@@ -175,6 +175,66 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Penolakan Laporan</h5>
+                <button type="button" class="btn-close close modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form onsubmit="editReportDetail(event)">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <span>Referral : </span><span class="referral_modal"></span>
+                                <input type="hidden" disabled class="form-control" name="referral_detail" id="referral_detail">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-1">
+                            <div class="form-floating">
+                                <label for="reporter">Pelapor</label>
+                                <input disabled class="form-control" name="reporter" id="reporter">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-1">
+                            <div class="form-floating">
+                                <label for="location">Lokasi</label>
+                                    <div id="location" name="location">
+                                        <input type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control mt-1 mb-1" id="rw" name="rw" placeholder="RW">
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
+                                        <input type="text" class="form-control mt-1 mb-1" id="sub_district" name="sub_district" placeholder="Kecamatan">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-1">
+                            <div class="form-floating">
+                                <label for="issue">Deskripsi</label>
+                                <textarea class="form-control" style="height: 100px" name="issue" id="issue" placeholder="Deskripsi" cols="30" rows="50"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     $("#title-label").html('Laporan Masuk')
 

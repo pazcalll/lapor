@@ -50,6 +50,7 @@ Route::prefix('v1')->group(function () {
             Route::post('register-customer', [AdminController::class, 'registerCustomer'])->name('registerCustomer');
             Route::post('process-report', [AdminController::class, 'processReport'])->name('processReportAdmin');
             Route::post('edit-user', [AdminController::class, 'editUser'])->name('adminEditUser');
+            Route::put('edit-report', [AdminController::class, 'editReport'])->name('adminEditReport');
 
             Route::get('unaccepted-reports', [AdminController::class, 'getUnacceptedReports'])->name('getUnacceptedReport');
             Route::get('accepted-reports', [AdminController::class, 'getAcceptedReports'])->name('getAcceptedReport');

@@ -177,6 +177,23 @@ function incomingReportDatatable(storageLink) {
                     return `
                         <button data-backdrop="false" data-toggle="modal" data-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
                         <a data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#rejectModal" class="btn btn-danger btn-reject-report" href="javascript:void(0)">Tolak Laporan</a>
+                        <button 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#editDetailModal" 
+                            type="button" 
+                            class="btn btn-warning btn-detail" 
+                            data-issue="${data.issue}" 
+                            data-facility="${data.facility.name}" 
+                            data-street="${data.report_location.street}" 
+                            data-rt="${data.report_location.rt}" 
+                            data-rw="${data.report_location.rw}" 
+                            data-village="${data.report_location.village}" 
+                            data-sub_district="${data.report_location.sub_district}" 
+                            data-reporter="${data.reporter.name}" 
+                            data-referral="${data.referral}">
+                                Ubah Data Laporan
+                        </button>
                     `
                 }
             }
@@ -188,6 +205,18 @@ function incomingReportDatatable(storageLink) {
             $('.btn-process').on('click', function () {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#referral').val($(this).data('referral'))
+            })
+            $('.btn-detail').on('click', function () {  
+                $('.referral_modal').html($(this).data('referral'))
+                $('#reporter').val($(this).data('reporter'))
+                $('#referral_detail').val($(this).data('referral'))
+                $('#street').val($(this).data('street'))
+                $('#rt').val($(this).data('rt'))
+                $('#rw').val($(this).data('rw'))
+                $('#village').val($(this).data('village'))
+                $('#sub_district').val($(this).data('sub_district'))
+                $('#issue').val($(this).data('issue'))
+                $('#additional').val($(this).data('additional'))
             })
             $('.btn-proof').on('click', function () {
                 $('.referral_proof').html($(this).data('referral'))
@@ -343,3 +372,33 @@ function processReport(e) {
     })
 }
 
+function editReportDetail(e) {  
+    e.preventDefault()
+    let elements = e.target.elements
+    $.ajax({
+        url: apiBaseUrl + "/user/admin/edit-report",
+        type: "PUT",
+        data: {
+            referral: elements.referral_detail.value,
+            street: elements.street.value,
+            rt: elements.rt.value,
+            rw: elements.rw.value,
+            village: elements.village.value,
+            sub_district: elements.sub_district.value,
+            issue: elements.issue.value
+        },
+        beforeSend: () => {
+            $(".modal-close").click()
+        },
+        success: (res)=> {
+            toastr.success("Data laporan telah diubah!")
+        },
+        error: (err) => {
+            console.log(err)
+            toastr.error("Data gagal diubah, mohon periksa kembali isian anda")
+        },
+        complete: () => {
+            dt.ajax.reload()
+        }
+    })
+}

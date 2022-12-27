@@ -127,4 +127,9 @@ class AdminController extends Controller
         $reject = $this->admin->rejectReport();
         return $reject;
     }
+    public function editReport()
+    {
+        $edit = $this->admin->editReport();
+        return $edit;
+    }
 }

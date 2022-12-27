@@ -66,7 +66,7 @@ function getAcceptedReports(storageLink) {
                         <button 
                             data-backdrop="false" 
                             data-toggle="modal" 
-                            data-target="#detailFinishedModal" 
+                            data-target="#detailModal" 
                             type="button" 
                             class="btn btn-info btn-detail" 
                             data-issue="${data.issue}" 

@@ -36,50 +36,53 @@
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
                             <label for="opd">OPD</label>
-                            <input class="form-control" disabled name="opd" id="opd">
+                            <input disabled class="form-control" name="opd" id="opd">
                         </div>
                     </div>
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
                             <label for="reporter">Pelapor</label>
-                            <input class="form-control" disabled name="reporter" id="reporter">
+                            <input disabled class="form-control" name="reporter" id="reporter">
                         </div>
                     </div>
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
                             <label for="location">Lokasi</label>
                                 <div id="location" name="location">
-                                    <input disabled type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
+                                    <input disable type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input disabled type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
+                                            <input disable type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
                                         </div>
                                         <div class="col-md-6">
-                                            <input disabled type="text" class="form-control mt-1 mb-1" id="rw" name="rw" placeholder="RW">
+                                            <input disable type="text" class="form-control mt-1 mb-1" id="rw" name="rw" placeholder="RW">
                                         </div>
                                     </div>
-                                    <input disabled type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
-                                    <input disabled type="text" class="form-control mt-1 mb-1" id="sub_district" name="sub_district" placeholder="Kecamatan">
+                                    <input disable type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
+                                    <input disable type="text" class="form-control mt-1 mb-1" id="sub_district" name="sub_district" placeholder="Kecamatan">
                                 </div>
                         </div>
                     </div>
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
                             <label for="issue">Deskripsi</label>
-                            <textarea class="form-control" disabled style="height: 100px" name="issue" id="issue" placeholder="Deskripsi" cols="30" rows="50"></textarea>
+                            <textarea class="form-control" style="height: 100px" name="issue" id="issue" placeholder="Deskripsi" cols="30" rows="50"></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 mt-1">
                         <div class="form-floating">
                             <label for="additional">Informasi Tambahan</label>
-                            <textarea class="form-control" disabled style="height: 100px" name="additional" id="additional" placeholder="Informasi Tambahan" cols="30" rows="50"></textarea>
+                            <textarea class="form-control" style="height: 100px" name="additional" id="additional" placeholder="Informasi Tambahan" cols="30" rows="50"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">Edit</button>
             </div>
+            {{-- <form onsubmit="editReportDetail(event)">
+            </form> --}}
         </div>
     </div>
 </div>
