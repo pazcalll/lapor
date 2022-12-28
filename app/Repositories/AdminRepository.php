@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
@@ -44,14 +45,13 @@ class AdminRepository extends UsersRepository
 
 	public function processReport()
 	{
+		// return response()->json(['error' => request()->all()], 400);
 		$validator = Validator::make(request()->all(), [
 			'referral' => 'required',
 			'additional' => 'nullable',
 			'opd' => [
 				'required',
-				Rule::exists('users')->where(function ($query) {
-					$query->where('role', 'opd');
-				}),
+				Rule::exists('users', 'id')->where('role', 'opd'),
 			]
 		]);
 		if ($validator->fails()) {

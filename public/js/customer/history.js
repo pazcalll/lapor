@@ -55,7 +55,14 @@ function reportHistoryPage() {
                         data: 'facility.name',
                     },
                     {
-                        data: 'assignment.opd.name',
+                        data: null,
+                        render: function(data, type, full, meta){
+                            if (data.status == "DITOLAK") {
+                                return ''
+                            }else {
+                                return data.assignment.opd.name
+                            }
+                        }
                     },
                     {
                         data: 'issue',
@@ -80,10 +87,14 @@ function reportHistoryPage() {
                         render: function(data, type, full, meta) {
                             let btn = ''
                             console.log(data.feedback != null)
-                            if (data.status == "SELESAI" && data.feedback == null) {
+                            if (data.status == "LAPORAN TELAH SELESAI" && data.feedback == null) {
                                 btn += `<button data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#feedbackModal" type="button" class="btn btn-primary btn-add-feedback">Feedback</button>`
-                            }else {
+                            }else if(data.status == "LAPORAN TELAH SELESAI" && data.feedback != null){
                                 btn = 'Feedback telah diberikan'
+                            }else if(data.status == "DITOLAK") {
+                                btn = 'Tidak bisa memberi feedback ke laporan yang ditolak'
+                            }else {
+                                btn = 'Menunggu proses selesai'
                             }
                             return btn
                         }

@@ -98,7 +98,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Laporan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Selesaikan Laporan</h5>
                 <button type="button" class="btn-close btn btn-danger modal-close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <form onsubmit="finishAssignment(event)" id="finishAssignmentForm">
@@ -113,7 +113,7 @@
                         <div class="col-md-12">
                             <div class="form-floating">
                                 <label for="file_finish">Bukti Selesai</label>
-                                <input class="dropify" type="file" name="file_finish" id="file_finish">
+                                <input class="dropify" type="file" name="file_finish" id="file_finish" data-max-file-size="1M">
                             </div>
                         </div>
                     </div>

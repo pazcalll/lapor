@@ -29,7 +29,7 @@ class OpdRepository extends UsersRepository
             }
         ])
             ->whereHas('report', function ($query) {
-                return $query->where('status', 'DIPROSES');
+                return $query->where('status', 'SEDANG DIPROSES');
             })
             ->where('user_id', $user['id'])
             ->whereNull('file_finish')
@@ -56,7 +56,7 @@ class OpdRepository extends UsersRepository
             }
         ])
             ->whereHas('report', function ($query) {
-                return $query->where('status', 'SELESAI');
+                return $query->where('status', 'LAPORAN TELAH SELESAI');
             })
             ->where('user_id', $user['id'])
             ->whereNotNull('file_finish')
@@ -89,7 +89,7 @@ class OpdRepository extends UsersRepository
                 ]);
             $reportUpdate = Report::where('referral', request()->post('referral'))
                 ->update([
-                    'status' => 'SELESAI'
+                    'status' => 'LAPORAN TELAH SELESAI'
                 ]);
 
             DB::commit();
