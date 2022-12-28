@@ -38,7 +38,7 @@ class CustomerRepository extends UsersRepository
                 'facility_id' => $validate['facility'],
                 'user_id' => JWTAuth::toUser(request()->header('Authorization'))['id'],
                 'issue' => $validate['issue'],
-                'status' => "MENUNGGU"
+                'status' => "MENUNGGU DIVERIFIKASI"
             ];
             $createReport = Report::create($newReport);
 
@@ -90,7 +90,7 @@ class CustomerRepository extends UsersRepository
                 return $query->select('report_id', 'feedback');
             }
         ])
-            ->where('user_id', $user['id'])->whereIn('status', ['SELESAI', 'DIPROSES', 'DITOLAK'])->get();
+            ->where('user_id', $user['id'])->whereIn('status', ['LAPORAN TELAH SELESAI', 'SEDANG DIPROSES', 'DITOLAK'])->get();
         return $data;
     }
 
@@ -108,7 +108,7 @@ class CustomerRepository extends UsersRepository
                 return $query->select('street', 'rt', 'rw', 'sub_district', 'village', 'report_id');
             }
         ])
-            ->where('user_id', $user['id'])->where('status', 'MENUNGGU')->get();
+            ->where('user_id', $user['id'])->where('status', 'MENUNGGU DIVERIFIKASI')->get();
         return $data;
     }
 

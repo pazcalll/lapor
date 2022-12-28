@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'admin',
             'username' => 'admin',
+            'gender' => 'PRIA',
             'password' => Hash::make('password'),
             'role' => 'admin',
             'phone' => '123467890'
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
             $customer = User::create([
                 'name' => 'user' . $i,
                 'username' => 'user' . $i,
+                'gender' => 'PRIA',
                 'password' => Hash::make('password'),
                 'role' => 'customer',
                 'phone' => '123467890',
@@ -46,6 +48,7 @@ class UserSeeder extends Seeder
             ]);
             $opd = User::create([
                 'name' => 'opd' . $i,
+                'gender' => 'PRIA',
                 'username' => 'opd' . $i,
                 'password' => Hash::make('password'),
                 'role' => 'opd',

@@ -32,7 +32,7 @@ class AdminRepository extends UsersRepository
 			"facility" => function ($query) {
 				return $query->select('id', 'name');
 			},
-		])->where('status', 'MENUNGGU')->get();
+		])->where('status', 'MENUNGGU DIVERIFIKASI')->get();
 		return $data;
 	}
 
@@ -62,7 +62,7 @@ class AdminRepository extends UsersRepository
 			$reportData = [
 				'referral' => request()->post('referral')
 			];
-			$report = Report::where('referral', $reportData['referral'])->where('status', "MENUNGGU")->first()->toArray();
+			$report = Report::where('referral', $reportData['referral'])->where('status', "MENUNGGU DIVERIFIKASI")->first()->toArray();
 			if (count($report) == 0) {
 				return response()->json(['error' => "Data sudah diproses"], 400);
 			}
@@ -72,7 +72,7 @@ class AdminRepository extends UsersRepository
 				'report_id' => $report['id'],
 				'additional' => request()->post('additional')
 			];
-			$reportUpdate = Report::where('referral', $reportData['referral'])->update(['status' => 'DIPROSES']);
+			$reportUpdate = Report::where('referral', $reportData['referral'])->update(['status' => 'SEDANG DIPROSES']);
 			$assignment = Assignment::create($data);
 			DB::commit();
 		} catch (\Exception $th) {
@@ -83,7 +83,7 @@ class AdminRepository extends UsersRepository
 
 	public function getAcceptedReports()
 	{
-		// $report = Report::where('status', 'DIPROSES')->get()->toArray();
+		// $report = Report::where('status', 'SEDANG DIPROSES')->get()->toArray();
 		$report = Report::with([
 			"assignment" => function ($query) {
 				return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at');
@@ -103,13 +103,13 @@ class AdminRepository extends UsersRepository
 			"reportLocation" => function ($query) {
 				return $query->select('report_id', 'street', 'rt', 'rw', 'village', 'sub_district');
 			}
-		])->select('id', 'referral', 'facility_id', 'user_id', 'issue')->where('status', "DIPROSES")->get()->toArray();
+		])->select('id', 'referral', 'facility_id', 'user_id', 'issue')->where('status', "SEDANG DIPROSES")->get()->toArray();
 		return $report;
 	}
 
 	public function getFinishedReports()
 	{
-		// $report = Report::where('status', 'DIPROSES')->get()->toArray();
+		// $report = Report::where('status', 'SEDANG DIPROSES')->get()->toArray();
 		$report = Report::with([
 			"assignment" => function ($query) {
 				return $query->select('id', 'user_id', 'report_id', 'additional', 'created_at', 'finished_at', 'file_finish');
@@ -129,7 +129,7 @@ class AdminRepository extends UsersRepository
 			"reportFile" => function ($query) {
 				return $query->select('report_id', 'proof_file');
 			},
-		])->select('id', 'referral', 'facility_id', 'user_id', 'issue', 'status', 'created_at')->where('status', "SELESAI")->get()->toArray();
+		])->select('id', 'referral', 'facility_id', 'user_id', 'issue', 'status', 'created_at')->where('status', "LAPORAN TELAH SELESAI")->get()->toArray();
 		return $report;
 	}
 

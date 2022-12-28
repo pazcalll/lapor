@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('name');
-            $table->enum('name', ['PRIA', 'WANITA'])->default('PRIA');
+            $table->enum('gender', ['PRIA', 'WANITA'])->default('PRIA');
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'customer', 'opd']);

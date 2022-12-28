@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('facility_id')->nullable();
             $table->integer('user_id');
             $table->string('issue');
-            $table->enum('status', ['MENUNGGU', 'DIPROSES', 'DITOLAK', 'SELESAI']);
+            $table->enum('status', ['MENUNGGU DIVERIFIKASI', 'SEDANG DIPROSES', 'DITOLAK', 'LAPORAN TELAH SELESAI']);
             $table->timestamps();
 
             $table->foreign('facility_id')->references('id')->on('facilities')->onUpdate('cascade')->onDelete('cascade');
