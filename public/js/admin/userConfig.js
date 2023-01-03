@@ -257,7 +257,7 @@ function addCustomer(e) {
                 $('.errors').html(errMsg)
                 $('.errors').css('display', 'block')
             })
-            toastr.error('Gagal mendaftarkan akun, atribut dengan tanda * wajib diissi, harap cek ulang form anda!')
+            toastr.error('Gagal mendaftarkan akun, atribut dengan tanda * wajib diisi, harap cek ulang form anda!')
         },
         complete: function () {  
             $('.form-spinner').addClass('visually-hidden')

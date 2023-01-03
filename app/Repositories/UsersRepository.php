@@ -78,7 +78,7 @@ class UsersRepository implements UserInterface
             $credentials = request(['username', 'password']);
 
             if (!$token = auth()->attempt($credentials)) {
-                return response()->json(['error' => ['login' => ['Username atau Password tidak sesuai']]], 401);
+                return response()->json(['error' => ['login' => ['Username atau Password tidak sesuai']]], 400);
             }
 
             return $this->respondWithToken($token);

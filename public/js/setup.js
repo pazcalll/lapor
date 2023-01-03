@@ -10,10 +10,14 @@ $.ajaxSetup({
         window.location.reload()
     },
     statusCode: {
-        // 500: function(xhr) {
-        //     if(window.console) console.log(xhr.responseText);
-        //     window.location.href = webBaseUrl+'/login'
-        // }
+        500: function(xhr) {
+            if(window.console) console.log(xhr.responseText);
+            localStorage.removeItem('_token')
+            window.location.href = webBaseUrl+'/login'
+        },
+        401: function(xhr){
+            authCheck()
+        }
     }
 })
 
@@ -39,11 +43,11 @@ function authCheck() {
             },
             error: (err, text, statusMessage) => {
                 // console.log(text, err, statusMessage)
-                if(err.responseJSON.status == 400 && err.responseJSON.token != null) {
+                if(err.responseJSON.status == 401 && err.responseJSON.token != null) {
                     // console.log("reload")
                     localStorage.setItem('_token', err.responseJSON.token)
                     window.location.reload()
-                }else if (err.responseJSON.status != 400) {
+                }else if (err.responseJSON.status != 401) {
                     // console.log("pindah")
                     window.location.href = webBaseUrl+'/login'
                 }
