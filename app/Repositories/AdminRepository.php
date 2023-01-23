@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
 use App\Models\Assignment;
+use App\Models\CustomerPosition;
 use App\Models\Facility;
 use App\Models\Report;
 use App\Models\User;
@@ -269,11 +270,11 @@ class AdminRepository extends UsersRepository
 
 	public function registerCustomer()
 	{
-		// dd(request()->all());
 		$validator = Validator::make(request()->all(), [
 			'username' => 'required|unique:users',
 			'password' => 'required|max:16',
 			'name' => 'required',
+			'customer_position' => ['required', Rule::in(CustomerPosition::POSITION)],
 			'phone' => 'required',
 			'rt' => 'nullable',
 			'rw' => 'nullable',
@@ -309,6 +310,11 @@ class AdminRepository extends UsersRepository
 				'village' => $validator['village'],
 				'sub_district' => $validator['sub_district'],
 				'user_id' => $newCustomer->id
+			]);
+
+			$customerPosition = CustomerPosition::create([
+				'customer_id' => $newCustomer->id,
+				'position' => $validator['customer_position']
 			]);
 
 			DB::commit();

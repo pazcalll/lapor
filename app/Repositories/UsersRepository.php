@@ -162,6 +162,12 @@ class UsersRepository implements UserInterface
         return response()->json($data, 200);
     }
 
+    public function getExistingCustomerPosition()
+    {
+        $data = CustomerPosition::POSITION;
+        return response()->json($data, 200);
+    }
+
     public function updateProfile()
     {
         // DO NOT USE FORMDATA TO ANY 'PATCH' ROUTES

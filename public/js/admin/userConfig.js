@@ -1,4 +1,4 @@
-
+var customerPosition = null
 function configPage() {
     $.ajax({
         url: webBaseUrl + '/admin/config-page',
@@ -15,6 +15,9 @@ function configPage() {
         },
         success: (res) => {
             $('#content').html(res)
+            if (customerPosition == null) getExistingCustomerPosition()
+            else setCustomerPositionOption()
+
             $('.dropify').dropify({
                 messages: {
                     'default': 'Masukkan bukti',
@@ -195,6 +198,29 @@ function getEnumUser() {
     })
 }
 
+function getExistingCustomerPosition() {
+    $.ajax({
+        url: apiBaseUrl + "/user/get-existing-customer-position",
+        type: "GET", 
+        success: (res) => {
+            customerPosition = res
+
+            setCustomerPositionOption()
+        },
+        error: (err) => {
+            console.log(err)
+        }
+    })
+}
+
+function setCustomerPositionOption() {
+    options = `<option disabled hidden selected>Pilih Jabatan</option>`
+    customerPosition.forEach((item, _index) => {
+        options += `<option value='${item}'>`+item+"</option>"
+    });
+    $('#customer_position').html(options)
+}
+
 function editUser(e) {
     e.preventDefault()
     let fd = new FormData()
@@ -230,6 +256,7 @@ function addCustomer(e) {
     fd.append('username', elements.username.value)
     fd.append('password', elements.password.value)
     fd.append('name', elements.name.value)
+    fd.append('customer_position', elements.customer_position.value)
     fd.append('phone', elements.phone.value)
     fd.append('street', elements.street.value)
     fd.append('rt', elements.rt.value)

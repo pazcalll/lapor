@@ -91,6 +91,12 @@ class UserController extends Controller
         return $gender;
     }
 
+    public function getExistingCustomerPosition()
+    {
+        $data = $this->user->getExistingCustomerPosition();
+        return $data;
+    }
+
     public function getFacilities()
     {
         $data = $this->user->getFacilities();

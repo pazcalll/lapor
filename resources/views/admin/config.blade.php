@@ -168,6 +168,14 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
+                                <span>Jabatan <span style="color: red">*</span></span>
+                                <select class="form-control" name="customer_position" id="customer_position" required>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
                                 <span>Alamat</span>
                                 <div id="address" name="address">
                                     <input type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
