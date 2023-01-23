@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CustomerPosition;
 use App\Models\User;
 use App\Models\UserAddressDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -45,6 +46,10 @@ class UserSeeder extends Seeder
                 'village' => "Desa " . $i,
                 'sub_district' => "Kecamatan " . $i,
                 'user_id' => $customer->id,
+            ]);
+            $customerPosition = CustomerPosition::create([
+                'customer_id' => $customer->id,
+                'position' => CustomerPosition::POSITION[1]
             ]);
             $opd = User::create([
                 'name' => 'opd' . $i,

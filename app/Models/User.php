@@ -52,6 +52,10 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    const ROLE_CUSTOMER = 'customer';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_OPD = 'opd';
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

@@ -36,6 +36,10 @@
                     <input required type="number" class="form-control mt-1 mb-1" id="phone" name="phone">
                 </div>
                 <div class="form-group">
+                    <label for="position">Jabatan</label>
+                    <input disabled type="text" class="form-control mt-1 mb-1" id="position" name="position">
+                </div>
+                <div class="form-group">
                     <label for="location">Lokasi</label>
                     <div id="location" name="location">
                         <div class="page-heading">

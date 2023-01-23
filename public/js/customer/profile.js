@@ -2,7 +2,7 @@ function profilePage() {
     $.ajax({
         url: webBaseUrl + "/profile-page",
         type: "GET",
-        beforeSend:() => {
+        beforeSend: () => {
             $('#content').html(`
             <span class="d-flex align-items-center justify-content-center form-spinner" style="z-index: 3; position: absolute; background-color: white; width: 100%; height: 80%; align-content: center">
                 <span style="position: absolute; width: 200px; height: 200px;" class="spinner-border text-primary" role="status">
@@ -39,15 +39,16 @@ function profilePage() {
                             $('#name').val(res2.name)
                             $('#username').val(res2.username)
                             $('#password').val(res2.password)
+                            $('#position').val(res2.position)
                             $('#phone').val(res2.phone)
                             $('#street').val(res2.user_address_detail.street)
                             $('#rt').val(res2.user_address_detail.rt)
                             $('#rw').val(res2.user_address_detail.rw)
                             $('#village').val(res2.user_address_detail.village)
                             $('#sub_district').val(res2.user_address_detail.sub_district)
-                            $('#appointment_letter_link').data('url', webBaseUrl+"/storage/appointment_letter/"+res2.appointment_letter)
+                            $('#appointment_letter_link').data('url', webBaseUrl + "/storage/appointment_letter/" + res2.appointment_letter)
 
-                            $('#appointment_letter_link').on('click', function () {  
+                            $('#appointment_letter_link').on('click', function () {
                                 window.open($(this).data('url'), '_blank')
                             })
                             $('#gender').val(res2.gender)
@@ -92,7 +93,7 @@ function updateProfile(e) {
                         toastr.error(err.responseJSON.errors[i])
                     }
                 }
-                else{
+                else {
                     toastr.error('Aksi gagal, harap coba lagi nanti atau hubungi admin!')
                 }
             },

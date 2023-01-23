@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
+use App\Models\CustomerPosition;
 use App\Models\Facility;
 use App\Models\User;
 use App\Models\UserAddressDetail;
@@ -109,6 +110,16 @@ class UsersRepository implements UserInterface
     public function getProfile()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
+        return response()->json($user, 200);
+    }
+
+    public function getCustomerPosition($user)
+    {
+        if ($user->role == User::ROLE_CUSTOMER) {
+            $customerPosition = CustomerPosition::where('customer_id', $user->id)->first()->position;
+            $user->position = $customerPosition;
+            return response()->json($user, 200);
+        }
         return response()->json($user, 200);
     }
 
