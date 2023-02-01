@@ -127,7 +127,7 @@ class UsersRepository implements UserInterface
     {
         $type = DB::table('information_schema.columns')
             ->select('column_type')
-            ->where('table_schema', 'lapor')
+            ->where('table_schema', env('DB_DATABASE'))
             ->where('table_name', 'users')
             ->where('column_name', 'gender')
             ->first();

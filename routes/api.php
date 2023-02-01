@@ -51,6 +51,8 @@ Route::prefix('v1')->group(function () {
             Route::post('register-customer', [AdminController::class, 'registerCustomer'])->name('registerCustomer');
             Route::post('process-report', [AdminController::class, 'processReport'])->name('processReportAdmin');
             Route::post('edit-user', [AdminController::class, 'editUser'])->name('adminEditUser');
+            Route::post('update-customer', [AdminController::class, 'updateCustomer'])->name('adminUpdateCustomer');
+            Route::post('update-opd', [AdminController::class, 'updateOpd'])->name('adminUpdateOpd');
             Route::put('edit-report', [AdminController::class, 'editReport'])->name('adminEditReport');
 
             Route::get('unaccepted-reports', [AdminController::class, 'getUnacceptedReports'])->name('getUnacceptedReport');

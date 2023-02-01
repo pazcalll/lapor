@@ -1,4 +1,5 @@
 var customerPosition = null
+var gender = null
 function configPage() {
     $.ajax({
         url: webBaseUrl + '/admin/config-page',
@@ -17,6 +18,9 @@ function configPage() {
             $('#content').html(res)
             if (customerPosition == null) getExistingCustomerPosition()
             else setCustomerPositionOption()
+
+            if (gender == null) getExistingGender()
+            else setGender('gender')
 
             $('.dropify').dropify({
                 messages: {
@@ -140,21 +144,62 @@ function userTable() {
             {
                 data: null,
                 render: function(data, type, full, meta) {
-                    let btn = `
-                        <button 
-                            data-backdrop="false" 
-                            data-toggle="modal" 
-                            data-target="#editUserModal" 
-                            type="button" 
-                            class="btn btn-info btn-edit-user" 
-                            data-username="${data.username}"
-                            data-name="${data.name}"
-                            data-role="${data.role}"
-                        >
-                            <i class="bi bi-pencil-square"></i> 
-                            Edit
-                        </button>
-                    `
+                    let btn = ``
+                    
+                    if (data.customer_position == null) {
+                        console.log(data)
+                        btn = `
+                            <button 
+                                data-backdrop="false" 
+                                data-toggle="modal" 
+                                data-target="#editOpdModal" 
+                                type="button" 
+                                class="btn btn-info btn-edit-opd" 
+                                data-id="${data.id}"
+                                data-username="${data.username}"
+                                data-name="${data.name}"
+                                data-phone="${data.phone}"
+                                data-street="${data.user_address_detail.street}"
+                                data-rt="${data.user_address_detail.rt}"
+                                data-rw="${data.user_address_detail.rw}"
+                                data-village="${data.user_address_detail.village}"
+                                data-sub_district="${data.user_address_detail.sub_district}"
+
+                                data-role="${data.role}"
+                            >
+                                <i class="bi bi-pencil-square"></i> 
+                                Edit
+                            </button>
+                        `
+                    }else {
+                        btn = `
+                            <button 
+                                data-backdrop="false" 
+                                data-toggle="modal" 
+                                data-target="#editCustomerModal" 
+                                type="button" 
+                                class="btn btn-info btn-edit-customer" 
+                                data-id="${data.id}"
+                                data-username="${data.username}"
+                                data-name="${data.name}"
+                                data-gender="${data.gender}"
+                                data-appointment_letter="${data.appointment_letter}"
+                                data-position="${data.customer_position.position}"
+                                data-phone="${data.phone}"
+                                data-street="${data.user_address_detail.street}"
+                                data-rt="${data.user_address_detail.rt}"
+                                data-rw="${data.user_address_detail.rw}"
+                                data-village="${data.user_address_detail.village}"
+                                data-sub_district="${data.user_address_detail.sub_district}"
+
+                                data-role="${data.role}"
+                            >
+                                <i class="bi bi-pencil-square"></i> 
+                                Edit
+                            </button>
+                        `
+                    }
+
                     if (data.appointment_letter !== null) {
                         btn += `
                             <button 
@@ -171,12 +216,52 @@ function userTable() {
             }
         ],
         drawCallback: (res) => {
-            $('.btn-edit-user').on('click', function () {  
-                $('.username').html($(this).data('username'))
-                $('#name').val($(this).data('name'))
-                $('#username').val($(this).data('username'))
-                $('#role').val($(this).data('role'))
+            $('.btn-edit-customer').on('click', function () {
+                $('#id_customer').val($(this).data('id'))
+                $('#username_customer').val($(this).data('username'))
+                $('#name_customer').val($(this).data('name'))
+                $('#gender_customer').val($(this).data('gender'))
+                $('#role_customer').val($(this).data('role'))
+                
+                $('#customer_position_customer').val($(this).data('position'))
+                $('#phone_customer').val($(this).data('phone'))
+                $('#street_customer').val($(this).data('street'))
+                $('#rt_customer').val($(this).data('rt'))
+                $('#rw_customer').val($(this).data('rw'))
+                $('#village_customer').val($(this).data('village'))
+                $('#sub_district_customer').val($(this).data('sub_district'))
+                $('#current_appointment_letter_customer').attr('href', webBaseUrl+'/storage/appointment_letter/'+$(this).data('appointment_letter'));
             })
+            $('.btn-edit-opd').on('click', function () {  
+                $('#id_opd').val($(this).data('id'))
+                $('#username_opd').val($(this).data('username'))
+                $('#name_opd').val($(this).data('name'))
+                $('#role_opd').val($(this).data('role'))
+
+                $('#position_opd').val($(this).data('position'))
+                $('#phone_opd').val($(this).data('phone'))
+                $('#street_opd').val($(this).data('street'))
+                $('#rt_opd').val($(this).data('rt'))
+                $('#rw_opd').val($(this).data('rw'))
+                $('#village_opd').val($(this).data('village'))
+                $('#sub_district_opd').val($(this).data('sub_district'))
+            })
+        },
+        initComplete: () => {
+            if (customerPosition == null) getExistingCustomerPosition()
+            else {
+                options = `<option disabled hidden selected>Pilih Jabatan</option>`
+                customerPosition.forEach((item, _index) => {
+                    options += `<option value='${item}'>`+item+"</option>"
+                });
+                $('#customer_position_customer').html(options)
+            }
+            
+            if (gender == null) {
+                getExistingGender() 
+                setGender('gender_customer')
+            }
+            else setGender('gender_customer')
         }
     })
 }
@@ -202,6 +287,7 @@ function getExistingCustomerPosition() {
     $.ajax({
         url: apiBaseUrl + "/user/get-existing-customer-position",
         type: "GET", 
+        async: false,
         success: (res) => {
             customerPosition = res
 
@@ -219,6 +305,31 @@ function setCustomerPositionOption() {
         options += `<option value='${item}'>`+item+"</option>"
     });
     $('#customer_position').html(options)
+}
+
+function getExistingGender() {
+    $.ajax({
+        url: apiBaseUrl + "/user/get-gender-enum",
+        type: "GET",
+        async: false,
+        success: (res) => {
+            gender = res
+            setGender('gender')
+        },
+        error: (err) => {
+            console.log(err)
+        },
+    })
+}
+
+function setGender(element_id) {
+    $("#"+element_id).append(`<option disabled hidden selected>Pilih Jenis Kelamin</option>`)
+    console.log(element_id, gender)
+    gender.forEach(val => {
+        $("#"+element_id).append(`
+            <option value="${val}">${val}</option>
+        `)
+    })
 }
 
 function editUser(e) {
@@ -244,6 +355,105 @@ function editUser(e) {
             toastr.error("Terjadi kesalahan")
         }
     })
+} // to be deleted
+
+function editCustomer(e) {
+    e.preventDefault()
+    if ($('#password_customer').val() == $('#password_confirm_customer').val()) {
+        $.ajax({
+            url: apiBaseUrl + '/user/admin/update-customer',
+            type: "POST",
+            data: {
+                id: $('#id_customer').val(),
+                name: $('#name_customer').val(),
+                username: $('#username_customer').val(),
+                password: $('#password_customer').val(),
+                password_confirm: $('#password_confirm_customer').val(),
+                customer_position: $('#customer_position_customer').val(),
+                street: $('#street_customer').val(),
+                rt: $('#rt_customer').val(),
+                rw: $('#rw_customer').val(),
+                village: $('#village_customer').val(),
+                sub_district: $('#sub_district_customer').val(),
+                phone: $('#phone_customer').val(),
+                gender: $('#gender_customer').val()
+            },
+            beforeSend: () => {
+                $('.btn-submit').css('display', 'none')
+                $('.p-loading').css('display', 'flex')
+            },
+            success: (res) => {
+                toastr.success('Data Berhasil diperbarui')
+                $('.modal-close').click()
+                dt.ajax.reload()
+            },
+            error: (err) => {
+                if (err.responseJSON.errors !== null) {
+                    for (let i = 0; i < err.responseJSON.errors.length; i++) {
+                        toastr.error(err.responseJSON.errors[i])
+                    }
+                }
+                else {
+                    toastr.error('Aksi gagal, harap coba lagi nanti!')
+                }
+            },
+            complete: () => {
+                $('.btn-submit').css('display', 'block')
+                $('.p-loading').css('display', 'none')
+            }
+        })
+    } else {
+        toastr.error('Password baru dan konfirmasi tidak sama!')
+    }
+}
+
+function editOpd(e) {
+    e.preventDefault()
+
+    if ($('#password_opd').val() == $('#password_confirm_opd').val()) {
+        $.ajax({
+            url: apiBaseUrl + '/user/admin/update-opd',
+            type: "POST",
+            data: {
+                id: $('#id_opd').val(),
+                name: $('#name_opd').val(),
+                username: $('#username_opd').val(),
+                password: $('#password_opd').val(),
+                password_confirm: $('#password_confirm_opd').val(),
+                street: $('#street_opd').val(),
+                rt: $('#rt_opd').val(),
+                rw: $('#rw_opd').val(),
+                village: $('#village_opd').val(),
+                sub_district: $('#sub_district_opd').val(),
+                phone: $('#phone_opd').val()
+            },
+            beforeSend: () => {
+                $('.btn-submit').css('display', 'none')
+                $('.p-loading').css('display', 'flex')
+            },
+            success: (res) => {
+                toastr.success('Data Berhasil diperbarui')
+                $('.modal-close').click()
+                dt.ajax.reload()
+            },
+            error: (err) => {
+                if (err.responseJSON.errors !== null) {
+                    for (let i = 0; i < err.responseJSON.errors.length; i++) {
+                        toastr.error(err.responseJSON.errors[i])
+                    }
+                }
+                else{
+                    toastr.error('Aksi gagal, harap coba lagi nanti!')
+                }
+            },
+            complete: () => {
+                $('.btn-submit').css('display', 'block')
+                $('.p-loading').css('display', 'none')
+            }
+        })
+    } else {
+        toastr.error('Password baru dan konfirmasi tidak sama!')
+    }
 }
 
 
@@ -256,6 +466,7 @@ function addCustomer(e) {
     fd.append('username', elements.username.value)
     fd.append('password', elements.password.value)
     fd.append('name', elements.name.value)
+    fd.append('gender', elements.gender.value)
     fd.append('customer_position', elements.customer_position.value)
     fd.append('phone', elements.phone.value)
     fd.append('street', elements.street.value)

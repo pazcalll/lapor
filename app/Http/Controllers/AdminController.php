@@ -132,4 +132,14 @@ class AdminController extends Controller
         $edit = $this->admin->editReport();
         return $edit;
     }
+    public function updateCustomer()
+    {
+        $update = $this->admin->updateCustomer();
+        return $update;
+    }
+    public function updateOpd()
+    {
+        $update = $this->admin->updateOpd();
+        return $update;
+    }
 }

@@ -136,7 +136,7 @@ class AdminRepository extends UsersRepository
 
 	public function getNonAdminUsers()
 	{
-		$users = User::where('role', '!=', 'admin')->get();
+		$users = User::with(['userAddressDetail', 'customerPosition'])->where('role', '!=', 'admin')->get();
 		return $users;
 	}
 
@@ -144,7 +144,7 @@ class AdminRepository extends UsersRepository
 	{
 		$type = DB::table('information_schema.columns')
 			->select('column_type')
-			->where('table_schema', 'lapor')
+			->where('table_schema', env('DB_DATABASE'))
 			->where('table_name', 'users')
 			->where('column_name', 'role')
 			->first();
@@ -167,6 +167,69 @@ class AdminRepository extends UsersRepository
 
 	public function editUser()
 	{
+		User::where('username', request()->post('username'))->update([
+			"role" => request()->post('role')
+		]);
+	}
+
+	public function updateCustomer()
+	{
+		$validator = Validator::make(request()->all(), [
+			"id" => 'required',
+			"name" => ['required', 'min:4', 'max:64'],
+			"username" => ['required', 'max:16'],
+			"password" => ['nullable', 'confirmed', 'min:6', 'max:32'],
+			"gender" => 'required',
+			
+			"phone" => ['required'],
+			"street" => ['required'],
+			"rt" => 'required',
+			"rw" => 'required',
+			"village" => 'required',
+			"sub_district" => 'required',
+			"phone" => 'required',
+		], [
+			'required' => 'Semua field dengan tanda bintang wajib diisi'
+		]);
+
+		if ($validator->fails()) {
+			return response()->json(['errors' => $validator->errors()->all()], 400);
+		}
+
+		try {
+			DB::beginTransaction();
+
+			$validator = $validator->validated();
+			$userData = [
+				"name" => $validator['name'],
+				"username" => $validator['username'],
+				"password" => $validator['password'],
+				"phone" => $validator['phone']
+			];
+			$userDataDetail = [
+				"street" => $validator['street'],
+				"rt" => $validator['rt'],
+				"rw" => $validator['rw'],
+				"village" => $validator['village'],
+				"sub_district" => $validator['sub_district']
+			];
+
+			if (!isset($userData['password'])) {
+				unset($userData['password']);
+			}
+			
+			User::where('id', request()->post('id'))->update($userData);
+			UserAddressDetail::where('user_id', request()->post('id'))->update($userDataDetail);
+			DB::commit();
+		} catch (\Throwable $th) {
+			return response()->json(["error" => $th], 400);
+		}
+
+	}
+
+	public function updateOpd()
+	{
+		dd(request()->post());
 		User::where('username', request()->post('username'))->update([
 			"role" => request()->post('role')
 		]);
@@ -276,11 +339,11 @@ class AdminRepository extends UsersRepository
 			'name' => 'required',
 			'customer_position' => ['required', Rule::in(CustomerPosition::POSITION)],
 			'phone' => 'required',
-			'rt' => 'nullable',
-			'rw' => 'nullable',
-			'village' => 'nullable',
-			'sub_district' => 'nullable',
-			'street' => 'nullable',
+			'rt' => 'required',
+			'rw' => 'required',
+			'village' => 'required',
+			'sub_district' => 'required',
+			'street' => 'required',
 			'appointment_letter' => 'required|file|max:2048'
 		]);
 
