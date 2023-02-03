@@ -89,7 +89,7 @@
                         <input type="text" placeholder="Nomor Telepon" class="form-control mt-1 mb-1" name="phone_customer" id="phone_customer">
                     </div>
                     <div class="form-group mt-1 mb-1">
-                        <div>SK Pengangkatan Saat Ini: <a target="_blank" id="current_appointment_letter_customer">LINK</a></div>
+                        <div>SK Pengangkatan Saat Ini: <button style="color: blue" type="button" id="current_appointment_letter_customer">LINK</button></div>
                     </div>
                     <div class="form-group mt-1 mb-1">
                         <div>SK Pengangkatan</div>

@@ -217,6 +217,8 @@ function userTable() {
         ],
         drawCallback: (res) => {
             $('.btn-edit-customer').on('click', function () {
+                $('.dropify-clear').click()
+
                 $('#id_customer').val($(this).data('id'))
                 $('#username_customer').val($(this).data('username'))
                 $('#name_customer').val($(this).data('name'))
@@ -230,9 +232,11 @@ function userTable() {
                 $('#rw_customer').val($(this).data('rw'))
                 $('#village_customer').val($(this).data('village'))
                 $('#sub_district_customer').val($(this).data('sub_district'))
-                $('#current_appointment_letter_customer').attr('href', webBaseUrl+'/storage/appointment_letter/'+$(this).data('appointment_letter'));
+                $('#current_appointment_letter_customer').attr('onclick', `window.open('${webBaseUrl}/storage/appointment_letter/${$(this).data('appointment_letter')}')`);
             })
             $('.btn-edit-opd').on('click', function () {  
+                $('.dropify-clear').click()
+
                 $('#id_opd').val($(this).data('id'))
                 $('#username_opd').val($(this).data('username'))
                 $('#name_opd').val($(this).data('name'))
@@ -359,25 +363,31 @@ function editUser(e) {
 
 function editCustomer(e) {
     e.preventDefault()
+    let elements = e.target.elements
+    let fd = new FormData()
     if ($('#password_customer').val() == $('#password_confirm_customer').val()) {
+        fd.append('id', elements.id_customer.value)
+        fd.append('username', elements.username_customer.value)
+        fd.append('password', elements.password_customer.value)
+        fd.append('name', elements.name_customer.value)
+        fd.append('gender', elements.gender_customer.value)
+        fd.append('customer_position', elements.customer_position_customer.value)
+        console.log(elements.appointment_letter_customer.files[0])
+        if (elements.appointment_letter_customer.files[0] != undefined) { fd.append('appointment_letter', elements.appointment_letter_customer.files[0]) }
+        // else fd.append('appointment_letter', null)
+        fd.append('phone', elements.phone_customer.value)
+        
+        fd.append('street', elements.street_customer.value)
+        fd.append('rt', elements.rt_customer.value)
+        fd.append('rw', elements.rw_customer.value)
+        fd.append('village', elements.village_customer.value)
+        fd.append('sub_district', elements.sub_district_customer.value)
         $.ajax({
             url: apiBaseUrl + '/user/admin/update-customer',
             type: "POST",
-            data: {
-                id: $('#id_customer').val(),
-                name: $('#name_customer').val(),
-                username: $('#username_customer').val(),
-                password: $('#password_customer').val(),
-                password_confirm: $('#password_confirm_customer').val(),
-                customer_position: $('#customer_position_customer').val(),
-                street: $('#street_customer').val(),
-                rt: $('#rt_customer').val(),
-                rw: $('#rw_customer').val(),
-                village: $('#village_customer').val(),
-                sub_district: $('#sub_district_customer').val(),
-                phone: $('#phone_customer').val(),
-                gender: $('#gender_customer').val()
-            },
+            data: fd,
+            processData: false,
+            contentType: false,
             beforeSend: () => {
                 $('.btn-submit').css('display', 'none')
                 $('.p-loading').css('display', 'flex')

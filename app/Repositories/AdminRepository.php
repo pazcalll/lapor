@@ -10,8 +10,10 @@ use App\Models\Report;
 use App\Models\User;
 use App\Models\UserAddressDetail;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -174,12 +176,14 @@ class AdminRepository extends UsersRepository
 
 	public function updateCustomer()
 	{
+		// dd(request()->all());
 		$validator = Validator::make(request()->all(), [
 			"id" => 'required',
 			"name" => ['required', 'min:4', 'max:64'],
 			"username" => ['required', 'max:16'],
 			"password" => ['nullable', 'confirmed', 'min:6', 'max:32'],
 			"gender" => 'required',
+			"appointment_letter" => ['nullable', 'file', 'max:2048'],
 			
 			"phone" => ['required'],
 			"street" => ['required'],
@@ -200,6 +204,81 @@ class AdminRepository extends UsersRepository
 			DB::beginTransaction();
 
 			$validator = $validator->validated();
+			$editData = User::where('username', $validator['username'])->first();
+			$originalData = User::where('id', $validator['id'])->first();
+			// dd(Auth::user());
+			if ($editData != null && $editData->username != $originalData->username) {
+				return response()->json(['errors' => ['username sudah dipakai']], 400);
+			}
+			$userData = [
+				"name" => $validator['name'],
+				"username" => $validator['username'],
+				"password" => $validator['password'],
+				"phone" => $validator['phone']
+			];
+			$userDataDetail = [
+				"street" => $validator['street'],
+				"rt" => $validator['rt'],
+				"rw" => $validator['rw'],
+				"village" => $validator['village'],
+				"sub_district" => $validator['sub_district']
+			];
+
+			if (!isset($userData['password'])) {
+				unset($userData['password']);
+			}
+			if (isset($validator['appointment_letter'])) {
+				// unset($userData['appointment_letter']);
+				// $appointment_letter = User::where('id', request()->post('id'))->select('id', 'appointment_letter')->first();
+				$filename = time() . '_' . $validator['appointment_letter']->getClientOriginalName();
+				// Storage::delete('public/appointment_letter/' . $appointment_letter->appointment_letter);
+				Storage::put('public/appointment_letter/' . $filename, file_get_contents(request()->file('appointment_letter')));
+				User::where('id', $validator['id'])->update([
+					'appointment_letter' => $filename
+				]);
+			}
+			
+			User::where('id', request()->post('id'))->update($userData);
+			UserAddressDetail::where('user_id', request()->post('id'))->update($userDataDetail);
+			DB::commit();
+		} catch (\Throwable $th) {
+			return response()->json(["error" => $th->getMessage()], 400);
+		}
+
+	}
+
+	public function updateOpd()
+	{
+		// dd(request()->post());
+		$validator = Validator::make(request()->all(), [
+			'id' => 'required',
+			'name' => ['required', 'min:4', 'max:64'],
+			'username' => ['required', 'max:16'],
+			'password' => ['nullable', 'confirmed', 'min:6', 'max:32'],
+			'phone' => ['required'],
+			'street' => ['required'],
+			'rt' => 'required',
+			'rw' => 'required',
+			'village' => 'required',
+			'sub_district' => 'required',
+			'phone' => 'required',
+		], [
+			'required' => 'Semua field dengan tanda bintang wajib diisi'
+		]);
+		if ($validator->fails()) {
+			return response()->json(['errors' => $validator->errors()->all()], 400);
+		}
+
+		try {
+			DB::beginTransaction();
+
+			$validator = $validator->validated();
+			$editData = User::where('username', $validator['username'])->first();
+			$originalData = User::where('id', $validator['id'])->first();
+			
+			if ($editData != null && $editData->username != $originalData->username) {
+				return response()->json(['errors' => ['username sudah dipakai']], 400);
+			}
 			$userData = [
 				"name" => $validator['name'],
 				"username" => $validator['username'],
@@ -222,17 +301,8 @@ class AdminRepository extends UsersRepository
 			UserAddressDetail::where('user_id', request()->post('id'))->update($userDataDetail);
 			DB::commit();
 		} catch (\Throwable $th) {
-			return response()->json(["error" => $th], 400);
+			return response()->json(["error" => $th->getMessage()], 400);
 		}
-
-	}
-
-	public function updateOpd()
-	{
-		dd(request()->post());
-		User::where('username', request()->post('username'))->update([
-			"role" => request()->post('role')
-		]);
 	}
 
 	public function getFacilitiesDatatable()
