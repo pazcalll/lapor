@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('gender', ['PRIA', 'WANITA'])->default('PRIA');
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['admin', 'customer', 'opd']);
+            $table->enum('role', ['admin', 'customer', 'opd', 'regent']);
             $table->string('phone')->nullable();
             $table->text('appointment_letter')->nullable();
             $table->rememberToken();

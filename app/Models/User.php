@@ -55,6 +55,7 @@ class User extends Authenticatable implements JWTSubject
     const ROLE_CUSTOMER = 'customer';
     const ROLE_ADMIN = 'admin';
     const ROLE_OPD = 'opd';
+    const ROLE_REGENT = 'regent';
 
     protected function serializeDate(DateTimeInterface $date)
     {

@@ -5,11 +5,13 @@ namespace App\Providers;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\RegentController;
 use App\Http\Controllers\UserController;
 use App\Interfaces\UserInterface;
 use App\Repositories\AdminRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\OpdRepository;
+use App\Repositories\RegentRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -45,6 +47,12 @@ class RepositoryServiceProvider extends ServiceProvider
             ->needs(UserInterface::class)
             ->give(function () {
                 return new OpdRepository;
+            });
+
+        $this->app->when(RegentController::class)
+            ->needs(UserInterface::class)
+            ->give(function () {
+                return new RegentRepository;
             });
     }
 

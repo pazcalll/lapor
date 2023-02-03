@@ -104,6 +104,8 @@ class UsersRepository implements UserInterface
             return view('admin.index');
         } else if ($user['role'] == 'opd') {
             return view('opd.index');
+        } else if ($user['role'] == User::ROLE_REGENT) {
+            return view('regent.index');
         }
     }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\RegentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,5 +42,8 @@ Route::middleware('jwtauth')->group(function () {
     Route::prefix('opd')->middleware('opd')->group(function () {
         Route::get('/home-page', [OpdController::class, 'homePage'])->name('opdHomePage');
         Route::get('/history-page', [OpdController::class, 'historyPage'])->name('opdHistoryPage');
+    });
+    Route::prefix('regent')->middleware('regent')->group(function () {
+        Route::get('/home-page', [RegentController::class, 'homePage'])->name('regentHomePage');
     });
 });

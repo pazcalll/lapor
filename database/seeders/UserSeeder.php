@@ -29,6 +29,14 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'phone' => '123467890'
         ]);
+        $regent = User::create([
+            'name' => 'Bupatiku',
+            'username' => 'regent',
+            'gender' => 'PRIA',
+            'password' => Hash::make('password'),
+            'role' => User::ROLE_REGENT,
+            'phone' => '123467890'
+        ]);
         for ($i = 0; $i < 3; $i++) {
             $customer = User::create([
                 'name' => 'user' . $i,
