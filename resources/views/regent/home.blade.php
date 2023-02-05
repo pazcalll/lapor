@@ -1,7 +1,7 @@
+<div class="row card-container">
+    
+</div>
 
 <script>
     $("#title-label").html('Ringkasan Data')
-
-    incomingReportDatatable('{{ asset("storage/proof") }}')
-    getOpds()
 </script>

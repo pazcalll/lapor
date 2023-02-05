@@ -47,7 +47,7 @@
                 <ul class="nav-menu">
                     <li class="nav-header"><span class="nav-text">Bupati</span></li>
                     <li class="menu no-arrow">
-                        <a href="javascript:void(0)" onclick="">
+                        <a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()">
                             <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
                             <span class="nav-text">Dashboard</span>
                         </a>

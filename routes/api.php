@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\RegentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,10 @@ Route::prefix('v1')->group(function () {
             Route::post('finish-assignment', [OpdController::class, 'finishAssignment'])->name('finishAssignment');
             Route::get('incoming-assignments', [OpdController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
             Route::get('finished-assignments', [OpdController::class, 'getFinishedAssignments'])->name('getFinishedAssignments');
+        });
+        Route::prefix('regent')->middleware('regent')->group(function ()
+        {
+            Route::get('summary', [RegentController::class, 'summary'])->name('summary');
         });
     });
 });

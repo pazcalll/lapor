@@ -20,6 +20,11 @@ class RegentController extends Controller
     {
         return view('regent.home');
     }
+
+    public function summary()
+    {
+        return $this->regent->summary();
+    }
     
     public function create()
     {
