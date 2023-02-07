@@ -21,15 +21,17 @@
     <link rel="stylesheet" href="{{ asset('css/jumbo-forms.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/jquery-rating/css/star-rating.css') }}" media="all" type="text/css"/>
     <link rel="stylesheet" href="{{ asset('lib/jquery-rating/themes/krajee-uni/theme.css') }}" media="all" type="text/css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     
     <script src="{{ asset('lib/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('lib/dropify/dist/js/dropify.min.js') }}"></script>
-
+    
     <script src="{{ asset('js/setup.js') }}" defer></script>
-
+    
     <script src="{{ asset('lib/jquery-rating/js/star-rating.js') }}" type="text/javascript"></script>
     <script src="{{ asset('lib/jquery-rating/themes/krajee-uni/theme.js') }}" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <style>
         .dataTables_paginate {

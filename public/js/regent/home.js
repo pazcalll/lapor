@@ -1,4 +1,5 @@
 var dt = null
+var opd = null
 
 function homePage() {
     $.ajax({
@@ -51,10 +52,11 @@ function logout() {
     })
 }
 
-function summary() {
+function summary(data) {
     $.ajax({
         url: apiBaseUrl + "/user/regent/summary",
         type: 'GET',
+        data: data,
         success: (res) => {
             let data = res.data
 
@@ -85,9 +87,43 @@ function summary() {
                 `
             });
             $('.card-container').html(card)
+            getOpd()
+            $('#loading-filter').css('display', 'none')
         },
         error: (res) => {
             console.log(res)
         }
     })
+}
+
+function filterSummary(e) {
+    e.preventDefault()
+    
+    let obj = {}
+    obj.opd = $('#opd_filter_selector').val() != null ? $('#opd_filter_selector').val() : null
+    
+    $('#loading-filter').css('display', 'block')
+
+    summary(obj)
+}
+
+function getOpd() {
+    let todo = (opd) => {
+        let options = '<option value="0" selected>Pilih OPD</option>'
+        opd.forEach(element => {
+            options += `<option value="${element.id}">${element.name}</option>`
+        });
+        return options
+    };
+    if (opd == null) {
+        $.ajax({
+            url: apiBaseUrl + '/user/regent/opds',
+            type: "GET",
+            success: (res) => {
+                opd = res.data
+                $('#opd_filter_selector').html(todo(opd))
+                $('#opd_filter_selector').select2()
+            }
+        })
+    }
 }

@@ -77,6 +77,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('regent')->middleware('regent')->group(function ()
         {
             Route::get('summary', [RegentController::class, 'summary'])->name('summary');
+            Route::get('opds', [RegentController::class, 'getOpds']);
         });
     });
 });

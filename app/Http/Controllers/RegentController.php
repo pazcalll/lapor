@@ -25,6 +25,11 @@ class RegentController extends Controller
     {
         return $this->regent->summary();
     }
+
+    public function getOpds()
+    {
+        return $this->regent->getOpds();
+    }
     
     public function create()
     {
