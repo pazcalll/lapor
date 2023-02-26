@@ -17,6 +17,11 @@
     <div class="row card-container">
 
     </div>
+    <div class="graphic">
+        <div class="d-flex justify-content-center align-items-center">
+            <canvas id="opd-task-chart" style="width:100%;max-width:600px"></canvas>
+        </div>
+    </div>
 </div>
 
 <script>

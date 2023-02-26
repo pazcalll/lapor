@@ -1,5 +1,6 @@
 var dt = null
 var opd = null
+var opdTaskChart = null
 
 function homePage() {
     $.ajax({
@@ -45,7 +46,7 @@ function logout() {
             if (err.responseJSON.status == 400) {
                 localStorage.setItem('_token', err.responseJSON._token)
                 logout()
-            }else {
+            } else {
                 window.location.reload()
             }
         }
@@ -59,9 +60,14 @@ function summary(data) {
         data: data,
         success: (res) => {
             let data = res.data
-
+            let xValues = []
+            let yValues = []
+            var barColors = ["red", "green", "blue"]
             let card = ``
+
             data.forEach(element => {
+                xValues.push(element.title)
+                yValues.push(element.number)
                 card += `
                     <div class="col-xl-4 col-sm-6 col-12">
                         <div class="shadow border-0 card">
@@ -87,7 +93,21 @@ function summary(data) {
                 `
             });
             $('.card-container').html(card)
+
             getOpd()
+            let chartTitle = () => {
+                console.log($('#opd_filter_selector').val())
+                if ($('#opd_filter_selector').val() == '0' || $('#opd_filter_selector').val() == null) {
+                    return 'semua OPD'
+                } else {
+                    const selectedValue = $('#opd_filter_selector').val();
+                    const selectedText = $('#opd_filter_selector option[value="' + selectedValue + '"]').text();
+                    console.log(selectedText)
+                    return selectedText
+                }
+            }
+            makeChart(xValues, yValues, barColors, chartTitle())
+
             $('#loading-filter').css('display', 'none')
         },
         error: (res) => {
@@ -98,10 +118,10 @@ function summary(data) {
 
 function filterSummary(e) {
     e.preventDefault()
-    
+
     let obj = {}
     obj.opd = $('#opd_filter_selector').val() != null ? $('#opd_filter_selector').val() : null
-    
+
     $('#loading-filter').css('display', 'block')
 
     summary(obj)
@@ -126,4 +146,30 @@ function getOpd() {
             }
         })
     }
+}
+
+function makeChart(xValues, yValues, barColors, title) {
+
+    if (opdTaskChart != null) {
+        opdTaskChart.destroy()
+    }
+
+    opdTaskChart = new Chart("opd-task-chart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+
 }
