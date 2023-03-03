@@ -41,7 +41,7 @@ class Report extends Model
 
     public function reportLocation()
     {
-        return $this->hasOne(reportLocation::class);
+        return $this->hasOne(ReportLocation::class);
     }
 
     public function feedback()
