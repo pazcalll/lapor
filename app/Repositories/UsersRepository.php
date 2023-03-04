@@ -127,26 +127,7 @@ class UsersRepository implements UserInterface
 
     public function getGenderEnum()
     {
-        $type = DB::table('information_schema.columns')
-            ->select('column_type')
-            ->where('table_schema', env('DB_DATABASE'))
-            ->where('table_name', 'users')
-            ->where('column_name', 'gender')
-            ->first();
-        $enum = [];
-        $flag = 0;
-        $newWord = "";
-        for ($i = 0; $i < strlen($type->COLUMN_TYPE); $i++) {
-            if ($flag == 0 && $type->COLUMN_TYPE[$i] == "'") {
-                $flag = 1;
-            } else if ($type->COLUMN_TYPE[$i] == "'" && $flag == 1) {
-                $enum[] = $newWord;
-                $newWord = "";
-                $flag = 0;
-            } else if ($flag == 1) {
-                $newWord = $newWord . $type->COLUMN_TYPE[$i];
-            }
-        }
+        $enum = [User::GENDER_PRIA, User::GENDER_WANITA];
         return response()->json($enum, 200);
     }
 

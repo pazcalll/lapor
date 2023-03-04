@@ -26,14 +26,14 @@ function configPage() {
                 messages: {
                     'default': 'Masukkan bukti',
                     'replace': 'Masukkan ganti dengan bukti lain',
-                    'remove':  'Hapus',
-                    'error':   'Maaf, terjadi kesalahan.'
+                    'remove': 'Hapus',
+                    'error': 'Maaf, terjadi kesalahan.'
                 },
                 error: {
                     'fileSize': 'Ukuran terlalu besar (1 mb max).',
                 }
             })
-            $('#addOpdForm').on('submit', function(e) {
+            $('#addOpdForm').on('submit', function (e) {
                 e.preventDefault()
                 $.ajax({
                     url: apiBaseUrl + "/user/admin/opd",
@@ -53,7 +53,7 @@ function configPage() {
                     }
                 })
             })
-            $('#addCustomerForm').on('submit', function(e) {
+            $('#addCustomerForm').on('submit', function (e) {
                 e.preventDefault()
                 $.ajax({
                     url: apiBaseUrl + "/user/admin/opd",
@@ -84,7 +84,7 @@ function configPage() {
 function userTable() {
     dt = $('#user_table').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/admin/non-admin-users",
+            url: apiBaseUrl + "/user/admin/non-admin-users",
             type: "GET",
             cache: true,
             headers: headers
@@ -94,10 +94,10 @@ function userTable() {
             {
                 text: 'Tambah Pelanggan',
                 className: "btn btn-success btn-add-customer-modal",
-                init: function(api, node, config) {
+                init: function (api, node, config) {
                     $(node).removeClass('btn-secondary')
                 },
-                attr:  {
+                attr: {
                     "data-backdrop": 'false',
                     "data-toggle": 'modal',
                     "data-target": "#addCustomerModal"
@@ -106,10 +106,10 @@ function userTable() {
             {
                 text: 'Tambah OPD',
                 className: "btn btn-info btn-add-opd-modal",
-                init: function(api, node, config) {
+                init: function (api, node, config) {
                     $(node).removeClass('btn-secondary')
                 },
-                attr:  {
+                attr: {
                     "data-backdrop": 'false',
                     "data-toggle": 'modal',
                     "data-target": "#addOpdModal"
@@ -143,9 +143,9 @@ function userTable() {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     let btn = ``
-                    
+
                     if (data.customer_position == null) {
                         console.log(data)
                         btn = `
@@ -159,11 +159,11 @@ function userTable() {
                                 data-username="${data.username}"
                                 data-name="${data.name}"
                                 data-phone="${data.phone}"
-                                data-street="${data.user_address_detail.street}"
-                                data-rt="${data.user_address_detail.rt}"
-                                data-rw="${data.user_address_detail.rw}"
-                                data-village="${data.user_address_detail.village}"
-                                data-sub_district="${data.user_address_detail.sub_district}"
+                                data-street="${data.user_address_detail ? data.user_address_detail.street : '_'}"
+                                data-rt="${data.user_address_detail ? data.user_address_detail.rt : '_'}"
+                                data-rw="${data.user_address_detail ? data.user_address_detail.rw : '_'}"
+                                data-village="${data.user_address_detail ? data.user_address_detail.village : '_'}"
+                                data-sub_district="${data.user_address_detail ? data.user_address_detail.sub_district : '_'}"
 
                                 data-role="${data.role}"
                             >
@@ -171,7 +171,7 @@ function userTable() {
                                 Edit
                             </button>
                         `
-                    }else {
+                    } else {
                         btn = `
                             <button 
                                 data-backdrop="false" 
@@ -224,7 +224,7 @@ function userTable() {
                 $('#name_customer').val($(this).data('name'))
                 $('#gender_customer').val($(this).data('gender'))
                 $('#role_customer').val($(this).data('role'))
-                
+
                 $('#customer_position_customer').val($(this).data('position'))
                 $('#phone_customer').val($(this).data('phone'))
                 $('#street_customer').val($(this).data('street'))
@@ -234,7 +234,7 @@ function userTable() {
                 $('#sub_district_customer').val($(this).data('sub_district'))
                 $('#current_appointment_letter_customer').attr('onclick', `window.open('${webBaseUrl}/storage/appointment_letter/${$(this).data('appointment_letter')}')`);
             })
-            $('.btn-edit-opd').on('click', function () {  
+            $('.btn-edit-opd').on('click', function () {
                 $('.dropify-clear').click()
 
                 $('#id_opd').val($(this).data('id'))
@@ -256,13 +256,13 @@ function userTable() {
             else {
                 options = `<option disabled hidden selected>Pilih Jabatan</option>`
                 customerPosition.forEach((item, _index) => {
-                    options += `<option value='${item}'>`+item+"</option>"
+                    options += `<option value='${item}'>` + item + "</option>"
                 });
                 $('#customer_position_customer').html(options)
             }
-            
+
             if (gender == null) {
-                getExistingGender() 
+                getExistingGender()
                 setGender('gender_customer')
             }
             else setGender('gender_customer')
@@ -273,11 +273,11 @@ function userTable() {
 function getEnumUser() {
     $.ajax({
         url: apiBaseUrl + "/user/admin/enum-user",
-        type: "GET", 
+        type: "GET",
         success: (res) => {
             options = `<option disabled hidden selected>Pilih Role</option>`
             res.forEach((item, _index) => {
-                options += `<option value='${item}'>`+item+"</option>"
+                options += `<option value='${item}'>` + item + "</option>"
             });
             $('#role').html(options)
         },
@@ -290,7 +290,7 @@ function getEnumUser() {
 function getExistingCustomerPosition() {
     $.ajax({
         url: apiBaseUrl + "/user/get-existing-customer-position",
-        type: "GET", 
+        type: "GET",
         async: false,
         success: (res) => {
             customerPosition = res
@@ -306,7 +306,7 @@ function getExistingCustomerPosition() {
 function setCustomerPositionOption() {
     options = `<option disabled hidden selected>Pilih Jabatan</option>`
     customerPosition.forEach((item, _index) => {
-        options += `<option value='${item}'>`+item+"</option>"
+        options += `<option value='${item}'>` + item + "</option>"
     });
     $('#customer_position').html(options)
 }
@@ -327,10 +327,10 @@ function getExistingGender() {
 }
 
 function setGender(element_id) {
-    $("#"+element_id).append(`<option disabled hidden selected>Pilih Jenis Kelamin</option>`)
+    $("#" + element_id).append(`<option disabled hidden selected>Pilih Jenis Kelamin</option>`)
     console.log(element_id, gender)
     gender.forEach(val => {
-        $("#"+element_id).append(`
+        $("#" + element_id).append(`
             <option value="${val}">${val}</option>
         `)
     })
@@ -376,7 +376,7 @@ function editCustomer(e) {
         if (elements.appointment_letter_customer.files[0] != undefined) { fd.append('appointment_letter', elements.appointment_letter_customer.files[0]) }
         // else fd.append('appointment_letter', null)
         fd.append('phone', elements.phone_customer.value)
-        
+
         fd.append('street', elements.street_customer.value)
         fd.append('rt', elements.rt_customer.value)
         fd.append('rw', elements.rw_customer.value)
@@ -452,7 +452,7 @@ function editOpd(e) {
                         toastr.error(err.responseJSON.errors[i])
                     }
                 }
-                else{
+                else {
                     toastr.error('Aksi gagal, harap coba lagi nanti!')
                 }
             },
@@ -472,7 +472,7 @@ function addCustomer(e) {
     let elements = e.target.elements
     let authContent = ''
     let fd = new FormData();
-    
+
     fd.append('username', elements.username.value)
     fd.append('password', elements.password.value)
     fd.append('name', elements.name.value)
@@ -499,15 +499,15 @@ function addCustomer(e) {
         error: function (err) {
             let errMsg = ''
             err.responseJSON.errors.forEach(msg => {
-                errMsg += '<li>'+msg+'</li>'
+                errMsg += '<li>' + msg + '</li>'
             });
-            $(document).ready(function () {  
+            $(document).ready(function () {
                 $('.errors').html(errMsg)
                 $('.errors').css('display', 'block')
             })
             toastr.error('Gagal mendaftarkan akun, atribut dengan tanda * wajib diisi, harap cek ulang form anda!')
         },
-        complete: function () {  
+        complete: function () {
             $('.form-spinner').addClass('visually-hidden')
             $('.auth-content').html(authContent)
         }
