@@ -25,7 +25,7 @@ class CustomerRepository extends UsersRepository
                 'village' => 'required',
                 'sub_district' => 'required',
                 'issue' => 'required',
-                'proof.*' => 'required|file|max:1024'
+                'proof.*' => 'required|mimes:jpg,jpeg,png,pdf|max:1024'
             ], [
                 'required' => 'Semua atribut wajib diisi',
                 'file' => 'Atribut bukti harus dalam bentuk file',

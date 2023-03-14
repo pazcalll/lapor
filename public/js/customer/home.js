@@ -6,7 +6,7 @@ function homePage() {
         url: webBaseUrl + '/customer/home-page',
         type: "GET",
         headers: {
-            Authorization: "bearer "+localStorage.getItem('_token')
+            Authorization: "bearer " + localStorage.getItem('_token')
         },
         beforeSend: () => {
             $('#content').html(`
@@ -22,8 +22,8 @@ function homePage() {
         },
         success: (res) => {
             $('#content').html(res)
-            
-            $('#makeReport').on('submit', function (e) {  
+
+            $('#makeReport').on('submit', function (e) {
                 e.preventDefault()
                 let fd = new FormData()
                 let fileSelector = document.getElementsByClassName('dropify')
@@ -40,7 +40,7 @@ function homePage() {
                 fd.append('rw', $('#rw').val())
                 fd.append('rt', $('#rt').val())
                 // fd.append('_token', "{{ csrf_token() }}")
-                
+
                 $('.btn-close').click()
                 $('#issue').val(null)
                 $('#facility').val(0)
@@ -65,8 +65,8 @@ function homePage() {
                     messages: {
                         'default': 'Masukkan bukti',
                         'replace': 'Masukkan ganti dengan bukti lain',
-                        'remove':  'Hapus',
-                        'error':   'Maaf, terjadi kesalahan.'
+                        'remove': 'Hapus',
+                        'error': 'Maaf, terjadi kesalahan.'
                     },
                     error: {
                         'fileSize': 'Ukuran terlalu besar (1 mb max).',
@@ -77,7 +77,7 @@ function homePage() {
                 })
 
                 $.ajax({
-                    url: apiBaseUrl+'/user/customer/report',
+                    url: apiBaseUrl + '/user/customer/report',
                     type: 'POST',
                     data: fd,
                     contentType: false,
@@ -98,7 +98,7 @@ function homePage() {
             if (err.responseJSON.status == 400) {
                 localStorage.setItem('_token', err.responseJSON._token)
                 homePage()
-            }else {
+            } else {
                 window.location.reload()
             }
         }
@@ -107,13 +107,13 @@ function homePage() {
 homePage()
 
 function removeFileInput(element) {
-    let e = element 
+    let e = element
     let uploaderCounter = document.getElementsByClassName('dropify')
-    
+
     if (uploaderCounter.length == 1) {
         return
     }
-    
+
     e.parentElement.parentElement.remove()
 }
 
@@ -124,7 +124,7 @@ function addFileUploader(adder) {
             toastr.error("Form upload bukti yang ada wajib diisi sebelum membuat yang baru!")
             return
         }
-        else if (uploaderCounter.length >= 5){
+        else if (uploaderCounter.length >= 5) {
             toastr.error("Form upload bukti tidak bisa lebih dari 5!")
             return
         }
@@ -133,15 +133,15 @@ function addFileUploader(adder) {
     let timestamp = Date.now()
     $('.proof-container .row').append(`
         <div class="col-sm-2">
-            <input type="file" id="proof${timestamp}" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
+            <input type="file" id="proof${timestamp}" data-allowed-file-extensions='["jpg", "jpeg", "png", "pdf"]' class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
         </div>
     `)
-    $('#proof'+timestamp).dropify({
+    $('#proof' + timestamp).dropify({
         messages: {
             'default': 'Masukkan bukti',
             'replace': 'Masukkan ganti dengan bukti lain',
-            'remove':  'Hapus',
-            'error':   'Maaf, terjadi kesalahan.'
+            'remove': 'Hapus',
+            'error': 'Maaf, terjadi kesalahan.'
         },
         error: {
             'fileSize': 'Ukuran terlalu besar (1 mb max).',
@@ -173,7 +173,7 @@ function logout() {
             if (err.responseJSON.status == 400) {
                 localStorage.setItem('_token', err.responseJSON._token)
                 logout()
-            }else {
+            } else {
                 window.location.reload()
             }
         }
@@ -182,7 +182,7 @@ function logout() {
 
 function getFacilities() {
     $.ajax({
-        url: apiBaseUrl+'/user/get-facilities',
+        url: apiBaseUrl + '/user/get-facilities',
         type: "GET",
         success: (res) => {
             let facilityHTML = '<option selected disabled hidden>Pilih Fasilitas</option>'
@@ -197,7 +197,7 @@ function getFacilities() {
             if (err.responseJSON.status == 400) {
                 localStorage.setItem('_token', err.responseJSON._token)
                 getFacilities()
-            }else {
+            } else {
                 window.location.reload()
             }
         }

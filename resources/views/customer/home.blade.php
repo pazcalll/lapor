@@ -63,10 +63,10 @@
                             </div>
                         </div>
                         <div class="col-md-12 proof-container">
-                            <label>Bukti <span style="color: red">*</span></label>
+                            <label>Bukti (jpg/jpeg/png/pdf) <span style="color: red">* max. 1mb per file</span></label>
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="file" name="proof" id="proof" class="dropify" required type="file" data-plugin="dropify" data-max-file-size="1M" >
+                                    <input type="file" name="proof" id="proof" class="dropify" required type="file" data-allowed-file-extensions='["jpg", "jpeg", "png", "pdf"]' data-plugin="dropify" data-max-file-size="1M" >
                                 </div>
                                 <div class="col-sm-2 justify-content-center align-self-center uploader-adder">
                                     <button type="button" onclick="addFileUploader()" class="btn btn-success" title="Tambah Masukan Bukti" style="border-radius: 10px; height: max-content; transform: translateY(-50%); position: absolute; top: 50%; bottom: 50%;">

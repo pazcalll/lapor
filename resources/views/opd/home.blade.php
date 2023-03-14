@@ -112,8 +112,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <label for="file_finish">Bukti Selesai</label>
-                                <input class="dropify" type="file" name="file_finish" id="file_finish" data-max-file-size="1M">
+                                <label for="file_finish">Bukti Selesai (jpg/jpeg/png/pdf) <span style="color: red">* max. 1mb per file</span></label>
+                                <input class="dropify" type="file" name="file_finish" id="file_finish" data-allowed-file-extensions='["jpg", "jpeg", "png", "pdf"]' data-max-file-size="1M">
                             </div>
                         </div>
                     </div>
