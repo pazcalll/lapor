@@ -63,6 +63,7 @@ Route::prefix('v1')->group(function () {
             Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
             Route::get('facilities-datatable', [AdminController::class, 'getFacilitiesDatatable'])->name('getFacilitiesDatatable');
+            Route::put('change-user-status', [AdminController::class, 'changeUserStatus'])->name('changeUserStatus');
             Route::post('opd', [AdminController::class, 'createOpd'])->name('createOpd');
             Route::post('facility', [AdminController::class, 'createFacility'])->name('createFacility');
             Route::patch('facility', [AdminController::class, 'editFacility'])->name('editFacility');
@@ -74,8 +75,7 @@ Route::prefix('v1')->group(function () {
             Route::get('incoming-assignments', [OpdController::class, 'getIncomingAssignments'])->name('getIncomingAssignments');
             Route::get('finished-assignments', [OpdController::class, 'getFinishedAssignments'])->name('getFinishedAssignments');
         });
-        Route::prefix('regent')->middleware('regent')->group(function ()
-        {
+        Route::prefix('regent')->middleware('regent')->group(function () {
             Route::get('summary', [RegentController::class, 'summary'])->name('summary');
             Route::get('opds', [RegentController::class, 'getOpds']);
         });

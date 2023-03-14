@@ -138,7 +138,7 @@ class AdminRepository extends UsersRepository
 
 	public function getNonAdminUsers()
 	{
-		$users = User::with(['userAddressDetail', 'customerPosition'])->where('role', '!=', 'admin')->get();
+		$users = User::with(['userAddressDetail', 'customerPosition'])->whereNotIn('role', ['admin', 'regent'])->get();
 		return $users;
 	}
 
@@ -184,7 +184,7 @@ class AdminRepository extends UsersRepository
 			"password" => ['nullable', 'confirmed', 'min:6', 'max:32'],
 			"gender" => 'required',
 			"appointment_letter" => ['nullable', 'file', 'max:2048'],
-			
+
 			"phone" => ['required'],
 			"street" => ['required'],
 			"rt" => 'required',
@@ -237,14 +237,13 @@ class AdminRepository extends UsersRepository
 					'appointment_letter' => $filename
 				]);
 			}
-			
+
 			User::where('id', request()->post('id'))->update($userData);
 			UserAddressDetail::where('user_id', request()->post('id'))->update($userDataDetail);
 			DB::commit();
 		} catch (\Throwable $th) {
 			return response()->json(["error" => $th->getMessage()], 400);
 		}
-
 	}
 
 	public function updateOpd()
@@ -275,7 +274,7 @@ class AdminRepository extends UsersRepository
 			$validator = $validator->validated();
 			$editData = User::where('username', $validator['username'])->first();
 			$originalData = User::where('id', $validator['id'])->first();
-			
+
 			if ($editData != null && $editData->username != $originalData->username) {
 				return response()->json(['errors' => ['username sudah dipakai']], 400);
 			}
@@ -296,7 +295,7 @@ class AdminRepository extends UsersRepository
 			if (!isset($userData['password'])) {
 				unset($userData['password']);
 			}
-			
+
 			User::where('id', request()->post('id'))->update($userData);
 			UserAddressDetail::where('user_id', request()->post('id'))->update($userDataDetail);
 			DB::commit();
@@ -512,5 +511,25 @@ class AdminRepository extends UsersRepository
 			//throw $th;
 			return response()->json(['errors' => $th->getMessage()], 400);
 		}
+	}
+
+	public function changeUserStatus()
+	{
+		$validator = Validator::make(request()->all(), [
+			'status' => ['required', Rule::in(User::ACCOUNT_STATUS_ACTIVE, User::ACCOUNT_STATUS_INACTIVE)],
+			'id' => ['required', 'exists:users,id']
+		], [
+			'required' => 'Semua field wajib diisi'
+		]);
+		if ($validator->fails()) {
+			return response()->json(['errors' => $validator->errors()->all()], 400);
+		}
+		$validator = $validator->validate();
+
+		$user = User::find($validator['id'])->update([
+			'status' => $validator['status']
+		]);
+
+		return response([$validator, $user], 200);
 	}
 }

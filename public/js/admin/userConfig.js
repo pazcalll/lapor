@@ -1,5 +1,6 @@
 var customerPosition = null
 var gender = null
+var dt = null
 function configPage() {
     $.ajax({
         url: webBaseUrl + '/admin/config-page',
@@ -122,11 +123,12 @@ function userTable() {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
         columnDefs: [
-            { width: '30%', targets: 0 },
+            { width: '25%', targets: 0 },
             { width: '15%', targets: 1 },
             { width: '15%', targets: 2 },
             { width: '15%', targets: 3 },
-            { width: '25%', targets: 4 },
+            { width: '10%', targets: 4 },
+            { width: '20%', targets: 5 },
         ],
         columns: [
             {
@@ -142,13 +144,50 @@ function userTable() {
                 data: 'phone',
             },
             {
+                data: 'status',
+            },
+            {
                 data: null,
                 render: function (data, type, full, meta) {
                     let btn = ``
 
-                    if (data.customer_position == null) {
-                        console.log(data)
+                    btn = `
+                        <button 
+                            data-backdrop="false" 
+                            data-toggle="modal" 
+                            data-target="#changeStatusModal" 
+                            type="button" 
+                            class="btn btn-info btn-change-status" 
+                            data-id="${data.id}"
+                            data-username="${data.username}"
+                            data-name="${data.name}"
+                            data-status-to-be="ACTIVE"
+                        >
+                            <i class="zmdi zmdi-badge-check"></i>
+                            Aktifkan
+                        </button>
+
+                    `
+                    if (data.status == 'ACTIVE') {
                         btn = `
+                            <button 
+                                data-backdrop="false" 
+                                data-toggle="modal" 
+                                data-target="#changeStatusModal" 
+                                type="button" 
+                                class="btn btn-info btn-change-status" 
+                                data-id="${data.id}"
+                                data-username="${data.username}"
+                                data-name="${data.name}"
+                                data-status-to-be="INACTIVE"
+                            >
+                                <i class="zmdi zmdi-stop"></i>
+                                Non-aktifkan
+                            </button>
+                        `
+                    }
+                    if (data.customer_position == null) {
+                        btn += `
                             <button 
                                 data-backdrop="false" 
                                 data-toggle="modal" 
@@ -172,7 +211,7 @@ function userTable() {
                             </button>
                         `
                     } else {
-                        btn = `
+                        btn += `
                             <button 
                                 data-backdrop="false" 
                                 data-toggle="modal" 
@@ -216,6 +255,13 @@ function userTable() {
             }
         ],
         drawCallback: (res) => {
+            $('.btn-change-status').on('click', function () {
+                $('#changeUserStatusForm #status').val($(this).data('status-to-be'))
+                $('#changeUserStatusForm #id').val($(this).data('id'))
+                $('.username-strong').html($(this).data('username'))
+                $('.name-strong').html($(this).data('name'))
+                $('.status-strong').html($(this).data('status-to-be'))
+            })
             $('.btn-edit-customer').on('click', function () {
                 $('.dropify-clear').click()
 
@@ -466,7 +512,6 @@ function editOpd(e) {
     }
 }
 
-
 function addCustomer(e) {
     e.preventDefault()
     let elements = e.target.elements
@@ -510,6 +555,42 @@ function addCustomer(e) {
         complete: function () {
             $('.form-spinner').addClass('visually-hidden')
             $('.auth-content').html(authContent)
+        }
+    })
+}
+
+function changeUserStatus(e) {
+    e.preventDefault()
+
+    let footer = ''
+    let elements = e.target.elements
+    let fd = new FormData();
+
+    fd.append('_token', elements._token.value)
+    fd.append('_method', elements._method.value)
+    fd.append('id', elements.id.value)
+    fd.append('status', elements.status.value)
+
+    $.ajax({
+        url: apiBaseUrl + '/user/admin/change-user-status',
+        method: "POST",
+        data: fd,
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+            footer = $('#changeUserStatusForm .modal-footer').html()
+            $('#changeUserStatusForm .modal-footer').html(' ')
+        },
+        success: function (res) {
+            $('.modal-close').click()
+            toastr.success('Sukses mengubah status')
+            dt.ajax.reload()
+        },
+        error: function (err) {
+            console.log(err)
+        },
+        completed: function () {
+            $('#changeUserStatusForm .modal-footer').html(footer)
         }
     })
 }

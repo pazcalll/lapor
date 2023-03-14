@@ -142,4 +142,9 @@ class AdminController extends Controller
         $update = $this->admin->updateOpd();
         return $update;
     }
+    public function changeUserStatus()
+    {
+        $user = $this->admin->changeUserStatus();
+        return $user;
+    }
 }

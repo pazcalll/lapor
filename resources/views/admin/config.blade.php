@@ -8,6 +8,7 @@
                     <td>Username</td>
                     <td>Role</td>
                     <td>Nomor Telepon</td>
+                    <td>Status Akun</td>
                     <td>Tindakan</td>
                 </tr>
             </thead>
@@ -334,6 +335,36 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary">Tambahkan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form Edit Role Pengguna</h5>
+                <button type="button" class="btn-close modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form onsubmit="changeUserStatus(event)" id="changeUserStatusForm">
+                @method("PUT")
+                @csrf
+                <input type="hidden" name="status" id="status">
+                <input type="hidden" name="id" id="id">
+                <div class="modal-body">
+                    <div class="container">
+                        Apakah anda yakin ingin mengubah status dari akun <strong class="username-strong"></strong> dengan 
+                        nama <strong class="name-strong"></strong> menjadi berstatus <strong class="status-strong"></strong>?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Ubah Status</button>
                 </div>
             </form>
         </div>
