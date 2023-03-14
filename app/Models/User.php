@@ -60,6 +60,9 @@ class User extends Authenticatable implements JWTSubject
     const GENDER_PRIA = 'PRIA';
     const GENDER_WANITA = 'WANITA';
 
+    const ACCOUNT_STATUS_ACTIVE = 'ACTIVE';
+    const ACCOUNT_STATUS_INACTIVE = 'INACTIVE';
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
