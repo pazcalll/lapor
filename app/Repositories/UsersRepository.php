@@ -80,6 +80,10 @@ class UsersRepository implements UserInterface
 
             if (!$token = auth()->attempt($credentials)) {
                 return response()->json(['error' => ['login' => ['Username atau Password tidak sesuai']]], 400);
+            } else if ($user = User::where('username', $validated['username'])->first()) {
+                if ($user->status != User::ACCOUNT_STATUS_ACTIVE) {
+                    return response()->json(['error' => ['login' => ['Akun telah dinonaktifkan, harap hubungi admin']]], 400);
+                }
             }
 
             return $this->respondWithToken($token);

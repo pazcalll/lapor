@@ -589,7 +589,7 @@ function changeUserStatus(e) {
         error: function (err) {
             console.log(err)
         },
-        completed: function () {
+        complete: function () {
             $('#changeUserStatusForm .modal-footer').html(footer)
         }
     })
