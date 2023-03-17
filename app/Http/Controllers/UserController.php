@@ -80,8 +80,8 @@ class UserController extends Controller
     public function getProfile()
     {
         $user = $this->user->getProfile();
-        $user = $this->user->getProfileDetail($user->getData());
-        $user = $this->user->getCustomerPosition($user->getData());
+        // $user = $this->user->getProfileDetail($user->getData());
+        // $user = $this->user->getCustomerPosition($user->getData());
         return $user;
     }
 

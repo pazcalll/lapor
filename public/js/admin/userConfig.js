@@ -93,7 +93,7 @@ function userTable() {
         dom: 'Bfrtip',
         buttons: [
             {
-                text: 'Tambah Pelanggan',
+                text: 'Tambah Ketua',
                 className: "btn btn-success btn-add-customer-modal",
                 init: function (api, node, config) {
                     $(node).removeClass('btn-secondary')
@@ -168,7 +168,7 @@ function userTable() {
                         </button>
 
                     `
-                    if (data.status == 'ACTIVE') {
+                    if (data.status == 'ACTIVE' && data.role == 'customer') {
                         btn = `
                             <button 
                                 data-backdrop="false" 
@@ -222,6 +222,8 @@ function userTable() {
                                 data-username="${data.username}"
                                 data-name="${data.name}"
                                 data-gender="${data.gender}"
+                                data-year_start="${data.bearer_duration.year_start}"
+                                data-year_end="${data.bearer_duration.year_end}"
                                 data-appointment_letter="${data.appointment_letter}"
                                 data-position="${data.customer_position.position}"
                                 data-phone="${data.phone}"
@@ -270,6 +272,9 @@ function userTable() {
                 $('#name_customer').val($(this).data('name'))
                 $('#gender_customer').val($(this).data('gender'))
                 $('#role_customer').val($(this).data('role'))
+
+                $('#year_start_customer').val($(this).data('year_start'))
+                $('#year_end_customer').val($(this).data('year_end'))
 
                 $('#customer_position_customer').val($(this).data('position'))
                 $('#phone_customer').val($(this).data('phone'))
@@ -418,6 +423,8 @@ function editCustomer(e) {
         fd.append('name', elements.name_customer.value)
         fd.append('gender', elements.gender_customer.value)
         fd.append('customer_position', elements.customer_position_customer.value)
+        fd.append('year_start', elements.year_start_customer.value)
+        fd.append('year_end', elements.year_end_customer.value)
         console.log(elements.appointment_letter_customer.files[0])
         if (elements.appointment_letter_customer.files[0] != undefined) { fd.append('appointment_letter', elements.appointment_letter_customer.files[0]) }
         // else fd.append('appointment_letter', null)
@@ -522,6 +529,8 @@ function addCustomer(e) {
     fd.append('password', elements.password.value)
     fd.append('name', elements.name.value)
     fd.append('gender', elements.gender.value)
+    fd.append('year_start', elements.year_start.value)
+    fd.append('year_end', elements.year_end.value)
     fd.append('customer_position', elements.customer_position.value)
     fd.append('phone', elements.phone.value)
     fd.append('street', elements.street.value)

@@ -64,6 +64,17 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <span>Periode Jabatan</span>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" id="year_start_customer" name="year_start" placeholder="Tahun Mulai">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" id="year_end_customer" name="year_end" placeholder="Tahun Selesai">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <span>Gender</span>
                         <select class="form-control mt-1 mb-1" name="gender_customer" id="gender_customer" required>
 
@@ -93,8 +104,8 @@
                         <div>SK Pengangkatan Saat Ini: <button style="color: blue" type="button" id="current_appointment_letter_customer">LINK</button></div>
                     </div>
                     <div class="form-group mt-1 mb-1">
-                        <div>SK Pengangkatan</div>
-                        <input type="file" name="appointment_letter_customer" id="appointment_letter_customer" class="dropify">
+                        <div>SK Pengangkatan (jpg/jpeg/png/pdf)</div>
+                        <input type="file" data-allowed-file-extensions='["jpg", "jpeg", "png", "pdf"]' data-max-file-size="1M" name="appointment_letter_customer" id="appointment_letter_customer" class="dropify">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -253,12 +264,12 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Form Edit Role Pengguna</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Form Tambah Pengguna</h5>
                 <button type="button" class="btn-close modal-close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form onsubmit="addCustomer(event)" id="editForm">
+            <form onsubmit="addCustomer(event)" id="addCustomerForm">
                 @method("POST")
                 @csrf
                 <div class="modal-body">
@@ -302,15 +313,28 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
+                                <span>Periode Jabatan <span style="color: red">*</span></span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control" name="year_start" placeholder="Tahun Mulai">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="number" class="form-control" name="year_end" placeholder="Tahun Selesai">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-floating">
                                 <span>Alamat <span style="color: red">*</span></span>
                                 <div id="address" name="address">
                                     <input type="text" class="form-control mt-1 mb-1" id="street" name="street" placeholder="Nama Jalan">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control mt-1 mb-1" id="rt" name="rt" placeholder="RT">
+                                            <input type="text" class="form-control" id="rt" name="rt" placeholder="RT">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control mt-1 mb-1" id="rw" name="rw" placeholder="RW">
+                                            <input type="text" class="form-control" id="rw" name="rw" placeholder="RW">
                                         </div>
                                     </div>
                                     <input type="text" class="form-control mt-1 mb-1" id="village" name="village" placeholder="Desa">
@@ -327,7 +351,7 @@
                         <div class="col-md-12">
                             <div class="form-floating mt-1">
                                 <div>SK Pengangkatan <span style="color: red">*</span></div>
-                                <input type="file" name="appointment_letter" id="appointment_letter" class="dropify">
+                                <input type="file"  name="appointment_letter" id="appointment_letter" class="dropify">
                             </div>
                         </div>
                     </div>

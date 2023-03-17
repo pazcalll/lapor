@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BearerDuration;
 use App\Models\CustomerPosition;
 use App\Models\User;
 use App\Models\UserAddressDetail;
@@ -54,6 +55,11 @@ class UserSeeder extends Seeder
                 'village' => "Desa " . $i,
                 'sub_district' => "Kecamatan " . $i,
                 'user_id' => $customer->id,
+            ]);
+            $customerBearer = BearerDuration::create([
+                'customer_id' => $customer->id,
+                'year_start' => '2014',
+                'year_end' => '2019'
             ]);
             $customerPosition = CustomerPosition::create([
                 'customer_id' => $customer->id,

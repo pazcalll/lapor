@@ -48,7 +48,7 @@ class UsersRepository implements UserInterface
                 ]
             );
             $validated['password'] = Hash::make($validated['password']);
-            $validated['role'] = "customer";
+            $validated['role'] = User::ROLE_CUSTOMER;
             User::create($validated);
 
             return response()->json(['success' => 'register success', 'status' => 200], 200);
@@ -116,7 +116,13 @@ class UsersRepository implements UserInterface
     public function getProfile()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        return response()->json($user, 200);
+        $user = User::where('id', $user->id)->with([
+            'userAddressDetail',
+            'customerPosition',
+            'bearerDuration'
+        ])->first();
+        // dd($user->toArray());
+        return response()->json($user->toArray(), 200);
     }
 
     public function getCustomerPosition($user)
@@ -220,11 +226,11 @@ class UsersRepository implements UserInterface
     public function profilePage()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        if ($user['role'] == 'customer') {
+        if ($user['role'] == User::ROLE_CUSTOMER) {
             return view('customer.profile');
-        } else if ($user['role'] == 'admin') {
+        } else if ($user['role'] == User::ROLE_ADMIN) {
             return view('admin.profile');
-        } else if ($user['role'] == 'opd') {
+        } else if ($user['role'] == User::ROLE_OPD) {
             return view('opd.profile');
         }
     }

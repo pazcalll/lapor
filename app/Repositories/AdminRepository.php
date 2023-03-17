@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
 use App\Models\Assignment;
+use App\Models\BearerDuration;
 use App\Models\CustomerPosition;
 use App\Models\Facility;
 use App\Models\Report;
@@ -138,7 +139,7 @@ class AdminRepository extends UsersRepository
 
 	public function getNonAdminUsers()
 	{
-		$users = User::with(['userAddressDetail', 'customerPosition'])->whereNotIn('role', ['admin', 'regent'])->get();
+		$users = User::with(['userAddressDetail', 'customerPosition', 'bearerDuration'])->whereNotIn('role', ['admin', 'regent'])->get();
 		return $users;
 	}
 
@@ -183,6 +184,8 @@ class AdminRepository extends UsersRepository
 			"username" => ['required', 'max:16'],
 			"password" => ['nullable', 'confirmed', 'min:6', 'max:32'],
 			"gender" => 'required',
+			"year_start" => 'nullable',
+			"year_end" => 'nullable',
 			"appointment_letter" => ['nullable', 'file', 'max:2048'],
 
 			"phone" => ['required'],
@@ -240,6 +243,12 @@ class AdminRepository extends UsersRepository
 
 			User::where('id', request()->post('id'))->update($userData);
 			UserAddressDetail::where('user_id', request()->post('id'))->update($userDataDetail);
+			if ($editData->role == User::ROLE_CUSTOMER) {
+				BearerDuration::where('customer_id', $editData->id)->update([
+					'year_start' => $validator['year_start'],
+					'year_end' => $validator['year_end']
+				]);
+			}
 			DB::commit();
 		} catch (\Throwable $th) {
 			return response()->json(["error" => $th->getMessage()], 400);
@@ -406,6 +415,9 @@ class AdminRepository extends UsersRepository
 			'username' => 'required|unique:users',
 			'password' => 'required|max:16',
 			'name' => 'required',
+			'gender' => 'required',
+			'year_start' => 'required',
+			'year_end' => 'required',
 			'customer_position' => ['required', Rule::in(CustomerPosition::POSITION)],
 			'phone' => 'required',
 			'rt' => 'required',
@@ -433,6 +445,10 @@ class AdminRepository extends UsersRepository
 				'phone' => $validator['phone'],
 				'role' => 'customer',
 				'appointment_letter' => $filename,
+			]);
+
+			$customerPeriod = BearerDuration::create([
+				''
 			]);
 
 			$customerAddress = UserAddressDetail::create([

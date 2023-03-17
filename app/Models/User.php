@@ -93,4 +93,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(CustomerPosition::class, 'customer_id', 'id');
     }
+    public function bearerDuration()
+    {
+        return $this->hasOne(BearerDuration::class, 'customer_id');
+    }
 }

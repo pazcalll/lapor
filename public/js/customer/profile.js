@@ -36,10 +36,13 @@ function profilePage() {
                             console.log(err)
                         },
                         complete: () => {
+                            console.log(res2)
                             $('#name').val(res2.name)
                             $('#username').val(res2.username)
                             $('#password').val(res2.password)
-                            $('#position').val(res2.position)
+                            $('#position').val(res2.customer_position.position)
+                            $('.year_start').html(res2.bearer_duration.year_start)
+                            $('.year_end').html(res2.bearer_duration.year_end)
                             $('#phone').val(res2.phone)
                             $('#street').val(res2.user_address_detail.street)
                             $('#rt').val(res2.user_address_detail.rt)

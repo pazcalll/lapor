@@ -40,6 +40,10 @@
                     <input disabled type="text" class="form-control mt-1 mb-1" id="position" name="position">
                 </div>
                 <div class="form-group">
+                    <span>Periode Jabatan</span> <br>
+                    <span class="year_start"></span> - <span class="year_end"></span>
+                </div>
+                <div class="form-group">
                     <label for="location">Lokasi</label>
                     <div id="location" name="location">
                         <div class="page-heading">
