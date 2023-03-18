@@ -151,23 +151,6 @@ function userTable() {
                 render: function (data, type, full, meta) {
                     let btn = ``
 
-                    btn = `
-                        <button 
-                            data-backdrop="false" 
-                            data-toggle="modal" 
-                            data-target="#changeStatusModal" 
-                            type="button" 
-                            class="btn btn-info btn-change-status" 
-                            data-id="${data.id}"
-                            data-username="${data.username}"
-                            data-name="${data.name}"
-                            data-status-to-be="ACTIVE"
-                        >
-                            <i class="zmdi zmdi-badge-check"></i>
-                            Aktifkan
-                        </button>
-
-                    `
                     if (data.status == 'ACTIVE' && data.role == 'customer') {
                         btn = `
                             <button 
@@ -183,6 +166,23 @@ function userTable() {
                             >
                                 <i class="zmdi zmdi-stop"></i>
                                 Non-aktifkan
+                            </button>
+                        `
+                    } else if (data.role == "customer") {
+                        btn = `
+                            <button 
+                                data-backdrop="false" 
+                                data-toggle="modal" 
+                                data-target="#changeStatusModal" 
+                                type="button" 
+                                class="btn btn-info btn-change-status" 
+                                data-id="${data.id}"
+                                data-username="${data.username}"
+                                data-name="${data.name}"
+                                data-status-to-be="ACTIVE"
+                            >
+                                <i class="zmdi zmdi-badge-check"></i>
+                                Aktifkan
                             </button>
                         `
                     }
