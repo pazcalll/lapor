@@ -1,5 +1,5 @@
 let headers = {
-    Authorization: 'bearer ' + localStorage.getItem('_token') 
+    Authorization: 'bearer ' + localStorage.getItem('_token')
 }
 
 
@@ -10,12 +10,12 @@ $.ajaxSetup({
         window.location.reload()
     },
     statusCode: {
-        500: function(xhr) {
-            if(window.console) console.log(xhr.responseText);
-            localStorage.removeItem('_token')
-            window.location.href = webBaseUrl+'/login'
-        },
-        401: function(xhr){
+        // 500: function(xhr) {
+        //     if(window.console) console.log(xhr.responseText);
+        //     localStorage.removeItem('_token')
+        //     window.location.href = webBaseUrl+'/login'
+        // },
+        401: function (xhr) {
             authCheck()
         }
     }
@@ -25,7 +25,7 @@ $.ajaxSetup({
 var webBaseUrl = window.location.origin
 var apiBaseUrl = webBaseUrl + '/api/v1'
 
-function authCheck() {  
+function authCheck() {
     // console.log(localStorage.getItem('_token'))
     if (localStorage.getItem('_token') != null) {
         $.ajax({
@@ -36,25 +36,25 @@ function authCheck() {
                 $('#app').html(res)
                 let functionsjs = document.createElement('script');
                 functionsjs.setAttribute('type', 'text/javascript');
-                functionsjs.setAttribute('src', webBaseUrl+'/js/functions.js');
+                functionsjs.setAttribute('src', webBaseUrl + '/js/functions.js');
                 document.body.appendChild(functionsjs);
-                
+
                 setUser()
             },
             error: (err, text, statusMessage) => {
                 // console.log(text, err, statusMessage)
-                if(err.responseJSON.status == 401 && err.responseJSON.token != null) {
+                if (err.responseJSON.status == 401 && err.responseJSON.token != null) {
                     // console.log("reload")
                     localStorage.setItem('_token', err.responseJSON.token)
                     window.location.reload()
-                }else if (err.responseJSON.status != 401) {
+                } else if (err.responseJSON.status != 401) {
                     // console.log("pindah")
-                    window.location.href = webBaseUrl+'/login'
+                    window.location.href = webBaseUrl + '/login'
                 }
             }
         })
-    }else {
-        window.location.href = webBaseUrl+'/login'
+    } else {
+        window.location.href = webBaseUrl + '/login'
     }
 }
 authCheck()

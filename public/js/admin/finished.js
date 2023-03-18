@@ -1,6 +1,6 @@
 function finishedPage() {
     $.ajax({
-        url: webBaseUrl+"/admin/finished-page",
+        url: webBaseUrl + "/admin/finished-page",
         type: "GET",
         beforeSend: () => {
             $(".nav-item").removeClass('active')
@@ -25,7 +25,7 @@ function finishedPage() {
 function getFinishedReports(storageLink) {
     dt = $('#finished_report').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/admin/finished-reports",
+            url: apiBaseUrl + "/user/admin/finished-reports",
             type: "GET",
             cache: true,
             headers: headers
@@ -35,6 +35,45 @@ function getFinishedReports(storageLink) {
         language: {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Download Excel',
+                className: "btn btn-success btn-add-customer-modal",
+                init: function (api, node, config) {
+                    $(node).removeClass('btn-secondary')
+                },
+                action: function (e, dt, node, config) {
+                    // window.open(apiBaseUrl + '/user/admin/finished-reports-excel')
+                    $.ajax({
+                        url: apiBaseUrl + '/user/admin/finished-reports-excel',
+                        method: "GET",
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function (response, status, xhr) {
+                            var filename = "";
+                            var disposition = xhr.getResponseHeader('Content-Disposition');
+                            if (disposition && disposition.indexOf('attachment') !== -1) {
+                                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                                var matches = filenameRegex.exec(disposition);
+                                if (matches != null && matches[1]) {
+                                    filename = matches[1].replace(/['"]/g, '');
+                                }
+                            }
+                            var blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = filename;
+                            link.click();
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    })
+                }
+            }
+        ],
         columnDefs: [
             { width: '10%', targets: 0 },
             { width: '15%', targets: 1 },
@@ -66,10 +105,10 @@ function getFinishedReports(storageLink) {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     let dataFiles = ``
                     data.report_file.forEach((ele, _index) => {
-                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                        dataFiles += `data-file${(_index + 1)}="${ele.proof_file}" `
                     })
                     return `
                         <button 
@@ -112,23 +151,23 @@ function getFinishedReports(storageLink) {
             }
         ],
         drawCallback: (res) => {
-            $('.btn-proof').on('click', function () {  
+            $('.btn-proof').on('click', function () {
                 $('.referral_proof').html($(this).data('referral'))
                 let proofs = ``
                 let i = 0
                 while (true) {
                     i += 1
-                    if ($(this).data(`file${i}`)===undefined) {
+                    if ($(this).data(`file${i}`) === undefined) {
                         break
                     }
                     proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
                 }
                 $('.proof-container').html(proofs)
             })
-            $('.btn-proof-finish').on('click', function () {  
+            $('.btn-proof-finish').on('click', function () {
                 window.open($(this).data('item'), '_blank');
             })
-            $('.btn-detail').on('click', function () {  
+            $('.btn-detail').on('click', function () {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#opd').val($(this).data('opd'))
                 $('#reporter').val($(this).data('reporter'))

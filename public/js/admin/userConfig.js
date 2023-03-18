@@ -99,7 +99,7 @@ function userTable() {
                     $(node).removeClass('btn-secondary')
                 },
                 attr: {
-                    "data-backdrop": 'false',
+                    "data-backdrop": true,
                     "data-toggle": 'modal',
                     "data-target": "#addCustomerModal"
                 }
@@ -111,7 +111,7 @@ function userTable() {
                     $(node).removeClass('btn-secondary')
                 },
                 attr: {
-                    "data-backdrop": 'false',
+                    "data-backdrop": true,
                     "data-toggle": 'modal',
                     "data-target": "#addOpdModal"
                 }
@@ -154,7 +154,7 @@ function userTable() {
                     if (data.status == 'ACTIVE' && data.role == 'customer') {
                         btn = `
                             <button 
-                                data-backdrop="false" 
+                                data-backdrop="true" 
                                 data-toggle="modal" 
                                 data-target="#changeStatusModal" 
                                 type="button" 
@@ -171,7 +171,7 @@ function userTable() {
                     } else if (data.role == "customer") {
                         btn = `
                             <button 
-                                data-backdrop="false" 
+                                data-backdrop="true" 
                                 data-toggle="modal" 
                                 data-target="#changeStatusModal" 
                                 type="button" 
@@ -189,7 +189,7 @@ function userTable() {
                     if (data.customer_position == null) {
                         btn += `
                             <button 
-                                data-backdrop="false" 
+                                data-backdrop="true" 
                                 data-toggle="modal" 
                                 data-target="#editOpdModal" 
                                 type="button" 
@@ -213,7 +213,7 @@ function userTable() {
                     } else {
                         btn += `
                             <button 
-                                data-backdrop="false" 
+                                data-backdrop="true" 
                                 data-toggle="modal" 
                                 data-target="#editCustomerModal" 
                                 type="button" 

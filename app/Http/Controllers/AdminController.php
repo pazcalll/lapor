@@ -147,4 +147,9 @@ class AdminController extends Controller
         $user = $this->admin->changeUserStatus();
         return $user;
     }
+    public function getFinishedReportsExcel()
+    {
+        $excel = $this->admin->getFinishedReportsExcel();
+        return $excel;
+    }
 }

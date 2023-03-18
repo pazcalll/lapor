@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exports\FinishedReportsExport;
 use App\Interfaces\UserInterface;
 use App\Models\Assignment;
 use App\Models\BearerDuration;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminRepository extends UsersRepository
 {
@@ -547,5 +549,10 @@ class AdminRepository extends UsersRepository
 		]);
 
 		return response([$validator, $user], 200);
+	}
+
+	public function getFinishedReportsExcel()
+	{
+		return Excel::download(new FinishedReportsExport, 'laporan selesai.xlsx');
 	}
 }
