@@ -51,6 +51,12 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="">Batas Waktu Penanganan</label>
+                                <input type="date" class="form-control" id="deadline_at" name="deadline_at">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label for="additional">Informasi Tambahan</label>
                                 <textarea class="form-control" style="height: 100px" name="additional" id="additional" placeholder="Informasi Tambahan (Opsional)" cols="30" rows="50"></textarea>
                             </div>

@@ -17,7 +17,7 @@ class OpdRepository extends UsersRepository
             'opd' => function ($query) {
                 return $query->select('id', 'name');
             }, 'report' => function ($query) {
-                return $query->select('id', 'user_id', 'referral', 'facility_id', 'issue', 'status', 'created_at');
+                return $query->select('id', 'user_id', 'referral', 'facility_id', 'issue', 'status', 'created_at', 'deadline_at');
             }, 'report.reporter' => function ($query) {
                 return $query->select('id', 'name');
             }, 'report.reportLocation' => function ($query) {

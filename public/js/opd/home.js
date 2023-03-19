@@ -66,7 +66,7 @@ function logout() {
             if (err.responseJSON.status == 400) {
                 localStorage.setItem('_token', err.responseJSON._token)
                 logout()
-            }else {
+            } else {
                 window.location.reload()
             }
         }
@@ -76,7 +76,7 @@ function logout() {
 function getIncomingAssignments() {
     dt = $('#incoming_assignment').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/opd/incoming-assignments",
+            url: apiBaseUrl + "/user/opd/incoming-assignments",
             type: "GET",
             cache: true,
             headers: headers
@@ -86,26 +86,27 @@ function getIncomingAssignments() {
         language: {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
-        columnDefs: [
-            { width: '10%', targets: 0 },
-            { width: '10%', targets: 1 },
-            { width: '10%', targets: 2 },
-            { width: '15%', targets: 3 },
-            { width: '25%', targets: 4 },
-            { width: '15%', targets: 5 },
-            { width: '5%', targets: 6 },
-            { width: '20%', targets: 7 },
-        ],
+        // columnDefs: [
+        //     { width: '10%', targets: 0 },
+        //     { width: '10%', targets: 1 },
+        //     { width: '10%', targets: 2 },
+        //     { width: '15%', targets: 3 },
+        //     { width: '15%', targets: 4 },
+        //     { width: '10%', targets: 5 },
+        //     { width: '15%', targets: 6 },
+        //     { width: '5%', targets: 7 },
+        //     { width: '20%', targets: 8 },
+        // ],
         columns: [
-            { 
+            {
                 data: null,
-                render: function (data, type, full, meta) {  
+                render: function (data, type, full, meta) {
                     return `${data.report.referral}`
                 }
             },
             {
                 data: null,
-                render: function (data, type, full, meta) {  
+                render: function (data, type, full, meta) {
                     return `${data.report.reporter.name}`
                 }
             },
@@ -120,7 +121,16 @@ function getIncomingAssignments() {
             },
             {
                 data: null,
-                render: function (data, type, full, meta) {  
+                render: function (data, type, full, meta) {
+                    let deadline = new Date(data.report.deadline_at)
+                    deadline = `${deadline.getFullYear()}-${String(deadline.getMonth() + 1).padStart(2, '0')}-${String(deadline.getDate()).padStart(2, '0')}`
+                    if (new Date() > new Date(data.report.deadline_at)) return deadline + ' <span style="color:red">Melewati tenggat waktu</span>'
+                    else return deadline
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, full, meta) {
                     return `${data.report.facility.name}`
                 }
             },
@@ -132,10 +142,10 @@ function getIncomingAssignments() {
             },
             {
                 data: null,
-                render: function (data, type, full, meta) {  
+                render: function (data, type, full, meta) {
                     let dataFiles = ``
                     data.report.report_file.forEach((ele, _index) => {
-                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                        dataFiles += `data-file${(_index + 1)}="${ele.proof_file}" `
                     })
                     return `
                         <button data-backdrop="false" data-toggle="modal" data-target="#proofModal" type="button" class="btn btn-warning btn-proof" data-referral="${data.report.referral}" ${dataFiles}>Bukti Laporan</button>
@@ -144,7 +154,7 @@ function getIncomingAssignments() {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     console.log(data)
                     return `
                         <button 
@@ -180,7 +190,7 @@ function getIncomingAssignments() {
             }
         ],
         drawCallback: (res) => {
-            $('.btn-detail-assignment').on('click', function () {  
+            $('.btn-detail-assignment').on('click', function () {
                 $(".referral_modal").html($(this).data('referral'))
                 $("#opd_detail").val($(this).data('opd'))
                 $("#reporter_detail").val($(this).data('reporter'))
@@ -188,12 +198,12 @@ function getIncomingAssignments() {
                 $("#additional_detail").val($(this).data('additional'))
 
                 $('#street').val($(this).data('street'))
-                $('#rt').val($(this).data('rt')) 
+                $('#rt').val($(this).data('rt'))
                 $('#rw').val($(this).data('rw'))
                 $('#village').val($(this).data('village'))
                 $('#sub_district').val($(this).data('sub_district'))
             })
-            $('.btn-finish-assignment').on('click', function () {  
+            $('.btn-finish-assignment').on('click', function () {
                 $("#referral_finish").val($(this).data('referral'))
                 $(".referral_modal_finish").html($(this).data('referral'))
             })
@@ -203,7 +213,7 @@ function getIncomingAssignments() {
                 let i = 0
                 while (true) {
                     i += 1
-                    if ($(this).data(`file${i}`)===undefined) {
+                    if ($(this).data(`file${i}`) === undefined) {
                         break
                     }
                     proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`

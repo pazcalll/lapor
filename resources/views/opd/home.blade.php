@@ -8,6 +8,7 @@
                     <td>Pembuat Laporan</td>
                     <td>Waktu Pelaporan</td>
                     <td>Waktu Penugasan</td>
+                    <td>Waktu Paling Lambat</td>
                     <td>Fasilitas</td>
                     <td>Deskripsi Laporan</td>
                     <td>Status</td>

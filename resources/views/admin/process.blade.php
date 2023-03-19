@@ -7,6 +7,7 @@
                     <td>Referral</td>
                     <td>OPD</td>
                     <td>Tanggal Penugasan</td>
+                    <td>Tanggal Deadline</td>
                     <td>Tindakan</td>
                 </tr>
             </thead>

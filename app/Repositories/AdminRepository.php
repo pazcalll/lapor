@@ -55,6 +55,7 @@ class AdminRepository extends UsersRepository
 		$validator = Validator::make(request()->all(), [
 			'referral' => 'required',
 			'additional' => 'nullable',
+			'deadline_at' => ['required', 'date'],
 			'opd' => [
 				'required',
 				Rule::exists('users', 'id')->where('role', 'opd'),
@@ -63,6 +64,9 @@ class AdminRepository extends UsersRepository
 		if ($validator->fails()) {
 			return response()->json(['errors' => $validator->errors()->all()], 400);
 		}
+
+		$validator = $validator->validated();
+
 		try {
 			DB::beginTransaction();
 			$reportData = [
@@ -78,7 +82,10 @@ class AdminRepository extends UsersRepository
 				'report_id' => $report['id'],
 				'additional' => request()->post('additional')
 			];
-			$reportUpdate = Report::where('referral', $reportData['referral'])->update(['status' => 'SEDANG DIPROSES']);
+			$reportUpdate = Report::where('referral', $reportData['referral'])->update([
+				'status' => 'SEDANG DIPROSES',
+				'deadline_at' => $validator['deadline_at']
+			]);
 			$assignment = Assignment::create($data);
 			DB::commit();
 		} catch (\Exception $th) {
@@ -109,7 +116,7 @@ class AdminRepository extends UsersRepository
 			"reportLocation" => function ($query) {
 				return $query->select('report_id', 'street', 'rt', 'rw', 'village', 'sub_district');
 			}
-		])->select('id', 'referral', 'facility_id', 'user_id', 'issue')->where('status', "SEDANG DIPROSES")->get()->toArray();
+		])->select('id', 'referral', 'deadline_at', 'facility_id', 'user_id', 'issue')->where('status', "SEDANG DIPROSES")->get()->toArray();
 		return $report;
 	}
 

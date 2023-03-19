@@ -29,7 +29,7 @@ function processPage() {
 function getAcceptedReports(storageLink) {
     dt = $('#inprocess_report').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/admin/accepted-reports",
+            url: apiBaseUrl + "/user/admin/accepted-reports",
             type: "GET",
             cache: true,
             headers: headers
@@ -42,8 +42,9 @@ function getAcceptedReports(storageLink) {
         columnDefs: [
             { width: '15%', targets: 0 },
             { width: '30%', targets: 1 },
-            { width: '25%', targets: 2 },
-            { width: '30%', targets: 3 },
+            { width: '15%', targets: 2 },
+            { width: '15%', targets: 3 },
+            { width: '25%', targets: 4 },
         ],
         columns: [
             {
@@ -57,10 +58,19 @@ function getAcceptedReports(storageLink) {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
+                    let deadline = new Date(data.deadline_at)
+                    deadline = `${deadline.getFullYear()}-${String(deadline.getMonth() + 1).padStart(2, '0')}-${String(deadline.getDate()).padStart(2, '0')}`
+                    if (new Date() > new Date(data.deadline_at)) return deadline + ' <span style="color:red">Melewati tenggat waktu</span>'
+                    else return deadline
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, full, meta) {
                     let dataFiles = ``
                     data.report_file.forEach((ele, _index) => {
-                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                        dataFiles += `data-file${(_index + 1)}="${ele.proof_file}" `
                     })
                     return `
                         <button 
@@ -96,20 +106,20 @@ function getAcceptedReports(storageLink) {
             }
         ],
         drawCallback: (res) => {
-            $('.btn-proof').on('click', function () {  
+            $('.btn-proof').on('click', function () {
                 $('.referral_proof').html($(this).data('referral'))
                 let proofs = ``
                 let i = 0
                 while (true) {
                     i += 1
-                    if ($(this).data(`file${i}`)===undefined) {
+                    if ($(this).data(`file${i}`) === undefined) {
                         break
                     }
                     proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
                 }
                 $('.proof-container').html(proofs)
             })
-            $('.btn-detail').on('click', function () {  
+            $('.btn-detail').on('click', function () {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#opd').val($(this).data('opd'))
                 $('#reporter').val($(this).data('reporter'))

@@ -44,7 +44,7 @@ function logout() {
             if (err.responseJSON.status == 400) {
                 localStorage.setItem('_token', err.responseJSON._token)
                 logout()
-            }else {
+            } else {
                 window.location.reload()
             }
         }
@@ -52,7 +52,7 @@ function logout() {
 }
 
 function incomingReportDatatable(storageLink) {
-    let format = function(d) {
+    let format = function (d) {
         // `d` is the original data object for the row
         return (
             `
@@ -90,7 +90,7 @@ function incomingReportDatatable(storageLink) {
     }
     dt = $('#incoming_report').DataTable({
         ajax: {
-            url: apiBaseUrl+"/user/admin/unaccepted-reports",
+            url: apiBaseUrl + "/user/admin/unaccepted-reports",
             type: "GET",
             cache: true,
             headers: headers
@@ -129,7 +129,7 @@ function incomingReportDatatable(storageLink) {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     let select = `
                         <select class="form-control opd-select" onchange="confirmationOPD('${data.referral}', this)">
                             <option value="default" selected disabled>Pilih OPD</option>
@@ -146,10 +146,10 @@ function incomingReportDatatable(storageLink) {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     let dataFiles = ``
                     data.report_file.forEach((ele, _index) => {
-                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                        dataFiles += `data-file${(_index + 1)}="${ele.proof_file}" `
                     })
                     return `
                         <button
@@ -169,10 +169,10 @@ function incomingReportDatatable(storageLink) {
             },
             {
                 data: null,
-                render: function(data, type, full, meta) {
+                render: function (data, type, full, meta) {
                     let dataFiles = ``
                     data.report_file.forEach((ele, _index) => {
-                        dataFiles += `data-file${(_index+1)}="${ele.proof_file}" `
+                        dataFiles += `data-file${(_index + 1)}="${ele.proof_file}" `
                     })
                     return `
                         <button data-backdrop="false" data-toggle="modal" data-target="#prosesModal" type="button" class="btn btn-success btn-process" data-referral="${data.referral}">Proses</button>
@@ -206,7 +206,7 @@ function incomingReportDatatable(storageLink) {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#referral').val($(this).data('referral'))
             })
-            $('.btn-detail').on('click', function () {  
+            $('.btn-detail').on('click', function () {
                 $('.referral_modal').html($(this).data('referral'))
                 $('#reporter').val($(this).data('reporter'))
                 $('#referral_detail').val($(this).data('referral'))
@@ -224,14 +224,14 @@ function incomingReportDatatable(storageLink) {
                 let i = 0
                 while (true) {
                     i += 1
-                    if ($(this).data(`file${i}`)===undefined) {
+                    if ($(this).data(`file${i}`) === undefined) {
                         break
                     }
                     proofs += `<a href="javascript:void(0)" onclick="window.open('${webBaseUrl}/storage/proof/${$(this).data(`file${i}`)}', '_blank')" class="btn btn-primary">Bukti ${i}</a>`
                 }
                 $('.proof-container').html(proofs)
             })
-            $('.btn-reject-report').on('click', function () {  
+            $('.btn-reject-report').on('click', function () {
                 $('.referral_reject').html(`${$(this).data('referral')}`)
                 $('#rejectReferral').val(`${$(this).data('referral')}`)
             })
@@ -257,12 +257,12 @@ function incomingReportDatatable(storageLink) {
     $('#incoming_report tbody').on('click', 'td.dt-control', function () {
         var tr = $(this).closest('tr');
         var row = dt.row(tr);
- 
+
         if (row.child.isShown()) {
             // This row is already open - close it
             row.child.hide();
             tr.removeClass('shown');
-            
+
             $(this).html('<button type="button" class="btn btn-info">&plus;</button>')
         } else {
             // Open this row
@@ -286,7 +286,7 @@ function getOpds() {
                     id: opd.id,
                     name: opd.name
                 })
-                options += `<option value='${opd.id}'>`+opd.name+"</option>"
+                options += `<option value='${opd.id}'>` + opd.name + "</option>"
             });
             $('#opd').html(options)
         },
@@ -340,6 +340,7 @@ function processReport(e) {
     let fd = new FormData()
     fd.append('referral', elements.referral.value)
     fd.append('opd', elements.opd.value)
+    fd.append('deadline_at', elements.deadline_at.value)
     fd.append('additional', elements.additional.value)
     fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
 
@@ -372,7 +373,7 @@ function processReport(e) {
     })
 }
 
-function editReportDetail(e) {  
+function editReportDetail(e) {
     e.preventDefault()
     let elements = e.target.elements
     $.ajax({
@@ -390,7 +391,7 @@ function editReportDetail(e) {
         beforeSend: () => {
             $(".modal-close").click()
         },
-        success: (res)=> {
+        success: (res) => {
             toastr.success("Data laporan telah diubah!")
         },
         error: (err) => {
