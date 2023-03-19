@@ -450,7 +450,9 @@ class AdminRepository extends UsersRepository
 			]);
 
 			$customerPeriod = BearerDuration::create([
-				''
+				'customer_id' => $newCustomer->id,
+				'year_start' => $validator['year_start'],
+				'year_end' => $validator['year_end']
 			]);
 
 			$customerAddress = UserAddressDetail::create([

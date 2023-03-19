@@ -13,6 +13,11 @@ class Report extends Model
     use Notifiable;
     protected $fillable = ['referral', 'facility_id', 'user_id', 'issue', 'proof_file', 'status'];
 
+    const STATUS_WAITING = 'MENUNGGU DIVERIFIKASI';
+    const STATUS_PROGRESS = 'SEDANG DIPROSES';
+    const STATUS_REJECTED = 'DITOLAK';
+    const STATUS_FINISHED = 'LAPORAN TELAH SELESAI';
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

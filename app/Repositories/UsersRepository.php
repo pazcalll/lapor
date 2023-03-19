@@ -102,11 +102,11 @@ class UsersRepository implements UserInterface
     public function authenticator()
     {
         $user = JWTAuth::toUser(request()->bearerToken());
-        if ($user['role'] == 'customer') {
+        if ($user['role'] == User::ROLE_CUSTOMER) {
             return view('customer.index');
-        } else if ($user['role'] == 'admin') {
+        } else if ($user['role'] == User::ROLE_ADMIN) {
             return view('admin.index');
-        } else if ($user['role'] == 'opd') {
+        } else if ($user['role'] == User::ROLE_OPD) {
             return view('opd.index');
         } else if ($user['role'] == User::ROLE_REGENT) {
             return view('regent.index');
