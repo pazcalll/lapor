@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\RegentController;
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'index'])->name('index');
+Route::get('/', [LandingController::class, 'index'])->name('index');
+// Route::get('/', [UserController::class, 'index'])->name('index');
 Route::middleware('jwtnoauth')->group(function () {
     Route::get('/login', [UserController::class, 'authPage'])->name('authPage');
     Route::get('/login-page', [UserController::class, 'loginPage'])->name('loginPage');
