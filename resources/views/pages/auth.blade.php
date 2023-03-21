@@ -97,7 +97,7 @@
     </div>
     <!-- Header End -->
 
-    <div class="container-xxl bg-light py-5 my-5">
+    <!-- <div class="container-xxl bg-light py-5 my-5">
         <div class="container py-5">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <h1 class="display-6" id="report-step">Langkah Pelaporan</h1>
@@ -162,7 +162,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <!-- Back to Top -->
