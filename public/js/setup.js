@@ -16,7 +16,8 @@ $.ajaxSetup({
         //     window.location.href = webBaseUrl+'/login'
         // },
         401: function (xhr) {
-            authCheck()
+            window.location.href = webBaseUrl
+            // authCheck()
         }
     }
 })
@@ -49,12 +50,12 @@ function authCheck() {
                     window.location.reload()
                 } else if (err.responseJSON.status != 401) {
                     // console.log("pindah")
-                    window.location.href = webBaseUrl + '/login'
+                    window.location.href = webBaseUrl
                 }
             }
         })
     } else {
-        window.location.href = webBaseUrl + '/login'
+        window.location.href = webBaseUrl
     }
 }
 authCheck()
@@ -77,6 +78,27 @@ function profilePage() {
         type: "GET",
         success: (res) => {
             console.log(res)
+        }
+    })
+}
+
+function logout() {
+    $.ajax({
+        url: apiBaseUrl + "/user/logout",
+        type: "POST",
+        headers: {
+            Authorization: "bearer " + localStorage.getItem('_token')
+        },
+        success: (res) => {
+            window.location.href = webBaseUrl
+        },
+        error: (err) => {
+            if (err.responseJSON.status == 400) {
+                localStorage.setItem('_token', err.responseJSON._token)
+                logout()
+            } else {
+                window.location.href = webBaseUrl
+            }
         }
     })
 }

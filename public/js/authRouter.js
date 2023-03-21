@@ -4,19 +4,19 @@ const apiBaseUrl = webBaseUrl + '/api/v1'
 function loginPage() {
     document.title = 'Lapor | Login'
     $.ajax({
-        url: webBaseUrl+'/login-page',
+        url: webBaseUrl + '/login-page',
         type: 'GET',
-        beforeSend: function () {  
+        beforeSend: function () {
             $('.form-spinner').removeClass('visually-hidden')
             $('.auth-content').html(' ')
         },
-        success: function (res) {  
+        success: function (res) {
             $('.auth-content').html(res)
         },
-        error: function (err) {  
+        error: function (err) {
             console.log(err)
         },
-        complete: function () {  
+        complete: function () {
             $('.form-spinner').addClass('visually-hidden')
         }
     })
@@ -25,25 +25,25 @@ function loginPage() {
 function registerPage() {
     document.title = 'Lapor | Register'
     $.ajax({
-        url: webBaseUrl+'/register-page',
+        url: webBaseUrl + '/register-page',
         type: 'GET',
-        beforeSend: function () {  
+        beforeSend: function () {
             $('.form-spinner').removeClass('visually-hidden')
             $('.auth-content').html(' ')
         },
-        success: function (res) {  
+        success: function (res) {
             $('.auth-content').html(res)
         },
-        error: function (err) {  
+        error: function (err) {
             console.log(err)
         },
-        complete: function () {  
+        complete: function () {
             $('.form-spinner').addClass('visually-hidden')
         }
     })
 }
 
-function login(e) {  
+function login(e) {
     e.preventDefault()
     let elements = e.target.elements
     let returner = (content) => {
@@ -51,22 +51,22 @@ function login(e) {
     }
     let authContent = ''
     $.ajax({
-        url: apiBaseUrl+'/login',
+        url: apiBaseUrl + '/login',
         type: "POST",
         data: {
             username: elements.username.value,
             password: elements.password.value
         },
-        beforeSend: function () {  
+        beforeSend: function () {
             $('.form-spinner').removeClass('visually-hidden')
             authContent = returner($('.auth-content').html())
             $('.auth-content').html(' ')
         },
         success: (res) => {
             localStorage.setItem('_token', res._token)
-            window.location.href = webBaseUrl
+            window.location.href = webBaseUrl + '/dashboard'
         },
-        error: function (err) {  
+        error: function (err) {
             console.log(err)
             let errMsg = ''
             Object.entries(err.responseJSON.error).forEach((entry) => {
@@ -84,7 +84,7 @@ function login(e) {
             // $(document).ready(function () {  
             // })
         },
-        complete: function () {  
+        complete: function () {
             $('.form-spinner').addClass('visually-hidden')
             // $('.auth-content').html(authContent)
         }
@@ -108,7 +108,7 @@ function register(e) {
             phone: elements.phone.value,
             address: elements.address.value
         },
-        beforeSend: function () {  
+        beforeSend: function () {
             $('.form-spinner').removeClass('visually-hidden')
             authContent = returner($('.auth-content').html())
             $('.auth-content').html(' ')
@@ -124,13 +124,13 @@ function register(e) {
                     errMsg += element + `<br>`
                 });
             });
-            $(document).ready(function () {  
+            $(document).ready(function () {
                 $('.errors').html(errMsg)
                 $('.errors').removeClass('visually-hidden')
             })
             toastr.error('Gagal mendaftarkan akun')
         },
-        complete: function () {  
+        complete: function () {
             $('.form-spinner').addClass('visually-hidden')
             $('.auth-content').html(authContent)
         }

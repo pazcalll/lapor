@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LandingController::class, 'index'])->name('index');
-// Route::get('/', [UserController::class, 'index'])->name('index');
+
+// dashboard only
+Route::get('/dashboard', [UserController::class, 'index'])->name('index');
 Route::middleware('jwtnoauth')->group(function () {
     Route::get('/login', [UserController::class, 'authPage'])->name('authPage');
     Route::get('/login-page', [UserController::class, 'loginPage'])->name('loginPage');

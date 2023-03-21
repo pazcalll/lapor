@@ -53,7 +53,7 @@
                         terhadap suatu masalah yang terjadi di lingkup kota ini dengan sistem yang
                         manusiawi.
                     </p>
-                    <a href="#report-step" class="btn btn-primary py-3 px-4 animated slideInDown">Langkah Pelaporan</a>
+                    {{-- <a href="#report-step" class="btn btn-primary py-3 px-4 animated slideInDown">Langkah Pelaporan</a> --}}
                 </div>
                 <div class="col-lg-6 pb-xl-5 pt-xl-5">
                     <!-- Contact Start -->
@@ -166,8 +166,8 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-            class="bi bi-arrow-up"></i></a>
+    {{-- <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a> --}}
 
 
     <!-- JavaScript Libraries -->

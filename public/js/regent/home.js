@@ -32,27 +32,6 @@ function homePage() {
 }
 homePage()
 
-function logout() {
-    $.ajax({
-        url: apiBaseUrl + "/user/logout",
-        type: "POST",
-        headers: {
-            Authorization: "bearer " + localStorage.getItem('_token')
-        },
-        success: (res) => {
-            window.location.href = webBaseUrl + "/login"
-        },
-        error: (err) => {
-            if (err.responseJSON.status == 400) {
-                localStorage.setItem('_token', err.responseJSON._token)
-                logout()
-            } else {
-                window.location.reload()
-            }
-        }
-    })
-}
-
 function summary(data) {
     $.ajax({
         url: apiBaseUrl + "/user/regent/summary",
@@ -168,8 +147,24 @@ function makeChart(xValues, yValues, barColors, title) {
             title: {
                 display: true,
                 text: title
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0
+                    }
+                }],
+                xAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0
+                    }
+                }]
             }
-        }
+        },
     });
 
 }
