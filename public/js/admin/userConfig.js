@@ -123,12 +123,13 @@ function userTable() {
             url: webBaseUrl + "/json/datatable-indonesia.json"
         },
         columnDefs: [
-            { width: '25%', targets: 0 },
+            { width: '15%', targets: 0 },
             { width: '15%', targets: 1 },
             { width: '15%', targets: 2 },
             { width: '15%', targets: 3 },
             { width: '10%', targets: 4 },
-            { width: '20%', targets: 5 },
+            { width: '10%', targets: 5 },
+            { width: '20%', targets: 6 },
         ],
         columns: [
             {
@@ -145,6 +146,15 @@ function userTable() {
             },
             {
                 data: 'status',
+            },
+            {
+                data: null,
+                render: function (data, type, full, meta) {
+                    if (data.role == 'customer') {
+                        return data.bearer_duration.year_start + ' - ' + data.bearer_duration.year_end
+                    }
+                    return '_'
+                }
             },
             {
                 data: null,

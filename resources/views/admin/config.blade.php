@@ -9,6 +9,7 @@
                     <td>Role</td>
                     <td>Nomor Telepon</td>
                     <td>Status Akun</td>
+                    <td>Periode Jabatan</td>
                     <td>Tindakan</td>
                 </tr>
             </thead>
