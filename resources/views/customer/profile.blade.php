@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Nomor Telepon / HP</label>
-                    <input required type="number" class="form-control mt-1 mb-1" id="phone" name="phone">
+                    <input required type="text" class="form-control mt-1 mb-1" id="phone" name="phone">
                 </div>
                 <div class="form-group">
                     <label for="position">Jabatan</label>
@@ -79,4 +79,7 @@
 
 <script>
     $('#title-label').html("Profil")
+    $('#phone').on('input', function () {
+        $('#phone').val($('#phone').val().replace(/[^0-9]/g, ''))
+    })
 </script>
