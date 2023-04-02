@@ -4,7 +4,7 @@
         <table id="incoming_report" class="table table-striped table-borderless" style="width: 100%">
             <thead>
                 <tr>
-                    <th></th>
+                    <td></td>
                     <td>No. Pelaporan</td>
                     <td>Waktu Pelaporan</td>
                     <td>Fasilitas</td>
