@@ -110,6 +110,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <span style="display: none">Loading...</span>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary">Edit Data</button>
                 </div>
@@ -184,6 +185,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <span style="display: none">Loading...</span>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary">Edit Data</button>
                 </div>
@@ -252,6 +254,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <span style="display: none">Loading...</span>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary">Tambahkan Data</button>
                 </div>
@@ -275,9 +278,9 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row g-3">
-                        {{-- <div class="errors alert alert-danger" style="display: none">
+                        <div class="errors alert alert-danger w-100" style="display: none">
 
-                        </div> --}}
+                        </div>
                         <div class="col-md-12">
                             <div class="form-floating">
                                 <div>Username <span style="color: red">*</span></div>
@@ -358,15 +361,16 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <span style="display: none">Loading...</span>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Tambahkan Data</button>
+                    <button type="submit" form="addCustomerForm" class="btn btn-primary">Tambahkan Data</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+{{-- <!-- Modal -->
 <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -394,7 +398,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
 <script>
     $('#title-label').html('Pengaturan Pengguna')

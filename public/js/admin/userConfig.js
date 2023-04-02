@@ -54,26 +54,26 @@ function configPage() {
                     }
                 })
             })
-            $('#addCustomerForm').on('submit', function (e) {
-                e.preventDefault()
-                $.ajax({
-                    url: apiBaseUrl + "/user/admin/opd",
-                    type: "POST",
-                    data: $(this).serialize(),
-                    success: (res) => {
-                        $('.modal-close').click()
-                        $('.form-control').val('')
-                        toastr.success('OPD Telah Ditambahkan')
-                    },
-                    error: (err) => {
-                        console.log(err)
-                        toastr.error('Gagal menambahkan OPD, harap periksa lagi form anda atau coba lagi nanti!')
-                    },
-                    complete: () => {
-                        dt.ajax.reload()
-                    }
-                })
-            })
+            // $('#addCustomerForm').on('submit', function (e) {
+            //     e.preventDefault()
+            //     $.ajax({
+            //         url: apiBaseUrl + "/user/admin/register-customer",
+            //         type: "POST",
+            //         data: $(this).serialize(),
+            //         success: (res) => {
+            //             $('.modal-close').click()
+            //             $('.form-control').val('')
+            //             toastr.success('Ketua RT/RW Telah Ditambahkan')
+            //         },
+            //         error: (err) => {
+            //             console.log(err)
+            //             toastr.error('Gagal menambahkan Ketua RT/RW, harap periksa lagi form anda atau coba lagi nanti!')
+            //         },
+            //         complete: () => {
+            //             dt.ajax.reload()
+            //         }
+            //     })
+            // })
         },
         error: (err) => {
             console.log(err)
@@ -397,30 +397,30 @@ function setGender(element_id) {
     })
 }
 
-function editUser(e) {
-    e.preventDefault()
-    let fd = new FormData()
-    fd.append('username', $('#username').val())
-    fd.append('role', $('#role').val())
-    fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
-    $('.modal-close').click()
+// function editUser(e) {
+//     e.preventDefault()
+//     let fd = new FormData()
+//     fd.append('username', $('#username').val())
+//     fd.append('role', $('#role').val())
+//     fd.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
+//     $('.modal-close').click()
 
-    $.ajax({
-        url: apiBaseUrl + "/user/admin/edit-user",
-        type: "POST",
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: (res) => {
-            toastr.success("Role pengguna telah diubah!")
-            dt.ajax.reload()
-        },
-        error: (err) => {
-            console.log(err)
-            toastr.error("Terjadi kesalahan")
-        }
-    })
-} // to be deleted
+//     $.ajax({
+//         url: apiBaseUrl + "/user/admin/edit-user",
+//         type: "POST",
+//         data: fd,
+//         contentType: false,
+//         processData: false,
+//         success: (res) => {
+//             toastr.success("Role pengguna telah diubah!")
+//             dt.ajax.reload()
+//         },
+//         error: (err) => {
+//             console.log(err)
+//             toastr.error("Terjadi kesalahan")
+//         }
+//     })
+// } // to be deleted
 
 function editCustomer(e) {
     e.preventDefault()
@@ -565,11 +565,11 @@ function addCustomer(e) {
             err.responseJSON.errors.forEach(msg => {
                 errMsg += '<li>' + msg + '</li>'
             });
-            $(document).ready(function () {
-                $('.errors').html(errMsg)
-                $('.errors').css('display', 'block')
-            })
-            toastr.error('Gagal mendaftarkan akun, atribut dengan tanda * wajib diisi, harap cek ulang form anda!')
+            // $(document).ready(function () {
+            //     $('.errors').html(errMsg)
+            //     $('.errors').css('display', 'block')
+            // })
+            toastr.error('Gagal mendaftarkan akun, harap cek ulang form anda!')
         },
         complete: function () {
             $('.form-spinner').addClass('visually-hidden')

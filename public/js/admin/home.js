@@ -178,6 +178,30 @@ function incomingReportDatatable(storageLink) {
             }
         ],
         drawCallback: (res) => {
+            $('#incoming_report tbody').unbind()
+            $('#confirmOPDModal').unbind()
+            $('.btn-process').unbind()
+            $('.btn-detail').unbind()
+            $('.btn-proof').unbind()
+            $('.btn-reject-report').unbind()
+            $('#incoming_report tbody').on('click', 'tr td.dt-control', function () {
+                var tr = $(this).closest('tr');
+                var row = dt.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+
+                    $(this).html('<button type="button" class="btn btn-info">&plus;</button>')
+                } else {
+                    // Open this row
+                    row.child(format(row.data().report_location)).show();
+                    tr.addClass('shown');
+
+                    $(this).html('<button type="button" class="btn btn-danger">&minus;</button>')
+                }
+            });
             $('#confirmOPDModal').on('hidden.bs.modal', function () {
                 $('.opd-select').val('default')
             })
@@ -233,24 +257,6 @@ function incomingReportDatatable(storageLink) {
             })
         }
     })
-    $('#incoming_report tbody').on('click', 'td.dt-control', function () {
-        var tr = $(this).closest('tr');
-        var row = dt.row(tr);
-
-        if (row.child.isShown()) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-
-            $(this).html('<button type="button" class="btn btn-info">&plus;</button>')
-        } else {
-            // Open this row
-            row.child(format(row.data().report_location)).show();
-            tr.addClass('shown');
-
-            $(this).html('<button type="button" class="btn btn-danger">&minus;</button>')
-        }
-    });
 }
 
 function getOpds() {
