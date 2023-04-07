@@ -42,6 +42,16 @@
         .dataTables_scrollBody thead {
             visibility: hidden;
         }
+        .dark-cyan .btn-secondary, .dark-cyan .gx-btn-secondary, .dark-cyan a.btn-secondary, .dark-cyan a.gx-btn-secondary{
+            background-color: #a0a0a0;
+            border-color: #a0a0a0;
+            color: #fff;
+        }
+        .dark-cyan .btn-secondary:hover, .dark-cyan .btn-secondary:focus, .dark-cyan .btn-secondary:not([disabled]):not(.disabled):active, .dark-cyan .gx-btn-secondary:hover, .dark-cyan .gx-btn-secondary:focus, .dark-cyan .gx-btn-secondary:not([disabled]):not(.disabled):active, .dark-cyan a.btn-secondary:hover, .dark-cyan a.btn-secondary:focus, .dark-cyan a.btn-secondary:not([disabled]):not(.disabled):active, .dark-cyan a.gx-btn-secondary:hover, .dark-cyan a.gx-btn-secondary:focus, .dark-cyan a.gx-btn-secondary:not([disabled]):not(.disabled):active {
+            background-color: #686868;
+            border-color: #686868;
+            color: #f2f2f2; 
+        }
     </style>
 </head>
 

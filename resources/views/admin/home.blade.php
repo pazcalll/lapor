@@ -8,7 +8,7 @@
                     <td>No. Pelaporan</td>
                     <td>Waktu Pelaporan</td>
                     <td>Fasilitas</td>
-                    <td>OPD</td>
+                    {{-- <td>OPD</td> --}}
                     <td>Deskripsi Laporan</td>
                     <td>Dokumen Pendukung / Bukti</td>
                     <td>Status</td>

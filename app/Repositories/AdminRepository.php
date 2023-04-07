@@ -564,4 +564,17 @@ class AdminRepository extends UsersRepository
 	{
 		return Excel::download(new FinishedReportsExport, 'laporan selesai.xlsx');
 	}
+
+	public function changeAssignmentOpd()
+	{
+		request()->validate([
+			'opd_id' => ['required', 'exists:users,id', Rule::prohibitedIf(User::find(request()->opd_id)->role != 'opd')],
+			'referral' => ['required']
+		]);
+
+		return Assignment::whereHas('report', fn ($query) => $query->where('referral', request()->referral))
+			->update([
+				'user_id' => request()->opd_id
+			]);
+	}
 }

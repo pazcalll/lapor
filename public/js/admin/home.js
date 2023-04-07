@@ -87,8 +87,8 @@ function incomingReportDatatable(storageLink) {
             { width: '15%', targets: 4 },
             { width: '10%', targets: 5 },
             { width: '10%', targets: 6 },
-            { width: '10%', targets: 7 },
-            { width: '15%', targets: 8 },
+            { width: '15%', targets: 7 },
+            // { width: '15%', targets: 8 },
         ],
         columns: [
             {
@@ -106,20 +106,20 @@ function incomingReportDatatable(storageLink) {
             {
                 data: 'facility.name',
             },
-            {
-                data: null,
-                render: function (data, type, full, meta) {
-                    let select = `
-                        <select class="form-control opd-select" onchange="confirmationOPD('${data.referral}', this)">
-                            <option value="default" selected disabled>Pilih OPD</option>
-                    `
-                    opds.forEach((opd, _index) => {
-                        select += `<option value="${opd.id}">${opd.name}</option>`
-                    });
-                    select += `</select>`
-                    return select
-                }
-            },
+            // {
+            //     data: null,
+            //     render: function (data, type, full, meta) {
+            //         let select = `
+            //             <select class="form-control opd-select" onchange="confirmationOPD('${data.referral}', this)">
+            //                 <option value="default" selected disabled>Pilih OPD</option>
+            //         `
+            //         opds.forEach((opd, _index) => {
+            //             select += `<option value="${opd.id}">${opd.name}</option>`
+            //         });
+            //         select += `</select>`
+            //         return select
+            //     }
+            // },
             {
                 data: 'issue',
             },
@@ -238,23 +238,23 @@ function incomingReportDatatable(storageLink) {
                 $('.referral_reject').html(`${$(this).data('referral')}`)
                 $('#rejectReferral').val(`${$(this).data('referral')}`)
             })
-            $.ajax({
-                url: apiBaseUrl + "/user/get-facilities",
-                type: "GET",
-                success: (res) => {
-                    let facilityHTML = '<option value="" selected disabled hidden>Pilih Fasilitas</option>'
-                    res.forEach(facility => {
-                        facilityHTML += `
-                            <option value="${facility.id}">${facility.name}</option>
-                        `
-                    });
-                    $('#facility').html(facilityHTML)
-                },
-                error: (err) => {
-                    console.log(err)
-                    window.location.reload()
-                }
-            })
+        }
+    })
+    $.ajax({
+        url: apiBaseUrl + "/user/get-facilities",
+        type: "GET",
+        success: (res) => {
+            let facilityHTML = '<option value="" selected disabled hidden>Pilih Fasilitas</option>'
+            res.forEach(facility => {
+                facilityHTML += `
+                    <option value="${facility.id}">${facility.name}</option>
+                `
+            });
+            $('#facility').html(facilityHTML)
+        },
+        error: (err) => {
+            console.log(err)
+            window.location.reload()
         }
     })
 }
@@ -281,20 +281,20 @@ function getOpds() {
     })
 }
 
-function confirmationOPD(referral, ele) {
-    $('.referral_confirmOPD').html(referral)
-    $('#confirmOPDModal').modal('show')
+// function confirmationOPD(referral, ele) {
+//     $('.referral_confirmOPD').html(referral)
+//     $('#confirmOPDModal').modal('show')
 
-    $('#confirmOPDModal #referral').val(referral)
-    for (let i = 0; i < opds.length; i++) {
-        if (opds[i].id == ele.value) {
-            $('.opd_spill').html(opds[i].name)
-        }
-    }
-    $('#confirmOPDModal #opd').val(ele.value)
-    console.log($('#confirmOPDModal #opd'))
-    // console.log($('#confirmOPDModal #referral').val())
-}
+//     $('#confirmOPDModal #referral').val(referral)
+//     for (let i = 0; i < opds.length; i++) {
+//         if (opds[i].id == ele.value) {
+//             $('.opd_spill').html(opds[i].name)
+//         }
+//     }
+//     $('#confirmOPDModal #opd').val(ele.value)
+//     // console.log($('#confirmOPDModal #opd'))
+//     // console.log($('#confirmOPDModal #referral').val())
+// }
 
 function rejectReport(e) {
     e.preventDefault()

@@ -51,7 +51,23 @@ function getAcceptedReports(storageLink) {
                 data: 'referral',
             },
             {
-                data: 'assignment.opd.name',
+                data: null,
+                render: function (data, type, full, meta) {
+                    let options = ``
+                    opds.forEach(opd => {
+                        options += `
+                            <option value="${opd.id}" ${opd.id == data.assignment.opd.id ? 'selected' : ''}>${opd.name}</option>
+                        `
+                    });
+                    return `
+                        <div>
+                            <select class="form-control opd-changer" data-referral="${data.referral}">
+                                ${options}
+                            </select>
+                        </div>
+                        <span style="display: none" class="opd-${data.referral}">Loading...</span>
+                    `
+                }
             },
             {
                 data: 'assignment.created_at',
@@ -131,22 +147,50 @@ function getAcceptedReports(storageLink) {
                 $('#issue').val($(this).data('issue'))
                 $('#additional').val($(this).data('additional'))
             })
-            $.ajax({
-                url: apiBaseUrl + "/user/get-facilities",
-                type: "GET",
-                success: (res) => {
-                    let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
-                    res.forEach(facility => {
-                        facilityHTML += `
-                            <option value="${facility.id}">${facility.name}</option>
-                        `
-                    });
-                    $('#facility').html(facilityHTML)
-                },
-                error: (err) => {
-                    console.log(err)
-                    window.location.reload()
-                }
+            // $.ajax({
+            //     url: apiBaseUrl + "/user/get-facilities",
+            //     type: "GET",
+            //     success: (res) => {
+            //         let facilityHTML = '<option value="0" selected disabled hidden>Pilih Fasilitas</option>'
+            //         res.forEach(facility => {
+            //             facilityHTML += `
+            //                 <option value="${facility.id}">${facility.name}</option>
+            //             `
+            //         });
+            //         $('#facility').html(facilityHTML)
+            //     },
+            //     error: (err) => {
+            //         console.log(err)
+            //         window.location.reload()
+            //     }
+            // })
+            $('select').select2()
+            $('.opd-changer').on('change', function () {
+                $(this).parent().css('display', 'none')
+                $(`.opd-${$(this).data('referral')}`).css('display', 'block')
+
+                let fd = new FormData();
+                fd.append('_method', 'PUT')
+                fd.append('referral', $(this).data('referral'))
+                fd.append('opd_id', $(this).val())
+                $.ajax({
+                    url: apiBaseUrl + '/user/admin/change-assignment-opd',
+                    method: 'POST',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        toastr.success('OPD telah diganti')
+                    },
+                    error: (err) => {
+                        toastr.error(err.responseJSON.message)
+                    },
+                    complete: () => {
+                        dt.ajax.reload()
+                        $(this).parent().css('display', 'block')
+                        $(`.opd-${$(this).data('referral')}`).css('display', 'none')
+                    }
+                })
             })
         }
     })

@@ -152,4 +152,8 @@ class AdminController extends Controller
         $excel = $this->admin->getFinishedReportsExcel();
         return $excel;
     }
+    public function changeAssignmentOpd()
+    {
+        return $this->admin->changeAssignmentOpd();
+    }
 }

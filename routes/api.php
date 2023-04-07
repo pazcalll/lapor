@@ -65,6 +65,7 @@ Route::prefix('v1')->group(function () {
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
             Route::get('facilities-datatable', [AdminController::class, 'getFacilitiesDatatable'])->name('getFacilitiesDatatable');
             Route::put('change-user-status', [AdminController::class, 'changeUserStatus'])->name('changeUserStatus');
+            Route::put('change-assignment-opd', [AdminController::class, 'changeAssignmentOpd'])->name('changeAssignmentOpd');
             Route::post('opd', [AdminController::class, 'createOpd'])->name('createOpd');
             Route::post('facility', [AdminController::class, 'createFacility'])->name('createFacility');
             Route::patch('facility', [AdminController::class, 'editFacility'])->name('editFacility');
