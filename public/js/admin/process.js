@@ -35,6 +35,7 @@ function getAcceptedReports(storageLink) {
             headers: headers
         },
         lengthChange: false,
+        processing: true,
         scrollX: true,
         language: {
             url: webBaseUrl + "/json/datatable-indonesia.json"
