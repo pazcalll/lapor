@@ -11,6 +11,7 @@ use App\Models\Facility;
 use App\Models\Report;
 use App\Models\User;
 use App\Models\UserAddressDetail;
+use Error;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +54,7 @@ class AdminRepository extends UsersRepository
 	{
 		// return response()->json(['error' => request()->all()], 400);
 		$validator = Validator::make(request()->all(), [
-			'referral' => 'required',
+			'referral' => ['required', 'exists:reports,referral'],
 			'additional' => 'nullable',
 			'deadline_at' => ['required', 'date'],
 			'opd' => [
@@ -188,13 +189,22 @@ class AdminRepository extends UsersRepository
 	{
 		// dd(request()->all());
 		$validator = Validator::make(request()->all(), [
-			"id" => 'required',
+			"id" => [
+				'required',
+				'exists:users,id',
+				function ($attribute, $value, $fail) {
+					$user = User::find(request()->id);
+					if ($user->role != 'customer') {
+						$fail('Invalid Role');
+					}
+				}
+			],
 			"name" => ['required', 'min:4', 'max:64'],
 			"username" => ['required', 'max:16'],
 			"password" => ['nullable', 'confirmed', 'min:6', 'max:32'],
 			"gender" => 'required',
-			"year_start" => 'nullable',
-			"year_end" => 'nullable',
+			"year_start" => 'required',
+			"year_end" => 'required',
 			"appointment_letter" => ['nullable', 'file', 'max:2048'],
 
 			"phone" => ['required'],
@@ -268,7 +278,15 @@ class AdminRepository extends UsersRepository
 	{
 		// dd(request()->post());
 		$validator = Validator::make(request()->all(), [
-			'id' => 'required',
+			'id' => [
+				'required',
+				function ($attribute, $value, $fail) {
+					$user = User::find(request()->id);
+					if ($user->role != 'opd') {
+						$fail('Invalid Role');
+					}
+				}
+			],
 			'name' => ['required', 'min:4', 'max:64'],
 			'username' => ['required', 'max:16'],
 			'password' => ['nullable', 'confirmed', 'min:6', 'max:32'],
@@ -505,15 +523,13 @@ class AdminRepository extends UsersRepository
 	public function editReport()
 	{
 		$validator = Validator::make(request()->all(), [
-			'referral' => 'required',
+			'referral' => ['required', 'exists:reports,referral'],
 			'rt' => 'required|max:2',
 			'rw' => 'required|max:2',
 			'village' => 'required',
 			'sub_district' => 'required',
 			'street' => 'required',
 			'issue' => 'required'
-		], [
-			'required' => 'Semua field wajib diisi'
 		]);
 		if ($validator->fails()) {
 			return response()->json(['errors' => $validator->errors()->all()], 400);

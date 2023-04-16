@@ -66,7 +66,7 @@ class CustomerRepository extends UsersRepository
             DB::commit();
             return response()->json(['success' => true, 'status' => 200], 200);
         } catch (Exception $th) {
-            return response()->json(['error' => $th, 'status' => 400], 400);
+            return response()->json(['error' => $th->getMessage(), 'status' => 400], 400);
         }
     }
 
@@ -115,9 +115,9 @@ class CustomerRepository extends UsersRepository
     public function createFeedback()
     {
         $validator = Validator::make(request()->all(), [
-            'referral' => 'required',
+            'referral' => ['required', 'exists:reports,referral'],
             'feedback' => 'required',
-            'rating' => 'required'
+            'rating' => ['required', 'numeric', 'max:5', 'min:1']
         ], [
             'required' => 'Semua field wajib diisi'
         ]);

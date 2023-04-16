@@ -69,7 +69,7 @@ class OpdRepository extends UsersRepository
         try {
             $validator = request()->validate([
                 'referral' => 'required|max:12',
-                'file_finish' => 'required|file|max:1024'
+                'file_finish' => 'required|file|max:1024|mimes:png,jpg,pdf,jpeg'
             ], [
                 'max' => 'Ukuran berkas maksimal 1 MB'
             ]);
