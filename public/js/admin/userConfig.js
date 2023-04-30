@@ -139,7 +139,10 @@ function userTable() {
                 data: 'username',
             },
             {
-                data: 'role',
+                data: null,
+                render: function (data, type, full, meta) {
+                    return data.role == 'customer' ? data.customer_position.position : data.role.toUpperCase()
+                }
             },
             {
                 data: 'phone',
