@@ -38,6 +38,7 @@ Route::middleware('jwtauth')->group(function () {
     });
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/home-page', [AdminController::class, 'homePage'])->name('adminHomePage');
+        Route::get('/incoming-page', [AdminController::class, 'incomingPage'])->name('adminIncomingPage');
         Route::get('/process-page', [AdminController::class, 'processPage'])->name('adminProcessPage');
         Route::get('/finished-page', [AdminController::class, 'finishedPage'])->name('adminFinishedPage');
         Route::get('/config-page', [AdminController::class, 'configPage'])->name('adminConfigPage');

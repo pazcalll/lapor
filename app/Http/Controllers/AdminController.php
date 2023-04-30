@@ -22,6 +22,11 @@ class AdminController extends Controller
         return view('admin.home');
     }
 
+    public function incomingPage()
+    {
+        return view('admin.incoming');
+    }
+
     public function processPage()
     {
         return view('admin.process');
@@ -155,5 +160,10 @@ class AdminController extends Controller
     public function changeAssignmentOpd()
     {
         return $this->admin->changeAssignmentOpd();
+    }
+
+    public function summary()
+    {
+        return $this->admin->summary();
     }
 }

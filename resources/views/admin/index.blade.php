@@ -46,26 +46,32 @@
             <div id="main-menu" class="main-menu navbar-collapse collapse">
                 <ul class="nav-menu">
                     <li class="nav-header"><span class="nav-text">Admin</span></li>
+                    <li class="menu no-arrow">
+                        <a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()">
+                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
                     <li class="menu">
                         <a href="javascript:void(0)">
                             <i class="zmdi zmdi-view-list zmdi-hc-fw"></i>
                             <span class="nav-text">Laporan</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="javascript:void(0)" onclick="homePage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Masuk</span></a></li>
+                            <li><a href="javascript:void(0)" onclick="incomingPage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Masuk</span></a></li>
                             <li><a href="javascript:void(0)" onclick="processPage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Sedang Diproses</span></a></li>
                             <li><a href="javascript:void(0)" onclick="finishedPage(); $('.menu-backdrop').click()"><span class="nav-text">Laporan Selesai</span></a></li>
                         </ul>
                     </li>
                     <li class="menu no-arrow">
                         <a href="javascript:void(0)" onclick="configPage(); $('.menu-backdrop').click()">
-                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <i class="zmdi zmdi-group zmdi-hc-fw"></i>
                             <span class="nav-text">User Config</span>
                         </a>
                     </li>
                     <li class="menu no-arrow">
                         <a href="javascript:void(0)" onclick="facilitiesPage(); $('.menu-backdrop').click()">
-                            <i class="zmdi zmdi-widgets zmdi-hc-fw"></i>
+                            <i class="zmdi zmdi-window-maximize zmdi-hc-fw"></i>
                             <span class="nav-text">Fasilitas</span>
                         </a>
                     </li>
@@ -122,6 +128,7 @@
                                 'finished.js',
                                 'process.js',
                                 'userConfig.js',
+                                'incoming.js',
                             ]
                             let js = [];
                             files.forEach((file, _index) => {
