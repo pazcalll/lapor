@@ -1,6 +1,8 @@
 var dt = null
 var opds = []
 var opdTaskChart = null
+var facilities = []
+var facilitiesTaskChart = null
 
 function homePage() {
     $.ajax({
@@ -22,7 +24,9 @@ function homePage() {
         },
         success: (res) => {
             $('#content').html(res)
-            getOpds().then(summary())
+            getOpds()
+                .then(summary())
+                .then(getFacilities())
         },
         error: (err) => {
             // console.log(err)
@@ -95,7 +99,7 @@ function summary(data) {
                     return selectedText
                 }
             }
-            makeChart(xValues, yValues, barColors, chartTitle())
+            makeChartOpd(xValues, yValues, barColors, chartTitle())
 
             $('#loading-filter').css('display', 'none')
         },
@@ -138,8 +142,7 @@ function filterSummary(e) {
     summary(obj)
 }
 
-function makeChart(xValues, yValues, barColors, title) {
-
+function makeChartOpd(xValues, yValues, barColors, title) {
     if (opdTaskChart != null) {
         opdTaskChart.destroy()
     }
@@ -157,7 +160,8 @@ function makeChart(xValues, yValues, barColors, title) {
             legend: { display: false },
             title: {
                 display: true,
-                text: title
+                text: title,
+                fontSize: 20
             },
             scales: {
                 yAxes: [{
@@ -174,6 +178,138 @@ function makeChart(xValues, yValues, barColors, title) {
                         min: 0
                     }
                 }]
+            }
+        },
+    });
+
+}
+
+function getFacilities() {
+    return $.ajax({
+        url: apiBaseUrl + '/user/get-facilities',
+        type: "GET",
+        success: (res) => {
+            facilities = res
+            setFacilities()
+            let xValues = [
+                'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
+            ]
+            let yValues = []
+            for (let i = 1; i <= 12; i++) {
+                yValues.push(i);
+            }
+            let barColors = [
+                '#eb3434',
+                '#eb9834',
+                '#ebeb34',
+                '#b7eb34',
+                '#7deb34',
+                '#43eb34',
+                '#34eb99',
+                '#34ebeb',
+                '#3480eb',
+                '#343aeb',
+                '#7d34eb',
+                '#c034eb'
+            ]
+            let title = 'Laporan Bulanan Per Tahun'
+            makeChartFacilities(xValues, yValues, barColors, title)
+        },
+        error: (err) => {
+            console.log(err)
+        },
+        complete: () => {
+            setYearFilters()
+        }
+    })
+}
+
+function setFacilities() {
+    facilitySelector = null
+    facilitySelector += `<option selected disabled>Pilih Fasilitas</option>`
+
+    facilities.forEach(facility => {
+        facilitySelector += `<option value="${facility.id}">${facility.name}</option>`
+    });
+    $('#facility_filter_selector').html(facilitySelector)
+    $('#facility_filter_selector').select2()
+}
+
+function setYearFilters() {
+    let years = ''
+    for (let i = 2000; i <= new Date().getFullYear(); i++) {
+        years += `<option value="${i}">${i}</option>`
+    }
+
+    $('#start_year_filter_selector').html(`<option selected disabled>Pilih Tahun Awal</option>${years}`)
+    $('#end_year_filter_selector').html(`<option selected disabled>Pilih Tahun Akhir</option>${years}`)
+
+    $('#start_year_filter_selector').select2()
+    $('#end_year_filter_selector').select2()
+}
+
+function filterFacility(e) {
+    e.preventDefault()
+
+    let obj = {}
+    obj.facility = $('#facility_filter_selector').val() != null ? $('#facility_filter_selector').val() : null
+
+    $('#loading-filter').css('display', 'block')
+
+    monthlyChart(obj)
+}
+
+function makeChartFacilities(xValues, yValues, barColors, title) {
+
+    if (facilitiesTaskChart != null) {
+        facilitiesTaskChart.destroy()
+    }
+
+    facilitiesTaskChart = new Chart("facility-task-chart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: { display: false },
+            title: {
+                display: true,
+                text: title,
+                fontSize: 20
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        suggestedMax: 10
+                    }
+                }],
+                xAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        fontSize: 14
+                    }
+                }],
             }
         },
     });
