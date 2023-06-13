@@ -31,13 +31,12 @@
                 <select class="form-control" style="max-width: 200px" name="facility_filter_selector" id="facility_filter_selector"></select>
             </div>
             <div class="col-sm-2">
-                <p id="loading-filter" style="display: none">Loading...</p>
+                <p id="loading-filter-yearly" style="display: none">Loading...</p>
             </div>
         </div>
         <div class="row mb-2">
             <div class="col-sm-4 d-flex justify-between align-content-center">
-                <select class="form-control" style="max-width: 80px" name="start_year_filter_selector" id="start_year_filter_selector"></select>
-                <select class="form-control" style="max-width: 80px" name="end_year_filter_selector" id="end_year_filter_selector"></select>
+                <select class="form-control" style="max-width: 80px" name="year_filter_selector" id="year_filter_selector"></select>
             </div>
         </div>
         <div class="row mb-2">

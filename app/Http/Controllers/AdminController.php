@@ -166,4 +166,10 @@ class AdminController extends Controller
     {
         return $this->admin->summary();
     }
+
+    public function yearlyReport()
+    {
+        $yearlyReport = $this->admin->yearlyReport();
+        return response()->json($yearlyReport, 200);
+    }
 }

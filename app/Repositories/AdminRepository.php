@@ -641,4 +641,20 @@ class AdminRepository extends UsersRepository
 		];
 		return response()->json(['data' => $summary]);
 	}
+
+	public function yearlyReport()
+	{
+		$report = Report::when(request()->year,
+				fn ($q) => $q->whereYear('created_at', request()->year)
+			)
+			->when(request()->facility_id, 
+				fn($q) => $q->where('facility_id', request()->facility_id)
+			)
+			->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(id) as count'))
+			->groupBy('month')
+			->orderBy('month')
+			->get();
+
+		return $report;
+	}
 }

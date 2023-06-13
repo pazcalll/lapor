@@ -3,6 +3,34 @@ var opds = []
 var opdTaskChart = null
 var facilities = []
 var facilitiesTaskChart = null
+var months = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+]
+var monthBarColors = [
+    '#eb3434',
+    '#eb9834',
+    '#ebeb34',
+    '#b7eb34',
+    '#7deb34',
+    '#43eb34',
+    '#34eb99',
+    '#34ebeb',
+    '#3480eb',
+    '#343aeb',
+    '#7d34eb',
+    '#c034eb'
+]
 
 function homePage() {
     $.ajax({
@@ -191,38 +219,12 @@ function getFacilities() {
         success: (res) => {
             facilities = res
             setFacilities()
-            let xValues = [
-                'Januari',
-                'Februari',
-                'Maret',
-                'April',
-                'Mei',
-                'Juni',
-                'Juli',
-                'Agustus',
-                'September',
-                'Oktober',
-                'November',
-                'Desember'
-            ]
+            let xValues = months
             let yValues = []
             for (let i = 1; i <= 12; i++) {
-                yValues.push(i);
+                yValues.push(0);
             }
-            let barColors = [
-                '#eb3434',
-                '#eb9834',
-                '#ebeb34',
-                '#b7eb34',
-                '#7deb34',
-                '#43eb34',
-                '#34eb99',
-                '#34ebeb',
-                '#3480eb',
-                '#343aeb',
-                '#7d34eb',
-                '#c034eb'
-            ]
+            let barColors = monthBarColors
             let title = 'Laporan Bulanan Per Tahun'
             makeChartFacilities(xValues, yValues, barColors, title)
         },
@@ -252,22 +254,51 @@ function setYearFilters() {
         years += `<option value="${i}">${i}</option>`
     }
 
-    $('#start_year_filter_selector').html(`<option selected disabled>Pilih Tahun Awal</option>${years}`)
-    $('#end_year_filter_selector').html(`<option selected disabled>Pilih Tahun Akhir</option>${years}`)
+    $('#year_filter_selector').html(`<option selected disabled>Pilih Tahun</option>${years}`)
 
-    $('#start_year_filter_selector').select2()
-    $('#end_year_filter_selector').select2()
+    $('#year_filter_selector').select2()
 }
 
 function filterFacility(e) {
     e.preventDefault()
 
     let obj = {}
-    obj.facility = $('#facility_filter_selector').val() != null ? $('#facility_filter_selector').val() : null
+    obj.facility_id = $('#facility_filter_selector').val() != null ? $('#facility_filter_selector').val() : null
+    obj.year = $('#year_filter_selector').val() != null ? $('#year_filter_selector').val() : null
 
-    $('#loading-filter').css('display', 'block')
+    $('#loading-filter-yearly').css('display', 'block')
 
-    monthlyChart(obj)
+    if (obj.facility_id != null && obj.year != null) {
+        $.ajax({
+            url: apiBaseUrl+'/user/admin/yearly-report',
+            type: "GET",
+            data: obj,
+            success: (res) => {
+                console.log(res)
+                let yValues = []
+                for (let index = 0; index < 12; index++) {
+                    yValues.push(0)
+                }
+                res.forEach(monthlyData => {
+                    yValues[monthlyData.month - 1] = monthlyData.count
+                });
+                makeChartFacilities(months, yValues, monthBarColors, 'Laporan Bulanan Per Tahun')
+            },
+            error: (err) => {
+                console.log(err)
+            },
+            complete: () => {
+                $('#loading-filter-yearly').css('display', 'none')
+            }
+        })
+    } else {
+        $('#loading-filter-yearly').css('display', 'none')
+        let yValues = []
+        for (let index = 0; index < 12; index++) {
+            yValues.push(0)
+        }
+        makeChartFacilities(months, yValues, monthBarColors, 'Laporan Bulanan Per Tahun')
+    }
 }
 
 function makeChartFacilities(xValues, yValues, barColors, title) {
