@@ -86,11 +86,10 @@ function reportHistoryPage() {
                         data: null,
                         render: function(data, type, full, meta) {
                             let btn = ''
-                            console.log(data.feedback != null)
                             if (data.status == "LAPORAN TELAH SELESAI" && data.feedback == null) {
                                 btn += `<button data-referral="${data.referral}" data-backdrop="false" data-toggle="modal" data-target="#feedbackModal" type="button" class="btn btn-primary btn-add-feedback">Feedback</button>`
                             }else if(data.status == "LAPORAN TELAH SELESAI" && data.feedback != null){
-                                btn = 'Feedback telah diberikan'
+                                btn = `<button data-referral="${data.referral}" data-feedback="${data.feedback.feedback}" data-rating="${data.feedback.rating}" data-backdrop="false" data-toggle="modal" data-target="#seeFeedbackModal" type="button" class="btn btn-primary btn-see-feedback">Lihat Feedback</button>`
                             }else if(data.status == "DITOLAK") {
                                 btn = 'Tidak bisa memberi feedback ke laporan yang ditolak'
                             }else {
@@ -117,6 +116,21 @@ function reportHistoryPage() {
                     $('.btn-add-feedback').on('click', function () {  
                         $('#referral_feedback').val($(this).data('referral'))
                         $('.referral_feedback').html($(this).data('referral'))
+                    })
+                    $('.btn-see-feedback').on('click', function () {
+                        $('.see-referral-feedback').html($(this).data('referral'))
+                        $('#see-feedback').html($(this).data('feedback'))
+                        $('.see-rating-feedback-container').html(
+                            `<input id="see-rating-feedback" type="text" class="rating-loading" value="${$(this).data('rating')}" data-size="md" title="">`
+                        )
+                        $('#see-rating-feedback').rating({
+                            theme: 'krajee-uni',
+                            filledStar: '&#x2605;',
+                            emptyStar: '&#x2606;',
+                            step: 1,
+                            showCaption: false,
+                            displayOnly: true
+                        })
                     })
                 }
             })

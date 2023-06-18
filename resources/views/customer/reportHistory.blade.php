@@ -99,6 +99,48 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="seeFeedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Isi Feedback</h5>
+                <button type="button" class="btn-close close modal-close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span>Referral : </span><span class="see-referral-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="additional">Isi feedback: </label>
+                                <textarea class="form-control" disabled id="see-feedback" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="rating">Tingkat Kepuasan: </label>
+                                <div class="see-rating-feedback-container">
+                                    {{-- <input id="see-rating-feedback" type="text" class="rating-loading" data-size="md" title=""> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $('#title-label').html("Riwayat Laporan")
     $('.kv-uni-star').rating({

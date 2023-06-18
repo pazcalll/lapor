@@ -87,7 +87,7 @@ class CustomerRepository extends UsersRepository
                 return $query->select('id', 'name');
             },
             'feedback' => function ($query) {
-                return $query->select('report_id', 'feedback');
+                return $query->select('report_id', 'feedback', 'rating');
             }
         ])
             ->where('user_id', $user['id'])->whereIn('status', ['LAPORAN TELAH SELESAI', 'SEDANG DIPROSES', 'DITOLAK'])->get();
