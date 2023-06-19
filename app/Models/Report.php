@@ -51,6 +51,6 @@ class Report extends Model
 
     public function feedback()
     {
-        return $this->belongsTo(Feedback::class, 'id', 'report_id');
+        return $this->hasOne(Feedback::class);
     }
 }

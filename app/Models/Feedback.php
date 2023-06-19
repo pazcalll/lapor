@@ -18,4 +18,8 @@ class Feedback extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function report() {
+        return $this->belongsTo(Report::class);
+    }
 }

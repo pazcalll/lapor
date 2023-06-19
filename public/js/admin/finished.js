@@ -127,7 +127,10 @@ function getFinishedReports(storageLink) {
                             data-opd="${data.assignment.opd.name}" 
                             data-reporter="${data.reporter.name}" 
                             data-additional="${data.assignment.additional}" 
-                            data-referral="${data.referral}">
+                            data-referral="${data.referral}"
+                            data-feedback-text="${data.feedback != null ? data.feedback.feedback : ''}"
+                            data-feedback-rating="${data.feedback != null ? data.feedback.rating : ''}"
+                            >
                                 <i class="bi bi-sticky"></i> 
                                 Detail
                         </button>
@@ -179,6 +182,24 @@ function getFinishedReports(storageLink) {
                 $('#rw').val($(this).data('rw'))
                 $('#village').val($(this).data('village'))
                 $('#sub_district').val($(this).data('sub_district'))
+
+                if ($(this).data('feedback-rating') == '') $('.feedback-container').html('Pelapor belum memberikan feedback')
+                else {
+                    $('.feedback-container').html(`
+                        <textarea class="form-control" disabled style="height: 100px" id="feedback-text" cols="30" rows="10"></textarea>
+                        <input type="text" class="form-control" id="feedback-rating"/>
+                    `)
+                    $('#feedback-text').val($(this).data('feedback-text'))
+                    $('#feedback-rating').val($(this).data('feedback-rating'))
+                    $('#feedback-rating').rating({
+                        theme: 'krajee-uni',
+                        filledStar: '&#x2605;',
+                        emptyStar: '&#x2606;',
+                        step: 1,
+                        showCaption: false,
+                        displayOnly: true
+                    });
+                }
             })
         }
     })

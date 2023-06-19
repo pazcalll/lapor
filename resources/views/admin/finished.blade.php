@@ -81,6 +81,12 @@
                             <textarea class="form-control" disabled style="height: 100px" name="additional" id="additional" placeholder="Informasi Tambahan" cols="30" rows="50"></textarea>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <label for="additional">Feedback Pelapor</label>
+                            <div class="feedback-container"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

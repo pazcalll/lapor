@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LandingController::class, 'index'])->name('index');
+Route::get('/', [LandingController::class, 'index'])->name('homepage');
 
 // dashboard only
 Route::get('/dashboard', [UserController::class, 'index'])->name('index');

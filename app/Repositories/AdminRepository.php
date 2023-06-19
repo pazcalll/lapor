@@ -143,6 +143,9 @@ class AdminRepository extends UsersRepository
 			"reportFile" => function ($query) {
 				return $query->select('report_id', 'proof_file');
 			},
+			"feedback" => function ($query) {
+				return $query->select('report_id', 'feedback', 'rating');
+			}
 		])->select('id', 'referral', 'facility_id', 'user_id', 'issue', 'status', 'created_at')->where('status', "LAPORAN TELAH SELESAI")->get()->toArray();
 		return $report;
 	}

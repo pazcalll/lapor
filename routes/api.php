@@ -64,7 +64,7 @@ Route::prefix('v1')->group(function () {
             Route::get('non-admin-users', [AdminController::class, 'getNonAdminUsers'])->name('getNonAdminUsers');
             Route::get('enum-user', [AdminController::class, 'getEnumUser'])->name('getEnumUser');
             Route::get('facilities-datatable', [AdminController::class, 'getFacilitiesDatatable'])->name('getFacilitiesDatatable');
-            Route::get('summary', [AdminController::class, 'summary'])->name('summary');
+            Route::get('summary', [AdminController::class, 'summary'])->name('adminSummary');
             Route::get('yearly-report', [AdminController::class, 'yearlyReport'])->name('yearlyReport');
             Route::put('change-user-status', [AdminController::class, 'changeUserStatus'])->name('changeUserStatus');
             Route::put('change-assignment-opd', [AdminController::class, 'changeAssignmentOpd'])->name('changeAssignmentOpd');
