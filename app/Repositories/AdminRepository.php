@@ -9,6 +9,7 @@ use App\Models\BearerDuration;
 use App\Models\CustomerPosition;
 use App\Models\Facility;
 use App\Models\Report;
+use App\Models\ReportLocation;
 use App\Models\User;
 use App\Models\UserAddressDetail;
 use Error;
@@ -659,5 +660,42 @@ class AdminRepository extends UsersRepository
 			->get();
 
 		return $report;
+	}
+
+	function waStoreReport() {
+		$validate = request()->validate([
+			'username' => ['required', 'exists:users,username'],
+			'facility_id' => ['required', 'exists:facilities,id'],
+			'rt' => 'required',
+			'rw' => 'required',
+			'street' => 'required',
+			'village' => 'required',
+			'sub_district' => 'required',
+			'issue' => 'required'
+		], [
+			'required' => 'Semua atribut wajib diisi'
+		]);
+
+		$user = User::where('username', $validate['username'])->first();
+		$referral = createReferral();
+
+		$report = Report::create([
+			'referral' => $referral,
+			'facility_id' => $validate['facility_id'],
+			'user_id' => $user->id,
+			'issue' => $validate['issue'],
+			'status' => Report::STATUS_WAITING
+		]);
+
+		$reportLocation = ReportLocation::create([
+			'street' => $validate['street'],
+			'village' => $validate['village'],
+			'sub_district' => $validate['sub_district'],
+			'rt' => $validate['rt'],
+			'rw' => $validate['rw'],
+			'report_id' => $report->id
+		]);
+
+		return [$report, $reportLocation];
 	}
 }

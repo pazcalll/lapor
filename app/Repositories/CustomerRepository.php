@@ -34,7 +34,7 @@ class CustomerRepository extends UsersRepository
             DB::beginTransaction();
 
             $newReport = [
-                'referral' => strtoupper(bin2hex(random_bytes(6))),
+                'referral' => createReferral(),
                 'facility_id' => $validate['facility'],
                 'user_id' => JWTAuth::toUser(request()->header('Authorization'))['id'],
                 'issue' => $validate['issue'],

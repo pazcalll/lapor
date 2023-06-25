@@ -73,6 +73,9 @@ Route::prefix('v1')->group(function () {
             Route::patch('facility', [AdminController::class, 'editFacility'])->name('editFacility');
             Route::delete('facility', [AdminController::class, 'deleteFacility'])->name('deleteFacility');
             Route::patch('reject-report', [AdminController::class, 'rejectReport'])->name('rejectReport');
+
+            // from whatsapp
+            Route::post('wa-report', [AdminController::class, 'waStoreReport']);
         });
         Route::prefix('opd')->middleware('opd')->group(function () {
             Route::post('finish-assignment', [OpdController::class, 'finishAssignment'])->name('finishAssignment');

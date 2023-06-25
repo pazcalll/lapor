@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\UserInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -171,5 +172,27 @@ class AdminController extends Controller
     {
         $yearlyReport = $this->admin->yearlyReport();
         return response()->json($yearlyReport, 200);
+    }
+
+    public function waStoreReport() {
+        try {
+            DB::beginTransaction();
+            [$report, $reportLocation] = $this->admin->waStoreReport();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'failed',
+                'message' => $e->getMessage()
+            ]);
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Report has been created',
+            'data' => [
+                'report' => $report,
+                'report_location' => $reportLocation
+            ]
+        ]);
     }
 }
