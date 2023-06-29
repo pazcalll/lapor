@@ -21,7 +21,9 @@ class FinishedReportsExport implements FromCollection, WithHeadings
             'Waktu Penugasan',
             'Waktu Selesai',
             'Fasilitas',
-            'Deskripsi Laporan'
+            'Deskripsi Laporan',
+            'Nama Pelapor',
+            'No. Ponsel'
         ];
     }
 
@@ -36,7 +38,7 @@ class FinishedReportsExport implements FromCollection, WithHeadings
                 return $query->select('id', 'name', 'role');
             },
             "reporter" => function ($query) {
-                return $query->select('id', 'name', 'role');
+                return $query->select('id', 'name', 'phone', 'role');
             },
             "facility" => function ($query) {
                 return $query->select('id', 'name');
@@ -44,7 +46,10 @@ class FinishedReportsExport implements FromCollection, WithHeadings
             "reportLocation" => function ($query) {
                 return $query->select('street', 'rt', 'rw', 'sub_district', 'village', 'report_id');
             },
-        ])->select('id', 'referral', 'facility_id', 'user_id', 'issue', 'status', 'created_at')->where('status', "LAPORAN TELAH SELESAI")->get()->toArray();
+        ])
+        ->select('id', 'referral', 'facility_id', 'user_id', 'issue', 'status', 'created_at')
+        ->where('status', "LAPORAN TELAH SELESAI")
+        ->get()->toArray();
 
         foreach ($report as $key => $val) {
             $arr[] = [
@@ -53,7 +58,9 @@ class FinishedReportsExport implements FromCollection, WithHeadings
                 'Waktu Penugasan' => $val['assignment']['created_at'],
                 'Waktu Selesai' => $val['assignment']['finished_at'],
                 'Fasilitas' => $val['facility']['name'],
-                'Deskripsi Laporan' => $val['issue']
+                'Deskripsi Laporan' => $val['issue'],
+                'Nama Pelapor' => $val['reporter']['name'],
+                'No. Ponsel' => $val['reporter']['phone']
             ];
         }
         return new Collection($arr);
