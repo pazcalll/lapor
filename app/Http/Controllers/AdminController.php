@@ -195,4 +195,13 @@ class AdminController extends Controller
             ]
         ]);
     }
+
+    public function waShowReport($referral) {
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'report' => $this->admin->waShowReport($referral)
+            ]
+        ]);
+    }
 }

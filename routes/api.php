@@ -76,6 +76,7 @@ Route::prefix('v1')->group(function () {
 
             // from whatsapp
             Route::post('wa-report', [AdminController::class, 'waStoreReport']);
+            Route::get('wa-report/{referral}', [AdminController::class, 'waShowReport']);
         });
         Route::prefix('opd')->middleware('opd')->group(function () {
             Route::post('finish-assignment', [OpdController::class, 'finishAssignment'])->name('finishAssignment');

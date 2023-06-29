@@ -698,4 +698,10 @@ class AdminRepository extends UsersRepository
 
 		return [$report, $reportLocation];
 	}
+
+	public function waShowReport($referral) {
+		return Report::with('facility')
+			->where('referral', $referral)
+			->first();
+	}
 }
