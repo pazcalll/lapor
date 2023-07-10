@@ -663,36 +663,95 @@ class AdminRepository extends UsersRepository
 	}
 
 	function waStoreReport() {
-		$validate = request()->validate([
-			'username' => ['required', 'exists:users,username'],
-			'facility_id' => ['required', 'exists:facilities,id'],
-			'rt' => 'required',
-			'rw' => 'required',
-			'street' => 'required',
-			'village' => 'required',
-			'sub_district' => 'required',
-			'issue' => 'required'
-		], [
-			'required' => 'Semua atribut wajib diisi'
-		]);
+		// $validate = request()->validate([
+		// 	'username' => ['required', 'exists:users,username'],
+		// 	'facility_id' => ['required', 'exists:facilities,id'],
+		// 	'rt' => 'required',
+		// 	'rw' => 'required',
+		// 	'street' => 'required',
+		// 	'village' => 'required',
+		// 	'sub_district' => 'required',
+		// 	'issue' => 'required'
+		// ], [
+		// 	'required' => 'Semua atribut wajib diisi'
+		// ]);
 
-		$user = User::where('username', $validate['username'])->first();
+		// $user = User::where('username', $validate['username'])->first();
+		// $referral = createReferral();
+
+		// $report = Report::create([
+		// 	'referral' => $referral,
+		// 	'facility_id' => $validate['facility_id'],
+		// 	'user_id' => $user->id,
+		// 	'issue' => $validate['issue'],
+		// 	'status' => Report::STATUS_WAITING
+		// ]);
+
+		// $reportLocation = ReportLocation::create([
+		// 	'street' => $validate['street'],
+		// 	'village' => $validate['village'],
+		// 	'sub_district' => $validate['sub_district'],
+		// 	'rt' => $validate['rt'],
+		// 	'rw' => $validate['rw'],
+		// 	'report_id' => $report->id
+		// ]);
+
+		// return [$report, $reportLocation];
+
+		$stringData = request()->data;
+		$arrayData = explode('#', $stringData);
+
+		$data = [];
+		foreach ($arrayData as $element) {
+            $parts = explode(':', $element);
+
+			$name = $parts[0];
+            $value = $parts[1];
+
+            $data[$name] = $value;
+        }
+
+		$shouldExistKeys = [
+			'username',
+			'facility_id',
+			'rt',
+			'rw',
+			'street',
+			'village',
+			'sub_district',
+			'issue'
+		];
+
+		// --------- validate if not all required keys were exist -------------
+		$difference = array_diff(array_keys($data), $shouldExistKeys);
+
+		if ($difference) {
+			$messageData = '';
+			foreach ($difference as $key => $value) {
+				(($key + 1) == count($difference)) ? $messageData = $messageData.$value : $messageData = $messageData.$value.', ';
+			}
+
+			throw new Exception("$messageData is not set");
+		}
+		// ---------------------------------------------------------------------
+
+		$user = User::where('username', $data['username'])->first();
 		$referral = createReferral();
 
 		$report = Report::create([
 			'referral' => $referral,
-			'facility_id' => $validate['facility_id'],
+			'facility_id' => $data['facility_id'],
 			'user_id' => $user->id,
-			'issue' => $validate['issue'],
+			'issue' => $data['issue'],
 			'status' => Report::STATUS_WAITING
 		]);
 
 		$reportLocation = ReportLocation::create([
-			'street' => $validate['street'],
-			'village' => $validate['village'],
-			'sub_district' => $validate['sub_district'],
-			'rt' => $validate['rt'],
-			'rw' => $validate['rw'],
+			'street' => $data['street'],
+			'village' => $data['village'],
+			'sub_district' => $data['sub_district'],
+			'rt' => $data['rt'],
+			'rw' => $data['rw'],
 			'report_id' => $report->id
 		]);
 
