@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Helpers\Helper;
 use App\Interfaces\UserInterface;
 use App\Models\Feedback;
 use App\Models\Report;
@@ -34,7 +35,7 @@ class CustomerRepository extends UsersRepository
             DB::beginTransaction();
 
             $newReport = [
-                'referral' => createReferral(),
+                'referral' => Helper::createReferral(),
                 'facility_id' => $validate['facility'],
                 'user_id' => JWTAuth::toUser(request()->header('Authorization'))['id'],
                 'issue' => $validate['issue'],
