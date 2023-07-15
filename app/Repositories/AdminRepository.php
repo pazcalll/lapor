@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Exports\FinishedReportsExport;
-use App\Helpers\Helper;
 use App\Interfaces\UserInterface;
 use App\Models\Assignment;
 use App\Models\BearerDuration;
@@ -737,7 +736,7 @@ class AdminRepository extends UsersRepository
 		// ---------------------------------------------------------------------
 
 		$user = User::where('username', $data['username'])->first();
-		$referral = Helper::createReferral();
+		$referral = strtoupper(bin2hex(random_bytes(6)));
 
 		$report = Report::create([
 			'referral' => $referral,
