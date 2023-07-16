@@ -184,7 +184,7 @@ class AdminController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message' => $e->getMessage()
-            ]);
+            ], 500);
         }
         return response()->json([
             'status' => 'success',
@@ -197,11 +197,19 @@ class AdminController extends Controller
     }
 
     public function waShowReport($referral) {
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'report' => $this->admin->waShowReport($referral)
-            ]
-        ]);
+        $report = $this->admin->waShowReport($referral);
+        if ($report) {
+            return response()->json([
+                'status' => 'success',
+                'data' => [
+                    'report' => $this->admin->waShowReport($referral)
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Report not found'
+            ], 400);
+        }
     }
 }
