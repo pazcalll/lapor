@@ -698,7 +698,7 @@ class AdminRepository extends UsersRepository
 
 		// return [$report, $reportLocation];
 
-		$stringData = request()->data;
+		$stringData = request()->pesan;
 		$arrayData = explode('#', $stringData);
 
 		$data = [];
