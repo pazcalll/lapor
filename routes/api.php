@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\RegentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WhatsappController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -88,4 +89,20 @@ Route::prefix('v1')->group(function () {
             Route::get('opds', [RegentController::class, 'getOpds']);
         });
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Unauthenticated API Routes (Not Safe)
+    |--------------------------------------------------------------------------
+    |
+    | Here lies the unsafe routes where any random person can access with ease.
+    | Spam to routes below may affect the data integrity of the database.
+    | The only validator is the data existence inside the database.
+    |
+    */
+
+    Route::prefix('whatsapp')->group(function () {
+        Route::post('/', [WhatsappController::class, 'storeReport']);
+    });
+
 });
